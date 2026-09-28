@@ -6,7 +6,7 @@
   --theme-id: "signature-blue";
   --color-page-bg: #FFFFFF;
   --color-card-bg: #FFFFFF;
-  --color-card-border: #CEDBFD;
+  --color-card-border: var(--color-border-hero);
   --color-pill-bg: rgba(255, 255, 255, 0.88);
   --color-pill-text: #2B2F2F;
   --color-pill-border: #CDCDCD;
@@ -378,11 +378,16 @@ a {
   z-index: 1;
 }
 
+.view-work,
+.view-work:not(.is-active),
+.view-work.is-active {
+  transform: none !important;
+}
+
 .view-work:not(.is-active) {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: scale(0.985);
   z-index: 1;
 }
 
@@ -515,9 +520,31 @@ a {
   margin: 0 0 20px 0;
   padding: 0 12px;
   max-width: 780px;
+  min-height: clamp(82px, 8.5vw, 115px);
   text-wrap: balance;
   position: relative;
   font-style: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.resume-statement-quote.is-typing::after {
+  content: '';
+  display: inline-block;
+  width: 2.5px;
+  height: 1.15em;
+  background-color: var(--color-primary-blue, #022EB4);
+  border-radius: 2px;
+  margin-left: 4px;
+  vertical-align: -0.15em;
+  animation: resumeBlinkCursor 0.75s ease-in-out infinite;
+}
+
+@keyframes resumeBlinkCursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .resume-statement-author {
@@ -1964,7 +1991,7 @@ html.preload-phantasm-projects .view-phantasm-projects {
   max-height: 725px;
   min-height: 0;
   background-color: var(--color-white);
-  border: 1px solid #CEDBFD;
+  border: 1px solid var(--color-card-border, var(--color-border-hero));
   border-radius: 14px;
   padding: 18px 24px;
   box-sizing: border-box;
@@ -1977,34 +2004,26 @@ html.preload-phantasm-projects .view-phantasm-projects {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateY(28px);
-  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-              visibility 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
+  transform: none !important;
+  transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity;
 }
 
 .case-study-card.is-active {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translateY(0);
+  transform: none !important;
   z-index: 2;
 }
 
-.case-study-card.is-leaving-up {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(-28px);
-  z-index: 1;
-}
-
+.case-study-card.is-leaving-up,
 .case-study-card.is-leaving-down {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateY(28px);
+  transform: none !important;
   z-index: 1;
 }
 
@@ -2374,7 +2393,7 @@ html.preload-phantasm-projects .view-phantasm-projects {
   max-height: 725px;
   min-height: 0;
   background-color: var(--color-card-bg, #FFFFFF);
-  border: 1px solid var(--color-card-border, #CEDBFD);
+  border: 1px solid var(--color-card-border, var(--color-border-hero));
   border-radius: 14px;
   padding: 24px 28px 26px 28px;
   box-sizing: border-box;
@@ -2680,11 +2699,11 @@ html.preload-phantasm-projects .view-phantasm-projects {
   @keyframes panelFadeIn {
     from {
       opacity: 0;
-      transform: translateY(8px);
+      transform: none;
     }
     to {
       opacity: 1;
-      transform: translateY(0);
+      transform: none;
     }
   }
 
@@ -2812,21 +2831,24 @@ html.preload-phantasm-projects .view-phantasm-projects {
   .work-cards-carousel {
     grid-area: auto !important;
     width: 100% !important;
+    max-width: 100% !important;
     height: auto !important;
+    max-height: none !important;
     min-height: auto !important;
     display: flex !important;
     flex-direction: row !important;
-    align-items: flex-start !important;
+    align-items: stretch !important;
     overflow-x: auto !important;
     overflow-y: hidden !important;
+    overscroll-behavior-x: contain !important;
     scroll-snap-type: x mandatory !important;
-    scroll-behavior: smooth !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
     gap: 16px !important;
-    padding: 2px 2px 10px 2px !important;
+    padding: 2px 2px 14px 2px !important;
     box-sizing: border-box !important;
+    transform: none !important;
   }
 
   .work-cards-carousel::-webkit-scrollbar {
@@ -2842,6 +2864,7 @@ html.preload-phantasm-projects .view-phantasm-projects {
     min-width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
+    max-height: none !important;
     min-height: auto !important;
     display: flex !important;
     flex-direction: column !important;
@@ -2851,12 +2874,13 @@ html.preload-phantasm-projects .view-phantasm-projects {
     visibility: visible !important;
     pointer-events: auto !important;
     transform: none !important;
-    padding: 24px 20px !important;
-    gap: 24px !important;
+    padding: 22px 18px !important;
+    gap: 18px !important;
     border-radius: 14px !important;
-    border: 1px solid #CEDBFD !important;
+    border: 1px solid var(--color-card-border, var(--color-border-hero)) !important;
     background-color: var(--color-white) !important;
     box-sizing: border-box !important;
+    overflow: visible !important;
   }
 
   .case-study-card.is-active,
@@ -2875,12 +2899,12 @@ html.preload-phantasm-projects .view-phantasm-projects {
     flex: none !important;
     height: auto !important;
     padding: 0 !important;
-    gap: 0 !important;
+    gap: 8px !important;
   }
 
   .company-title {
-    font-size: 32px !important;
-    line-height: 36px !important;
+    font-size: 30px !important;
+    line-height: 34px !important;
   }
 
   .company-category {
@@ -2888,26 +2912,26 @@ html.preload-phantasm-projects .view-phantasm-projects {
   }
 
   .company-info-block {
-    padding: 14px 0 !important;
+    padding: 10px 0 !important;
   }
 
   .company-block-title {
-    font-size: 17px !important;
+    font-size: 16px !important;
   }
 
   .company-block-sub {
-    font-size: 14px !important;
+    font-size: 13.5px !important;
   }
 
   .company-bullets-list {
-    margin: 18px 0 0 0 !important;
+    margin: 12px 0 0 0 !important;
     padding: 0 0 0 18px !important;
-    gap: 16px !important;
+    gap: 10px !important;
   }
 
   .company-bullets-list li {
-    font-size: 14.5px !important;
-    line-height: 1.48 !important;
+    font-size: 13.5px !important;
+    line-height: 1.45 !important;
   }
 
   .showcase-image-wrapper {
@@ -2915,17 +2939,20 @@ html.preload-phantasm-projects .view-phantasm-projects {
     max-width: 100% !important;
     flex: none !important;
     height: auto !important;
-    min-height: auto !important;
-    aspect-ratio: 1024 / 705 !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    aspect-ratio: 16 / 10 !important;
     margin: 0 !important;
     background-color: #F6F6F6 !important;
     border-radius: 12px !important;
+    overflow: hidden !important;
   }
 
   .showcase-img {
     width: 100% !important;
     height: 100% !important;
     object-fit: contain !important;
+    object-position: center !important;
     background-color: #F6F6F6 !important;
     border-radius: 11px !important;
   }
@@ -2938,6 +2965,7 @@ html.preload-phantasm-projects .view-phantasm-projects {
     max-height: none !important;
     padding: 10px !important;
     border-radius: 12px !important;
+    overflow: visible !important;
   }
 
   .storyboard-grid {
@@ -2947,25 +2975,48 @@ html.preload-phantasm-projects .view-phantasm-projects {
     height: auto !important;
   }
 
-  .projects-detail-card-container {
+  .view-nuveda-projects {
     height: auto !important;
     min-height: auto !important;
-    padding: 24px !important;
-    gap: 24px !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .projects-detail-card-container {
+    height: auto !important;
+    max-height: none !important;
+    min-height: auto !important;
+    padding: 22px 18px 24px !important;
+    gap: 20px !important;
+    border: 1px solid var(--color-card-border, var(--color-border-hero)) !important;
+    overflow: visible !important;
   }
 
   .projects-detail-header {
     flex-direction: column !important;
-    gap: 18px !important;
+    gap: 16px !important;
   }
 
   .projects-trio-grid {
-    grid-template-columns: 1fr !important;
-    gap: 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 18px !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+  }
+
+  .project-card-item {
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
   }
 
   .project-card-thumb {
-    height: 250px !important;
+    height: 220px !important;
+    min-height: 0 !important;
   }
 }
 
@@ -3053,10 +3104,12 @@ html.preload-phantasm-projects .view-phantasm-projects {
   }
 
   .about-master-card {
-    height: auto;
-    min-height: max(560px, calc(100dvh - 140px));
-    padding: 32px 18px 28px;
+    height: auto !important;
+    max-height: none !important;
+    min-height: auto !important;
+    padding: 28px 16px 32px !important;
     border-radius: 14px;
+    border: 1px solid var(--color-card-border, var(--color-border-hero)) !important;
     box-shadow: 
       inset 0px 5px 42px rgba(var(--color-inner-glow-rgb, 9, 64, 255), 0.25),
       inset 0px -22px 50px rgba(var(--color-inner-glow-rgb, 9, 64, 255), 0.20);
@@ -3065,50 +3118,120 @@ html.preload-phantasm-projects .view-phantasm-projects {
     align-items: center;
     justify-content: flex-start;
     flex: 1 1 auto;
+    overflow: visible !important;
     animation: auraSoftBreathe 6s ease-in-out infinite alternate;
   }
 
   .about-card-inner {
-    grid-template-columns: 1fr;
-    gap: 24px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 22px !important;
+    width: 100% !important;
+    height: auto !important;
+    align-items: stretch !important;
+  }
+
+  .about-left-col {
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    align-items: center !important;
+    text-align: center !important;
+    justify-content: center !important;
   }
 
   .about-portrait-wrap {
-    max-width: 220px;
-    height: 310px;
+    width: 160px !important;
+    max-width: 160px !important;
+    height: 220px !important;
+    margin: 0 auto !important;
+    border-radius: 12px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .about-socials-row {
+    justify-content: center !important;
+    margin-top: 12px !important;
+  }
+
+  .about-contact-group {
+    align-items: center !important;
+    text-align: center !important;
+    margin-top: 8px !important;
+  }
+
+  .about-right-col {
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    padding: 0 !important;
+    gap: 18px !important;
+    justify-content: flex-start !important;
   }
 
   .about-main-headline {
-    font-size: 24px;
-    line-height: 1.3;
+    font-size: 24px !important;
+    line-height: 1.3 !important;
+    text-align: center !important;
+    margin: 0 !important;
   }
 
   .about-lead-para {
-    font-size: 14px;
-    line-height: 1.55;
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+    text-align: left !important;
+    margin: 0 !important;
   }
 
   .about-principles-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .about-principle-item {
+    background: var(--color-pill-bg, #F8FAFC);
+    border: 1px solid var(--color-card-border, #E2E8F0);
+    border-radius: 10px;
+    padding: 12px 14px;
+    text-align: left;
   }
 
   .about-secondary-headline {
-    font-size: 17px;
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+    text-align: left !important;
+    margin: 0 !important;
+  }
+
+  .about-tools-container {
+    width: 100% !important;
+    margin-top: 4px !important;
+  }
+
+  .about-tools-title {
+    font-size: 10.5px !important;
+    letter-spacing: 0.5px !important;
+    text-align: left !important;
   }
 
   .about-tools-row {
-    gap: 10px;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    justify-content: flex-start !important;
   }
 
   .about-tool-circle {
-    width: 48px;
-    height: 48px;
+    width: 44px !important;
+    height: 44px !important;
   }
 
   .about-tool-img {
-    width: 26px;
-    height: 26px;
+    width: 24px !important;
+    height: 24px !important;
   }
 
   .hero-stack {
@@ -3244,7 +3367,11 @@ html.preload-phantasm-projects .view-phantasm-projects {
     padding: 20px 16px !important;
     gap: 18px !important;
     border-radius: 14px !important;
-    border: 1px solid #CEDBFD !important;
+    border: 1px solid var(--color-card-border, var(--color-border-hero)) !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: auto !important;
+    overflow: visible !important;
   }
 
   .company-title {
@@ -3253,11 +3380,11 @@ html.preload-phantasm-projects .view-phantasm-projects {
   }
 
   .company-bullets-list {
-    gap: 14px;
+    gap: 12px;
   }
 
   .company-bullets-list li {
-    font-size: 14px;
+    font-size: 13.5px;
     line-height: 1.45;
     width: 100%;
   }
@@ -3265,10 +3392,12 @@ html.preload-phantasm-projects .view-phantasm-projects {
   .showcase-image-wrapper {
     width: 100% !important;
     height: auto !important;
-    aspect-ratio: 1024 / 705 !important;
-    min-height: 280px !important;
+    aspect-ratio: 16 / 10 !important;
+    min-height: 0 !important;
+    max-height: none !important;
     padding: 0 !important;
     border-radius: 12px !important;
+    overflow: hidden !important;
   }
 
   .cursor-badge {
@@ -3278,11 +3407,22 @@ html.preload-phantasm-projects .view-phantasm-projects {
   }
 
   /* NuVeda 3-Projects Detail View */
+  .view-nuveda-projects {
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
   .projects-detail-card-container {
+    height: auto !important;
+    max-height: none !important;
+    min-height: auto !important;
     padding: 20px 16px 24px;
     gap: 18px;
     border-radius: 14px;
-    border: 1px solid #CEDBFD;
+    border: 1px solid var(--color-card-border, var(--color-border-hero)) !important;
+    overflow: visible !important;
   }
 
   .projects-header-info {
@@ -3300,12 +3440,21 @@ html.preload-phantasm-projects .view-phantasm-projects {
     max-width: 100%;
   }
 
+  .projects-trio-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+  }
+
   .projects-detail-timeline {
     width: 100%;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 12px;
+    flex-direction: column;
+    gap: 8px;
     border-top: 1px solid #E5E7EB;
     padding-top: 12px;
     margin-top: 2px;
@@ -3436,15 +3585,22 @@ html.preload-phantasm-projects .view-phantasm-projects {
   .showcase-image-wrapper {
     width: 100% !important;
     height: auto !important;
-    aspect-ratio: 1024 / 705 !important;
-    min-height: 220px !important;
+    aspect-ratio: 16 / 10 !important;
+    min-height: 0 !important;
+    max-height: none !important;
     padding: 0 !important;
     border-radius: 10px !important;
+    overflow: hidden !important;
   }
 
   .projects-detail-card-container {
+    height: auto !important;
+    max-height: none !important;
+    min-height: auto !important;
     padding: 16px 12px 20px;
     gap: 16px;
+    border: 1px solid var(--color-card-border, var(--color-border-hero)) !important;
+    overflow: visible !important;
   }
 
   .projects-main-title {
@@ -3474,6 +3630,28 @@ html.preload-phantasm-projects .view-phantasm-projects {
   .project-brief-text {
     font-size: 13.5px;
     line-height: 21px;
+  }
+
+  .storyboard-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .storyboard-card {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 10px 12px !important;
+  }
+
+  .storyboard-thumb {
+    width: 90px !important;
+    min-width: 90px !important;
+    aspect-ratio: 16 / 11 !important;
+  }
+
+  .about-master-card {
+    padding: 24px 14px 20px;
   }
 }
 
@@ -5061,7 +5239,8 @@ html.preload-phantasm-projects .view-phantasm-projects {
 .curtain-page-transition.is-active,
 .curtain-page-transition.is-closing,
 .curtain-page-transition.is-opening,
-html.curtain-opening .curtain-page-transition {
+html.curtain-opening .curtain-page-transition,
+html.curtain-revealing .curtain-page-transition {
   display: block !important;
   visibility: visible !important;
   pointer-events: auto !important;
@@ -5087,9 +5266,9 @@ html.curtain-opening .curtain-page-transition {
   transform: translateY(100%);
 }
 
-/* Zero-glitch early hold before paint on destination page */
-html.curtain-opening .curtain-panel-top,
-html.curtain-opening .curtain-panel-bottom {
+/* Zero-glitch early hold before paint on destination page - never blocks opening */
+html.curtain-opening:not(.curtain-revealing) .curtain-page-transition:not(.is-opening) .curtain-panel-top,
+html.curtain-opening:not(.curtain-revealing) .curtain-page-transition:not(.is-opening) .curtain-panel-bottom {
   transform: translateY(0%) !important;
   background-color: var(--curtain-active-color, var(--color-primary-blue, #022EB4)) !important;
 }
@@ -5104,11 +5283,13 @@ html.curtain-opening .curtain-panel-bottom {
 }
 
 /* Phase 2: Opening (Top sweeps up 0% -> -100%, Bottom sweeps down 0% -> 100%) */
-.curtain-page-transition.is-opening .curtain-panel-top {
+.curtain-page-transition.is-opening .curtain-panel-top,
+html.curtain-revealing .curtain-panel-top {
   animation: curtainOpenTop 0.3s cubic-bezier(0.76, 0, 0.24, 1) forwards !important;
 }
 
-.curtain-page-transition.is-opening .curtain-panel-bottom {
+.curtain-page-transition.is-opening .curtain-panel-bottom,
+html.curtain-revealing .curtain-panel-bottom {
   animation: curtainOpenBottom 0.3s cubic-bezier(0.76, 0, 0.24, 1) forwards !important;
 }
 
@@ -5133,7 +5314,7 @@ html.curtain-opening .curtain-panel-bottom {
 }
 
 /* Idle / Inactive (strictly only when not active, closing, or opening) */
-html:not(.curtain-opening) .curtain-page-transition.state-idle:not(.is-opening):not(.is-closing):not(.is-active) {
+html:not(.curtain-opening):not(.curtain-revealing) .curtain-page-transition.state-idle:not(.is-opening):not(.is-closing):not(.is-active) {
   display: none !important;
   visibility: hidden !important;
   pointer-events: none !important;
@@ -5856,24 +6037,81 @@ html:not(.curtain-opening) .curtain-page-transition.state-idle:not(.is-opening):
   .contact-master-card {
     height: auto !important;
     max-height: none !important;
-    min-height: max(560px, calc(100dvh - 140px));
-    padding: 28px 16px !important;
-    overflow-y: visible !important;
+    min-height: auto !important;
+    padding: 24px 16px 28px !important;
+    border-radius: 14px;
+    border: 1px solid var(--color-card-border, var(--color-border-hero)) !important;
+    overflow: visible !important;
   }
 
   .contact-card-inner {
-    grid-template-columns: 1fr !important;
-    gap: 28px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 22px !important;
+    width: 100% !important;
     height: auto !important;
   }
 
   .contact-left-col {
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+
+  .contact-main-headline {
+    font-size: 26px !important;
+    line-height: 1.25 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .contact-lead-para {
+    font-size: 13.5px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 16px !important;
+  }
+
+  .contact-method-card {
+    padding: 10px 12px !important;
+    gap: 10px !important;
+  }
+
+  .contact-method-val {
+    font-size: 12.5px !important;
+    word-break: break-all !important;
+  }
+
+  .copy-email-btn {
+    padding: 4px 8px !important;
+    font-size: 11px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .contact-right-col {
+    width: 100% !important;
+    height: auto !important;
     max-height: none !important;
   }
 
   .contact-form-container {
     max-height: none !important;
-    padding: 20px 16px !important;
+    padding: 18px 14px !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .contact-form-title {
+    font-size: 20px !important;
+  }
+
+  .intent-pills-row {
+    gap: 6px !important;
+  }
+
+  .intent-pill {
+    padding: 0 10px !important;
+    height: 28px !important;
+    font-size: 11px !important;
   }
 
   .form-row-2col {
@@ -5894,6 +6132,20 @@ html:not(.curtain-opening) .curtain-page-transition.state-idle:not(.is-opening):
 
   .direct-email-fallback {
     text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-master-card {
+    padding: 20px 12px 24px !important;
+  }
+
+  .contact-form-container {
+    padding: 16px 12px !important;
+  }
+
+  .contact-main-headline {
+    font-size: 22px !important;
   }
 }
 
@@ -7208,13 +7460,51 @@ html[data-theme="electric-indigo"] .agent-bubble {
     left: 12px;
   }
 
+  .ai-chat-master-card {
+    height: calc(100dvh - 120px) !important;
+    min-height: 480px !important;
+    max-height: none !important;
+    border-radius: 14px !important;
+    border: 1px solid var(--color-card-border, var(--color-border-hero)) !important;
+  }
+
   .ai-chat-header {
-    padding: 12px 16px;
+    padding: 12px 16px 10px;
+  }
+
+  .ai-center-hero-view {
+    width: 100% !important;
+    padding: 8px 0 !important;
+  }
+
+  .ai-hero-headline {
+    font-size: 20px !important;
+    line-height: 1.25 !important;
+    margin: 0 0 16px 0 !important;
+  }
+
+  .ai-prompts-grid-2x2 {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  .ai-grid-card {
+    padding: 10px 12px !important;
+    border-radius: 10px !important;
+  }
+
+  .ai-grid-card-title {
+    font-size: 12.5px !important;
+  }
+
+  .ai-grid-card-desc {
+    font-size: 11px !important;
   }
 
   .ai-chat-messages {
-    padding: 16px;
-    gap: 14px;
+    padding: 12px 14px;
+    gap: 12px;
   }
 
   .ai-msg-bubble {
@@ -7223,16 +7513,21 @@ html[data-theme="electric-indigo"] .agent-bubble {
     font-size: 12.5px;
   }
 
-  .ai-welcome-card {
-    padding: 16px;
-  }
-
-  .ai-welcome-title {
-    font-size: 16px;
-  }
-
   .ai-chat-footer {
-    padding: 10px 16px 14px 16px;
+    padding: 8px 14px 14px 14px;
+  }
+
+  .ai-chat-form {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .ai-chat-input-wrapper {
+    padding: 4px 6px 4px 12px !important;
+  }
+
+  .ai-chat-input {
+    font-size: 13px !important;
   }
 
   .ai-header-subtitle {

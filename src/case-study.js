@@ -76,15 +76,18 @@ function initCaseStudy() {
   const whisperText = document.getElementById('cs-whisper-text');
   const ringCircumference = 2 * Math.PI * 10; // ~62.83
 
+  const isMobileScreen = () => window.innerWidth <= 768;
+
   // ==========================================================================
   // 2. Reading Progress, Smart Header Hide/Reveal & ScrollSpy
   // ==========================================================================
   const handleScroll = () => {
-    const scrollTop = containerCard
+    const isMobile = isMobileScreen();
+    const scrollTop = (!isMobile && containerCard)
       ? containerCard.scrollTop
       : (window.scrollY || document.documentElement.scrollTop);
 
-    const docHeight = containerCard
+    const docHeight = (!isMobile && containerCard)
       ? (containerCard.scrollHeight - containerCard.clientHeight)
       : (document.documentElement.scrollHeight - document.documentElement.clientHeight);
 
@@ -135,7 +138,7 @@ function initCaseStudy() {
         const h = lastSec.querySelector('h2, h1');
         currentSectionTitle = h ? h.textContent.trim() : currentSectionId;
       }
-    } else if (containerCard) {
+    } else if (!isMobile && containerCard) {
       const cardRect = containerCard.getBoundingClientRect();
       sections.forEach((section) => {
         const id = section.getAttribute('id');
@@ -201,7 +204,8 @@ function initCaseStudy() {
       const targetElement = document.querySelector(targetId);
       if (targetElement) {
         e.preventDefault();
-        if (containerCard) {
+        const isMobile = isMobileScreen();
+        if (!isMobile && containerCard) {
           const cardRect = containerCard.getBoundingClientRect();
           const targetRect = targetElement.getBoundingClientRect();
           const targetScrollTop = containerCard.scrollTop + (targetRect.top - cardRect.top) - 18;
@@ -226,7 +230,8 @@ function initCaseStudy() {
   if (backToTopBtn) {
     backToTopBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      if (containerCard) {
+      const isMobile = isMobileScreen();
+      if (!isMobile && containerCard) {
         containerCard.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -239,10 +244,10 @@ function initCaseStudy() {
     });
   }
 
-  // Smooth Wheel Delegation from Gutters to Container Card
+  // Smooth Wheel Delegation from Gutters to Container Card (Desktop only)
   if (containerCard) {
     window.addEventListener('wheel', (e) => {
-      if (!containerCard.contains(e.target)) {
+      if (!isMobileScreen() && !containerCard.contains(e.target)) {
         containerCard.scrollTop += e.deltaY;
       }
     }, { passive: true });
@@ -294,12 +299,13 @@ function initCaseStudy() {
     lightboxModal.classList.add('is-open');
   };
 
-  // Wire all showcase images to the Lightbox
+  // Wire all showcase images to the Lightbox (support high-speed thumbnail + full-res zoom)
   const zoomableImages = document.querySelectorAll('.cs-showcase-image, .cs-hero-clean-img, [data-zoomable="true"]');
   zoomableImages.forEach((img) => {
     img.setAttribute('title', 'Click to inspect in 5K Retina Lightbox');
     img.addEventListener('click', () => {
-      openLightbox(img.getAttribute('src'), img.getAttribute('alt'));
+      const fullSrc = img.getAttribute('data-full-src') || img.getAttribute('src');
+      openLightbox(fullSrc, img.getAttribute('alt'));
     });
   });
 }

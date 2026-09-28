@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>NuVeda 360 Survey Platform — Product Design Case Study | Naveen Pullagura</title>
     <meta
       name="description"
@@ -28,8 +28,8 @@
             var col = sessionStorage.getItem('curtain_reveal_color') || '#0D9488';
             document.documentElement.style.setProperty('--curtain-active-color', col);
             setTimeout(function() {
-              document.documentElement.classList.remove('curtain-opening');
-            }, 2500);
+              document.documentElement.classList.remove('curtain-opening', 'curtain-revealing');
+            }, 400);
           }
         } catch(e) {}
       })();
@@ -41,6 +41,32 @@
       <div class="curtain-panel curtain-panel-top"></div>
       <div class="curtain-panel curtain-panel-bottom"></div>
     </div>
+    <script>
+      (function() {
+        try {
+          if (sessionStorage.getItem('curtain_reveal_pending') === '1') {
+            var cp = document.getElementById('curtain-page-transition');
+            if (cp) {
+              cp.className = 'curtain-page-transition is-active is-opening';
+              cp.setAttribute('aria-hidden', 'false');
+            }
+            document.documentElement.classList.remove('curtain-opening');
+            document.documentElement.classList.add('curtain-revealing');
+            setTimeout(function() {
+              if (cp) {
+                cp.className = 'curtain-page-transition state-idle';
+                cp.setAttribute('aria-hidden', 'true');
+              }
+              document.documentElement.classList.remove('curtain-opening', 'curtain-revealing');
+              try {
+                sessionStorage.removeItem('curtain_reveal_pending');
+                sessionStorage.removeItem('curtain_reveal_color');
+              } catch(e) {}
+            }, 350);
+          }
+        } catch(e) {}
+      })();
+    </script>
     
     <!-- Ethereal Background Glow -->
     <div class="cs-bg-ambient-glow" aria-hidden="true"></div>

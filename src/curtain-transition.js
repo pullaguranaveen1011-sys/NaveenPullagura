@@ -85,12 +85,18 @@ export class CurtainTransitionController {
    */
   checkInitialReveal() {
     try {
-      if (sessionStorage.getItem('curtain_reveal_pending') === '1') {
+      const isPending = sessionStorage.getItem('curtain_reveal_pending') === '1';
+      const isAlreadyRevealing = document.documentElement.classList.contains('curtain-revealing');
+
+      if (isPending || isAlreadyRevealing) {
         sessionStorage.removeItem('curtain_reveal_pending');
         window.__curtainJustRevealed = true;
         const color = sessionStorage.getItem('curtain_reveal_color') || getProjectColorFromUrl(window.location.pathname);
         sessionStorage.removeItem('curtain_reveal_color');
         this.setCurtainColor(color);
+
+        // Remove early head hold lock immediately so panels can move
+        document.documentElement.classList.remove('curtain-opening');
 
         // Clear any inline styles that could conflict with CSS keyframes
         if (this.topPanel) {
@@ -104,18 +110,20 @@ export class CurtainTransitionController {
           this.bottomPanel.style.backgroundColor = color;
         }
 
-        // Remove early head hold lock
-        document.documentElement.classList.remove('curtain-opening');
-
         // Trigger opening keyframe animation (Top -> -100%, Bottom -> 100%)
-        this.container.className = 'curtain-page-transition is-active is-opening';
-        this.container.setAttribute('aria-hidden', 'false');
+        if (this.container) {
+          this.container.className = 'curtain-page-transition is-active is-opening';
+          this.container.setAttribute('aria-hidden', 'false');
+        }
 
         // Animation completes in 0.3s (plus 50ms buffer to ensure clean finish)
         const revealDurationMs = Math.round(this.duration * 1000) + 50;
         setTimeout(() => {
-          this.container.className = 'curtain-page-transition state-idle';
-          this.container.setAttribute('aria-hidden', 'true');
+          document.documentElement.classList.remove('curtain-opening', 'curtain-revealing');
+          if (this.container) {
+            this.container.className = 'curtain-page-transition state-idle';
+            this.container.setAttribute('aria-hidden', 'true');
+          }
           if (this.topPanel) {
             this.topPanel.style.transition = '';
             this.topPanel.style.transform = '';
@@ -127,15 +135,15 @@ export class CurtainTransitionController {
           this.isTransitioning = false;
         }, revealDurationMs);
       } else {
-        document.documentElement.classList.remove('curtain-opening');
+        document.documentElement.classList.remove('curtain-opening', 'curtain-revealing');
       }
     } catch (e) {
-      document.documentElement.classList.remove('curtain-opening');
+      document.documentElement.classList.remove('curtain-opening', 'curtain-revealing');
     }
 
     // Safety watchdog for browser back/forward history cache
     window.addEventListener('pageshow', () => {
-      document.documentElement.classList.remove('curtain-opening');
+      document.documentElement.classList.remove('curtain-opening', 'curtain-revealing');
       if (this.container) {
         this.container.className = 'curtain-page-transition state-idle';
         this.container.setAttribute('aria-hidden', 'true');

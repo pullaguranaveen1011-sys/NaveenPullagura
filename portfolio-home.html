@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Naveen Pullagura — Product Designer Portfolio</title>
     <meta name="description" content="Portfolio of Naveen Pullagura — I Design Products That People Actually Want To Use." />
 
@@ -34,14 +34,45 @@
             var col = sessionStorage.getItem('curtain_reveal_color') || '#022EB4';
             document.documentElement.style.setProperty('--curtain-active-color', col);
             setTimeout(function() {
-              document.documentElement.classList.remove('curtain-opening');
-            }, 2500);
+              document.documentElement.classList.remove('curtain-opening', 'curtain-revealing');
+            }, 400);
           }
         } catch(e) {}
       })();
     </script>
   </head>
   <body>
+    <!-- Great UI Vertical Curtain Page Transition (0.3s Fast Duration) -->
+    <div id="curtain-page-transition" class="curtain-page-transition state-idle" aria-hidden="true">
+      <div class="curtain-panel curtain-panel-top"></div>
+      <div class="curtain-panel curtain-panel-bottom"></div>
+    </div>
+    <script>
+      (function() {
+        try {
+          if (sessionStorage.getItem('curtain_reveal_pending') === '1') {
+            var cp = document.getElementById('curtain-page-transition');
+            if (cp) {
+              cp.className = 'curtain-page-transition is-active is-opening';
+              cp.setAttribute('aria-hidden', 'false');
+            }
+            document.documentElement.classList.remove('curtain-opening');
+            document.documentElement.classList.add('curtain-revealing');
+            setTimeout(function() {
+              if (cp) {
+                cp.className = 'curtain-page-transition state-idle';
+                cp.setAttribute('aria-hidden', 'true');
+              }
+              document.documentElement.classList.remove('curtain-opening', 'curtain-revealing');
+              try {
+                sessionStorage.removeItem('curtain_reveal_pending');
+                sessionStorage.removeItem('curtain_reveal_color');
+              } catch(e) {}
+            }, 350);
+          }
+        } catch(e) {}
+      })();
+    </script>
     <div class="page-container" id="app">
       <!-- Master Header Navigation (Single instance, no duplicates) -->
       <header class="header-nav">
@@ -1066,12 +1097,6 @@
           <span class="greeting-word" style="--word-index: 3;">you!</span>
         </h2>
       </div>
-    </div>
-
-    <!-- Great UI Vertical Curtain Page Transition (0.3s Fast Duration) -->
-    <div id="curtain-page-transition" class="curtain-page-transition state-idle" aria-hidden="true">
-      <div class="curtain-panel curtain-panel-top"></div>
-      <div class="curtain-panel curtain-panel-bottom"></div>
     </div>
 
     <!-- Cinematic Full-Screen Work Intro Overlay -->

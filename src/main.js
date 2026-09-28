@@ -203,6 +203,10 @@ function initPortfolio() {
       clearInterval(id);
     });
     resumeIntroTimers = [];
+    if (resumeTypewriterRaf) {
+      cancelAnimationFrame(resumeTypewriterRaf);
+      resumeTypewriterRaf = null;
+    }
   };
 
   const dismissAllOverlays = () => {
@@ -353,7 +357,7 @@ function initPortfolio() {
       setActiveNavPill(navWork);
       currentView = 'work';
       switchCompany('nuveda', true);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }
   };
 
@@ -439,9 +443,112 @@ function initPortfolio() {
     }
   };
 
+  // ==========================================================================
+  // Resume Statement Typewriter & Download Button Reveal (Silky Smooth rAF)
+  // ==========================================================================
+  let resumeTypewriterRaf = null;
+  const fullResumeQuoteText = '“Your decision to bring me onboard is appreciated — you’re going to see a transformative shift in your product.”';
+
+  const triggerResumeTypewriter = () => {
+    const resumeQuoteEl = document.querySelector('.resume-statement-quote');
+    const resumeAuthorEl = document.querySelector('.resume-statement-author');
+    const resumeCtaBox = document.querySelector('.resume-cta-container');
+
+    if (!resumeQuoteEl) return;
+    if (resumeTypewriterRaf) {
+      cancelAnimationFrame(resumeTypewriterRaf);
+      resumeTypewriterRaf = null;
+    }
+
+    resumeQuoteEl.textContent = '';
+    resumeQuoteEl.classList.add('is-typing');
+    if (resumeAuthorEl) {
+      resumeAuthorEl.style.opacity = '0';
+      resumeAuthorEl.style.transform = 'translateY(10px)';
+      resumeAuthorEl.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    }
+    if (resumeCtaBox) {
+      resumeCtaBox.style.opacity = '0';
+      resumeCtaBox.style.transform = 'translateY(12px)';
+      resumeCtaBox.style.pointerEvents = 'none';
+      resumeCtaBox.style.transition = 'opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+    }
+
+    let charIndex = 0;
+    let lastTime = performance.now();
+
+    // Natural human typing rhythm
+    const getCharDelay = (char) => {
+      if (char === '—') return 130;
+      if (char === ',' || char === '.') return 70;
+      if (char === ' ') return 20;
+      return 26;
+    };
+
+    let currentDelay = getCharDelay(fullResumeQuoteText[0]);
+
+    const step = (currentTime) => {
+      if (currentTime - lastTime >= currentDelay) {
+        lastTime = currentTime;
+        charIndex++;
+        resumeQuoteEl.textContent = fullResumeQuoteText.slice(0, charIndex);
+
+        if (charIndex >= fullResumeQuoteText.length) {
+          resumeTypewriterRaf = null;
+          resumeQuoteEl.classList.remove('is-typing');
+
+          if (resumeAuthorEl) {
+            resumeAuthorEl.style.opacity = '1';
+            resumeAuthorEl.style.transform = 'translateY(0)';
+          }
+          setTimeout(() => {
+            if (resumeCtaBox) {
+              resumeCtaBox.style.opacity = '1';
+              resumeCtaBox.style.transform = 'translateY(0)';
+              resumeCtaBox.style.pointerEvents = 'auto';
+            }
+          }, 160);
+          return;
+        }
+
+        currentDelay = getCharDelay(fullResumeQuoteText[charIndex]);
+      }
+
+      resumeTypewriterRaf = requestAnimationFrame(step);
+    };
+
+    resumeTypewriterRaf = requestAnimationFrame(step);
+  };
+
+  const fastForwardResumeTypewriter = () => {
+    if (resumeTypewriterRaf) {
+      cancelAnimationFrame(resumeTypewriterRaf);
+      resumeTypewriterRaf = null;
+    }
+    const resumeQuoteEl = document.querySelector('.resume-statement-quote');
+    const resumeAuthorEl = document.querySelector('.resume-statement-author');
+    const resumeCtaBox = document.querySelector('.resume-cta-container');
+
+    if (resumeQuoteEl) {
+      resumeQuoteEl.textContent = fullResumeQuoteText;
+      resumeQuoteEl.classList.remove('is-typing');
+    }
+    if (resumeAuthorEl) {
+      resumeAuthorEl.style.opacity = '1';
+      resumeAuthorEl.style.transform = 'translateY(0)';
+    }
+    if (resumeCtaBox) {
+      resumeCtaBox.style.opacity = '1';
+      resumeCtaBox.style.transform = 'translateY(0)';
+      resumeCtaBox.style.pointerEvents = 'auto';
+    }
+  };
+
   const switchToResume = (withIntro = false) => {
     if (withIntro && resumeOverlay && !hasResumeIntroPlayedOnce) {
-      playResumeIntroSequence();
+      playResumeIntroSequence(() => {
+        triggerResumeTypewriter();
+      });
     } else {
       dismissAllOverlays();
       deactivateAllViews();
@@ -452,6 +559,7 @@ function initPortfolio() {
       setActiveNavPill(navResume);
       currentView = 'resume';
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      triggerResumeTypewriter();
     }
   };
 
@@ -892,6 +1000,13 @@ function initPortfolio() {
     });
   }
 
+  const resumeCardEl = document.getElementById('resume-card');
+  if (resumeCardEl) {
+    resumeCardEl.addEventListener('click', () => {
+      fastForwardResumeTypewriter();
+    });
+  }
+
   // Click on NuVeda Showcase image / thumbnail opens the 3-projects detail view
   const nuvedaShowcase = document.getElementById('nuveda-showcase-wrapper');
   if (nuvedaShowcase) {
@@ -1037,7 +1152,7 @@ function initPortfolio() {
       if (window.innerWidth <= 1024) return;
       const currentIdx = companies.indexOf(currentCompany);
 
-      if (e.deltaY > 20) {
+      if (e.deltaY > 65) {
         // Scroll down to next company
         if (currentIdx < companies.length - 1) {
           e.preventDefault();
@@ -1048,7 +1163,7 @@ function initPortfolio() {
           history.pushState(null, '', '#about');
           switchToAbout(!hasAboutIntroPlayedOnce);
         }
-      } else if (e.deltaY < -20) {
+      } else if (e.deltaY < -65) {
         // Scroll up to previous company or hero
         if (currentIdx > 0) {
           e.preventDefault();

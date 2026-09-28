@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Smokewana: White-Label WMS &amp; Multi-Channel SaaS — Phantasm Solutions Case Study | Naveen Pullagura</title>
     <meta
       name="description"
@@ -29,8 +29,8 @@
             var col = sessionStorage.getItem('curtain_reveal_color') || '#78350F';
             document.documentElement.style.setProperty('--curtain-active-color', col);
             setTimeout(function() {
-              document.documentElement.classList.remove('curtain-opening');
-            }, 2500);
+              document.documentElement.classList.remove('curtain-opening', 'curtain-revealing');
+            }, 400);
           }
         } catch(e) {}
       })();
@@ -42,6 +42,32 @@
       <div class="curtain-panel curtain-panel-top"></div>
       <div class="curtain-panel curtain-panel-bottom"></div>
     </div>
+    <script>
+      (function() {
+        try {
+          if (sessionStorage.getItem('curtain_reveal_pending') === '1') {
+            var cp = document.getElementById('curtain-page-transition');
+            if (cp) {
+              cp.className = 'curtain-page-transition is-active is-opening';
+              cp.setAttribute('aria-hidden', 'false');
+            }
+            document.documentElement.classList.remove('curtain-opening');
+            document.documentElement.classList.add('curtain-revealing');
+            setTimeout(function() {
+              if (cp) {
+                cp.className = 'curtain-page-transition state-idle';
+                cp.setAttribute('aria-hidden', 'true');
+              }
+              document.documentElement.classList.remove('curtain-opening', 'curtain-revealing');
+              try {
+                sessionStorage.removeItem('curtain_reveal_pending');
+                sessionStorage.removeItem('curtain_reveal_color');
+              } catch(e) {}
+            }, 350);
+          }
+        } catch(e) {}
+      })();
+    </script>
     
     <!-- Ethereal Background Glow (Warm Brown Ambience) -->
     <div class="cs-bg-ambient-glow" aria-hidden="true" style="background: radial-gradient(circle at 50% 30%, rgba(120, 53, 15, 0.08), rgba(250, 249, 246, 0) 70%);"></div>
@@ -119,10 +145,12 @@
             <!-- Hero Showcase Screenshot -->
             <div class="cs-hero-image-wrapper">
               <img
-                src="/assets/phantasm/saas-ecom-wms.png"
+                src="/assets/phantasm/thumb-saas.png"
+                data-full-src="/assets/phantasm/saas-ecom-wms.png"
                 alt="Smokewana Multi-Channel WMS and E-Commerce Platform Architecture"
                 class="cs-hero-clean-img cs-showcase-image"
                 loading="eager"
+                decoding="async"
                 data-zoomable="true"
               />
             </div>
@@ -194,7 +222,7 @@
               <!-- Pod Member 1: Sainath (Product Manager) -->
               <div class="cs-pillar-card">
                 <div class="cs-team-avatar-wrap">
-                  <img src="/assets/phantasm/team-sainath.jpg" alt="Sainath - Product Manager" class="cs-team-avatar" />
+                  <img src="/assets/phantasm/team-sainath.jpg" alt="Sainath - Product Manager" class="cs-team-avatar" loading="lazy" decoding="async" />
                 </div>
                 <div class="cs-pillar-content">
                   <h4>Sainath · Product Manager</h4>
@@ -207,7 +235,7 @@
               <!-- Pod Member 2: Naveen Pullagura (Lead UX Designer & Researcher) -->
               <div class="cs-pillar-card" style="border-color: rgba(120, 53, 15, 0.4); box-shadow: 0 4px 16px -2px rgba(120, 53, 15, 0.1);">
                 <div class="cs-team-avatar-wrap" style="border-color: #78350F;">
-                  <img src="/assets/phantasm/team-naveen.jpg" alt="Naveen Pullagura - Lead UX Designer" class="cs-team-avatar" />
+                  <img src="/assets/phantasm/team-naveen.jpg" alt="Naveen Pullagura - Lead UX Designer" class="cs-team-avatar" loading="lazy" decoding="async" />
                 </div>
                 <div class="cs-pillar-content">
                   <h4>Naveen Pullagura · Lead UX &amp; Research</h4>
@@ -220,7 +248,7 @@
               <!-- Pod Member 3: Prakash Sannisetti (Visual / UI Designer) -->
               <div class="cs-pillar-card">
                 <div class="cs-team-avatar-wrap">
-                  <img src="/assets/phantasm/team-prakash.jpg" alt="Prakash Sannisetti - Visual UI Designer" class="cs-team-avatar" />
+                  <img src="/assets/phantasm/team-prakash.jpg" alt="Prakash Sannisetti - Visual UI Designer" class="cs-team-avatar" loading="lazy" decoding="async" />
                 </div>
                 <div class="cs-pillar-content">
                   <h4>Prakash Sannisetti · UI Designer</h4>
@@ -233,7 +261,7 @@
               <!-- Pod Member 4: Graphic Designer -->
               <div class="cs-pillar-card">
                 <div class="cs-team-avatar-wrap">
-                  <img src="/assets/phantasm/team-graphic.jpg" alt="Graphic & Merchandising Designer" class="cs-team-avatar" />
+                  <img src="/assets/phantasm/team-graphic.jpg" alt="Graphic & Merchandising Designer" class="cs-team-avatar" loading="lazy" decoding="async" />
                 </div>
                 <div class="cs-pillar-content">
                   <h4>Graphic Designer · Merchandising</h4>
@@ -378,10 +406,12 @@
                 Designed from scratch by Naveen Pullagura (UX Architecture &amp; Wireframing) and Prakash Sannisetti (Visual UI Design) under PM guidance from Sainath. Click on the interface below to inspect high-resolution UI details.
               </p>
               <img
-                src="/assets/phantasm/saas-ecom-wms.png"
+                src="/assets/phantasm/thumb-saas.png"
+                data-full-src="/assets/phantasm/saas-ecom-wms.png"
                 alt="Smokewana SaaS Control Center Dashboard Screens"
                 class="cs-post-onboarding-img cs-showcase-image"
                 loading="lazy"
+                decoding="async"
                 data-zoomable="true"
               />
               <span class="cs-post-onboarding-caption">
@@ -407,10 +437,12 @@
             <div class="cs-dual-gallery-row">
               <div class="cs-gallery-item">
                 <img
-                  src="/assets/phantasm/flying-kush-storefront.png"
+                  src="/assets/phantasm/thumb-flyingkush.png"
+                  data-full-src="/assets/phantasm/flying-kush-storefront.png"
                   alt="Flying Kush Web Storefront and Mobile E-commerce Interface"
                   class="cs-gallery-img cs-showcase-image"
                   loading="lazy"
+                  decoding="async"
                   data-zoomable="true"
                 />
                 <div class="cs-gallery-caption">Figure 2: Flying Kush Storefront &amp; Native Mobile Apps</div>
@@ -418,10 +450,12 @@
 
               <div class="cs-gallery-item">
                 <img
-                  src="/assets/phantasm/client-landing-pages.png"
+                  src="/assets/phantasm/thumb-landingpages.png"
+                  data-full-src="/assets/phantasm/client-landing-pages.png"
                   alt="Different Clients Landing Pages and Merchandise Design Grid"
                   class="cs-gallery-img cs-showcase-image"
                   loading="lazy"
+                  decoding="async"
                   data-zoomable="true"
                 />
                 <div class="cs-gallery-caption">Figure 3: Multi-Client Concept Landing Pages &amp; Merchandising</div>
