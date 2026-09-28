@@ -456,7 +456,7 @@ function initPortfolio() {
   };
 
   const switchToNu360CaseStudy = () => {
-    curtainTransition.navigate('/index.html', '#0D9488');
+    curtainTransition.navigate('/nuveda-360.html', '#0D9488');
   };
 
   const switchBackToNuVedaProjects = () => {
@@ -919,17 +919,17 @@ function initPortfolio() {
     });
   }
 
-  // Click on NuVeda 360 project card navigates to /index.html
+  // Click on NuVeda 360 project card navigates to /nuveda-360.html
   const projectCardNu360 = document.getElementById('project-card-nu360');
   if (projectCardNu360) {
     projectCardNu360.addEventListener('click', (e) => {
       e.preventDefault();
-      curtainTransition.navigate('/index.html', '#0D9488');
+      curtainTransition.navigate('/nuveda-360.html', '#0D9488');
     });
     projectCardNu360.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        curtainTransition.navigate('/index.html', '#0D9488');
+        curtainTransition.navigate('/nuveda-360.html', '#0D9488');
       }
     });
   }

@@ -215,11 +215,14 @@ export class CurtainTransitionController {
         link.classList.contains('cs-footer-btn-secondary') ||
         link.classList.contains('cs-footer-sublink') ||
         href.includes('index.html') ||
+        href.includes('nuveda-360') ||
+        href.includes('nu360') ||
         href.includes('calf.html') ||
         href.includes('nu-coach.html') ||
         href.includes('phantasm.html') ||
         href.includes('portfolio-home.html') ||
         href === '/' ||
+        href === '/nuveda-360' ||
         href === '/calf' ||
         href === '/nu-coach' ||
         href === '/phantasm';

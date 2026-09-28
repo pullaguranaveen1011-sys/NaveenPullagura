@@ -52,7 +52,7 @@ const NAVEEN_KNOWLEDGE = {
       title: "NuVeda 360",
       type: "0-to-1 SaaS Unbundling & Survey Generator",
       role: "Lead Product Designer (June 2025 – Present)",
-      link: "/index.html",
+      link: "/nuveda-360.html",
       problem:
         "NuVeda had a powerful multi-rater survey tool trapped inside a monolithic legacy LMS. It took users over 30 minutes of tedious manual entry to create a single 360-degree feedback survey, and enterprise buyers couldn't adopt it without purchasing the entire heavy LMS suite.",
       solution:
@@ -273,7 +273,7 @@ Connect with him directly to discuss your project:
       return `**NuVeda 360** — 0-to-1 SaaS అన్‌బండ్లింగ్:
 • సర్వే క్రియేషన్ సమయాన్ని **90% తగ్గించారు** (30 నిమిషాల నుండి 3 నిమిషాలకు).
 • AI సర్వే జనరేటర్ & 100% వైట్-లేబుల్ టోకెన్ సిస్టమ్ డిజైన్ చేశారు.
-👉 [కేస్ స్టడీ చదవండి](/index.html)`;
+👉 [కేస్ స్టడీ చదవండి](/nuveda-360.html)`;
     }
 
     if (query.includes('కాంటాక్ట్') || query.includes('ఫోన్') || query.includes('contact') || query.includes('email') || query.includes('మెయిల్') || query.includes('హైర్')) {
@@ -315,7 +315,7 @@ Ask me about his **case studies**, **design philosophy**, **freelancing availabi
 • **Foundation**: B.Tech Engineering paired with strong systems-thinking and 95%+ dev fidelity.
 • **Key Work**: NuVeda 360 (90% faster surveys), CALF 2.0 (enterprise LMS), and NU Coach (voice AI).
 • **Open to**: Full-time roles, contracts, and freelance projects.
-👉 [View Case Studies](/index.html) or [Contact Naveen](/contact.html)`;
+👉 [View Case Studies](/portfolio-home.html#work) or [Contact Naveen](/contact.html)`;
   }
 
   // =========================================================================
@@ -351,7 +351,7 @@ Ask me about his **case studies**, **design philosophy**, **freelancing availabi
 • **Problem**: Feedback tool was trapped in a heavy LMS; took 30+ minutes of manual matrix entry.
 • **Solution**: Unbundled into an autonomous B2B SaaS with an AI prompt-to-survey engine and white-label tokens.
 • **Impact**: **90% reduction in survey creation time** (from 30+ mins to under 3 mins).
-👉 [Read NuVeda 360 Case Study](/index.html)`;
+👉 [Read NuVeda 360 Case Study](/nuveda-360.html)`;
   }
 
   // =========================================================================
