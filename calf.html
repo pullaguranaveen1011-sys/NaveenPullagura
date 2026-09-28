@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CALF. Core Enterprise LMS 2.0 — Product Design Case Study | Naveen Pullagura</title>
+    <meta
+      name="description"
+      content="A comprehensive Product Design case study by Naveen Pullagura: Overhauling a legacy enterprise LMS into a modern, multi-role 2.0 learning platform."
+    />
+
+    <!-- Google Fonts: Balthazar, Cormorant Garamond, Manrope, Newsreader & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Balthazar&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Dedicated Full-Screen Case Study Stylesheet -->
+    <link rel="stylesheet" href="/src/case-study.css" />
+
+    <script>
+      (function() {
+        try {
+          if (sessionStorage.getItem('curtain_reveal_pending') === '1') {
+            document.documentElement.classList.add('curtain-opening');
+            var col = sessionStorage.getItem('curtain_reveal_color') || '#FF6B00';
+            document.documentElement.style.setProperty('--curtain-active-color', col);
+            setTimeout(function() {
+              document.documentElement.classList.remove('curtain-opening');
+            }, 2500);
+          }
+        } catch(e) {}
+      })();
+    </script>
+  </head>
+  <body class="cs-standalone-page theme-calf">
+    <!-- Great UI Vertical Curtain Page Transition (0.3s Fast Duration) -->
+    <div id="curtain-page-transition" class="curtain-page-transition state-idle" aria-hidden="true">
+      <div class="curtain-panel curtain-panel-top"></div>
+      <div class="curtain-panel curtain-panel-bottom"></div>
+    </div>
+    
+    <!-- Ethereal Background Glow -->
+    <div class="cs-bg-ambient-glow" aria-hidden="true"></div>
+
+    <!-- Reading Progress Bar -->
+    <div class="cs-reading-progress-track" aria-hidden="true">
+      <div class="cs-reading-progress-fill" id="cs-progress-fill"></div>
+    </div>
+
+    <!-- Master Header Navigation (Synced with Portfolio Design System) -->
+    <header class="cs-navbar" id="cs-navbar">
+      <div class="cs-navbar-inner">
+        <div class="cs-navbar-left">
+          <a href="/portfolio-home.html#hero" class="logo-pill" id="site-logo" title="Return to Home">
+            Naveen Pullagura
+          </a>
+        </div>
+
+        <nav class="nav-pills-group" aria-label="Case study sections">
+          <a href="#overview" class="nav-pill active">Overview</a>
+          <a href="#condition" class="nav-pill">Initial State</a>
+          <a href="#first-update" class="nav-pill">First Update</a>
+          <a href="#calf-2" class="nav-pill">CALF 2.0</a>
+          <a href="#roles" class="nav-pill">Roles</a>
+          <a href="#whitelabel" class="nav-pill">White-Label</a>
+          <a href="#modules" class="nav-pill">Modules</a>
+          <a href="#storage-credits" class="nav-pill">Storage &amp; Credits</a>
+          <a href="#outcomes" class="nav-pill">Outcomes</a>
+        </nav>
+
+        <div class="cs-navbar-right">
+          <a href="/portfolio-home.html#nuveda-projects" class="nav-pill" id="nav-work-return" title="Back to NuVeda Projects">
+            <span>Work</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-left: 4px;">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Open-Bottom Container Frame (Continuous Portfolio Design Language) -->
+    <div class="cs-container-frame" id="cs-container-frame">
+      <div class="cs-container-card">
+        <main class="cs-page-wrapper">
+      
+          <!-- ======================================================================
+               HERO SHOWCASE SECTION (Uses requested hero thumbnail, no elevation)
+               ====================================================================== -->
+          <section class="cs-hero" id="overview">
+            <h1 class="cs-hero-title">
+              CALF. — Core Enterprise LMS 2.0
+            </h1>
+
+            <p class="cs-hero-subtitle">
+              Overhauling a complex enterprise learning management system into an intuitive, role-driven platform across Admin, Manager, Facilitator, and Learner workflows, executed in close collaboration with product managers and engineering.
+            </p>
+
+            <!-- Unified Sleek Meta Bar -->
+            <div class="cs-hero-meta-bar">
+              <div class="cs-meta-col">
+                <span class="cs-meta-col-label">Domain</span>
+                <span class="cs-meta-col-val">Enterprise LMS</span>
+              </div>
+
+              <div class="cs-meta-col">
+                <span class="cs-meta-col-label">My Role</span>
+                <span class="cs-meta-col-val">Product Designer</span>
+              </div>
+
+              <div class="cs-meta-col">
+                <span class="cs-meta-col-label">Architecture</span>
+                <span class="cs-meta-col-val">100% White-Label SaaS</span>
+              </div>
+
+              <div class="cs-meta-col">
+                <span class="cs-meta-col-label">Users</span>
+                <span class="cs-meta-col-val">4 Core Personas</span>
+              </div>
+            </div>
+
+            <!-- Prominent Large Hero Showcase Banner (No Elevation, Expanded Width) -->
+            <div class="cs-hero-image-wrapper">
+              <img
+                src="/assets/calf/herothumbnail/hero-thumbnail.png"
+                alt="CALF Core Enterprise LMS 2.0 Hero Showcase"
+                class="cs-hero-clean-img"
+                loading="eager"
+              />
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               STAGE 1: THE INITIAL PRODUCT CONDITION
+               ====================================================================== -->
+          <section class="cs-section" id="condition">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">The Starting Point</span>
+              <h2 class="cs-heading">The Condition of the Product When I First Saw It</h2>
+              <p class="cs-subheading">
+                The baseline state of CALF before my design intervention: lacking foundational design hygiene, unstandardized typography, broken spacing, and erratic icons.
+              </p>
+            </div>
+
+            <div class="cs-media-showcase-card">
+              <div class="cs-media-header">
+                <div class="cs-media-title-group">
+                  <h3>The Condition of the Product When I First Saw It</h3>
+                  <p>
+                    Screenshot of the legacy system interface upon taking charge of the product design.
+                  </p>
+                </div>
+                <span class="cs-media-tag tag-legacy">Initial Legacy State</span>
+              </div>
+
+              <div class="cs-showcase-image-wrapper">
+                <img
+                  src="/assets/calf/media/legacy-condition.png"
+                  alt="The Condition of the Product When I First Saw It"
+                  class="cs-showcase-image"
+                  loading="lazy"
+                />
+              </div>
+
+              <!-- Dedicated Editorial Narrative & Audit Findings Directly Below Image -->
+              <div class="cs-editorial-block">
+                <div class="cs-editorial-header">
+                  <div class="cs-editorial-kicker-row">
+                    <span class="cs-editorial-badge">Design Assessment</span>
+                    <span class="cs-editorial-kicker">Initial Product Baseline</span>
+                  </div>
+                  <h3 class="cs-editorial-title">Honest Reality Check</h3>
+                  <p class="cs-editorial-lead">
+                    <strong>The legacy product was in severe visual disarray when I took over design ownership.</strong> There was no design system in place, and erratic paddings, mismatched typography, and ad-hoc icons plagued every view. Rather than rushing an uncontrolled rewrite, I executed a disciplined two-phase strategy: first stabilize foundational hierarchy and spacing, then architect the 2.0 multi-tenant overhaul.
+                  </p>
+                </div>
+
+                <div class="cs-audit-pillars-row">
+                  <div class="cs-audit-pillar">
+                    <span class="cs-audit-num">01</span>
+                    <h4>No Design System Existed</h4>
+                    <p>Mismatched font families, arbitrary sizing scales, and conflicting colors scattered across enterprise views.</p>
+                  </div>
+                  <div class="cs-audit-pillar">
+                    <span class="cs-audit-num">02</span>
+                    <h4>Erratic Spacing &amp; White Space</h4>
+                    <p>Absence of an 8pt grid, resulting in cramped data tables, uneven margins, and awkward padding.</p>
+                  </div>
+                  <div class="cs-audit-pillar">
+                    <span class="cs-audit-num">03</span>
+                    <h4>Unstandardized Icons</h4>
+                    <p>Mixed icon weights, divergent stroke styles, and mismatched symbols that compromised enterprise trust.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               STAGE 2: PHASE 1 — THE FIRST UPDATE (STABILIZATION)
+               ====================================================================== -->
+          <section class="cs-section" id="first-update">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">Phase 1 Stabilization</span>
+              <h2 class="cs-heading">First Update — Stabilizing Hierarchy &amp; Icon Consistency</h2>
+              <p class="cs-subheading">
+                Step one was surgical: correcting typographic hierarchy, standardizing icon sets, and aligning paddings without interrupting active enterprise clients.
+              </p>
+            </div>
+
+            <div class="cs-media-showcase-card">
+              <div class="cs-media-header">
+                <div class="cs-media-title-group">
+                  <h3>First Update Walkthrough</h3>
+                  <p>
+                    A video walkthrough illustrating how foundational design hygiene brought immediate order to live screens without disrupting backend data structures.
+                  </p>
+                </div>
+                <span class="cs-media-tag tag-update">First Update Video (1:14)</span>
+              </div>
+
+              <div class="cs-video-player-wrapper">
+                <video
+                  class="cs-showcase-video"
+                  src="/assets/calf/media/first-update.mp4"
+                  controls
+                  playsinline
+                  preload="auto"
+                >
+                  <source src="/assets/calf/media/first-update.mp4" type="video/mp4" />
+                  Your browser does not support HTML5 video.
+                </video>
+              </div>
+
+              <div class="cs-audit-pillars-row">
+                <div class="cs-audit-pillar">
+                  <span class="cs-audit-num">01</span>
+                  <h4>Visual Hierarchy Restored</h4>
+                  <p>Clean typographic levels across headings, filters, and tables so admins scan status instantly.</p>
+                </div>
+                <div class="cs-audit-pillar">
+                  <span class="cs-audit-num">02</span>
+                  <h4>Iconography Cohesion</h4>
+                  <p>A unified vector icon set with equal 24px bounding boxes, 1.5px strokes, and clear semantic states.</p>
+                </div>
+                <div class="cs-audit-pillar">
+                  <span class="cs-audit-num">03</span>
+                  <h4>Predictable Paddings</h4>
+                  <p>Standardized internal card padding and table row heights based on a strict 8pt spatial grid.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               STAGE 3: PHASE 2 — COMPLETE CALF 2.0 OVERHAUL
+               ====================================================================== -->
+          <section class="cs-section" id="calf-2">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">Phase 2 Transformation</span>
+              <h2 class="cs-heading">CALF 2.0 — In-Depth Product Study &amp; Modern UI Overhaul</h2>
+              <p class="cs-subheading">
+                After the First Update stabilized the interface, I conducted an end-to-end study of the product across all 4 user roles. With these findings, I completely overhauled CALF into a modern, 100% white-label Enterprise LMS.
+              </p>
+            </div>
+
+            <div class="cs-media-showcase-card">
+              <div class="cs-media-header">
+                <div class="cs-media-title-group">
+                  <h3>CALF 2.0 Modern Platform Walkthrough</h3>
+                  <p>
+                    The complete transformation: multi-role optimized navigation, tenant-specific white-label theming, modern SaaS component language, and frictionless learning workflows.
+                  </p>
+                </div>
+                <span class="cs-media-tag tag-v2">CALF 2.0 Video (1:16)</span>
+              </div>
+
+              <div class="cs-video-player-wrapper">
+                <video
+                  class="cs-showcase-video"
+                  src="/assets/calf/media/calf-2-0.mp4"
+                  controls
+                  playsinline
+                  preload="auto"
+                >
+                  <source src="/assets/calf/media/calf-2-0.mp4" type="video/mp4" />
+                  Your browser does not support HTML5 video.
+                </video>
+              </div>
+
+              <!-- Dedicated Editorial Narrative & Architecture Leap -->
+              <div class="cs-editorial-block">
+                <div class="cs-editorial-header">
+                  <div class="cs-editorial-kicker-row">
+                    <span class="cs-editorial-badge">Systems &amp; Architecture</span>
+                    <span class="cs-editorial-kicker">Strategic Transformation</span>
+                  </div>
+                  <h3 class="cs-editorial-title">The Complete Leap to 2.0</h3>
+                  <p class="cs-editorial-lead">
+                    <strong>With foundational hygiene stabilized, I initiated an end-to-end contextual product study.</strong> I mapped the operational routines of four core personas—Admins, Managers, Facilitators, and Learners. The result was CALF 2.0: a modern enterprise design system engineered with high-contrast UI, responsive tables, and a 100% white-label theming engine.
+                  </p>
+                </div>
+
+                <div class="cs-audit-pillars-row">
+                  <div class="cs-audit-pillar">
+                    <span class="cs-audit-num">01</span>
+                    <h4>End-to-End Product Study</h4>
+                    <p>Mapped 4 distinct persona journeys to eliminate dead-ends and streamline critical workflows.</p>
+                  </div>
+                  <div class="cs-audit-pillar">
+                    <span class="cs-audit-num">02</span>
+                    <h4>Modern SaaS UI Standards</h4>
+                    <p>Contemporary aesthetics, high-contrast readability, accessible focus rings, and crisp responsive states.</p>
+                  </div>
+                  <div class="cs-audit-pillar">
+                    <span class="cs-audit-num">03</span>
+                    <h4>100% White-Label Ready</h4>
+                    <p>Fully dynamic multi-tenant theming engine for logos, brand hues, typography, and custom subdomains.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               SECTION 04: MULTI-ROLE ENTERPRISE ARCHITECTURE
+               ====================================================================== -->
+          <section class="cs-section" id="roles">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">Enterprise Personas</span>
+              <h2 class="cs-heading">Architected for 4 Critical User Levels</h2>
+              <p class="cs-subheading">
+                Enterprise LMS platforms fail when designed for a single persona. CALF coordinates governance, coaching, and learning across four distinct user tiers.
+              </p>
+            </div>
+
+            <div class="cs-pillars-grid">
+              <div class="cs-pillar-card">
+                <div class="cs-pillar-icon has-image">
+                  <img src="/assets/calf/illustrations/role_admin.jpg" alt="Admin Master Governance" loading="lazy" />
+                </div>
+                <div class="cs-pillar-content">
+                  <span class="cs-decision-kicker">01 / Master Governance</span>
+                  <h4>Admin Workspace</h4>
+                  <p>Enterprise tenant controls, user provisioning, global permissions, custom white-label branding, and comprehensive compliance auditing.</p>
+                </div>
+              </div>
+
+              <div class="cs-pillar-card">
+                <div class="cs-pillar-icon has-image">
+                  <img src="/assets/calf/illustrations/role_manager.jpg" alt="Manager Team Performance" loading="lazy" />
+                </div>
+                <div class="cs-pillar-content">
+                  <span class="cs-decision-kicker">02 / Team Performance</span>
+                  <h4>Manager Workspace</h4>
+                  <p>Cohort tracking, completion metrics, skill gap detection, and reporting dashboards to monitor workforce readiness.</p>
+                </div>
+              </div>
+
+              <div class="cs-pillar-card">
+                <div class="cs-pillar-icon has-image">
+                  <img src="/assets/calf/illustrations/role_facilitator.jpg" alt="Facilitator Instructor & Coach" loading="lazy" />
+                </div>
+                <div class="cs-pillar-content">
+                  <span class="cs-decision-kicker">03 / Instructor &amp; Coach</span>
+                  <h4>Facilitator Workspace</h4>
+                  <p>Live session scheduling, assignment grading, personalized peer feedback, and automated learner nudges.</p>
+                </div>
+              </div>
+
+              <div class="cs-pillar-card">
+                <div class="cs-pillar-icon has-image">
+                  <img src="/assets/calf/illustrations/role_learner.jpg" alt="Participant Learner Experience" loading="lazy" />
+                </div>
+                <div class="cs-pillar-content">
+                  <span class="cs-decision-kicker">04 / Learner Experience</span>
+                  <h4>Participant Workspace</h4>
+                  <p>Distraction-free video player, interactive micro-learning modules, progress milestones, and seamless resume states.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               SECTION 05: 100% WHITE-LABEL SAAS ARCHITECTURE
+               ====================================================================== -->
+          <section class="cs-section" id="whitelabel">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">Multi-Tenant Theming</span>
+              <h2 class="cs-heading">100% White-Label SaaS — Dynamic Client Branding</h2>
+              <p class="cs-subheading">
+                A core business differentiator for NuVeda was enabling enterprise B2B customers to deploy CALF entirely under their own corporate identity without touching a single line of frontend code.
+              </p>
+            </div>
+
+            <div class="cs-whitelabel-spotlight">
+              <div class="cs-whitelabel-header">
+                <div class="cs-whitelabel-header-content">
+                  <h3>Dynamic Enterprise Theming Engine</h3>
+                  <p>
+                    I architected a token-based theming pipeline where client administrators can configure their brand identity once, dynamically propagating colors, logos, typography, and domains across all four role workspaces.
+                  </p>
+                </div>
+                <span class="cs-media-tag tag-v2">Dynamic Multi-Tenant Engine</span>
+              </div>
+
+              <div class="cs-whitelabel-pillars">
+                <div class="cs-wl-pillar-item">
+                  <div class="cs-wl-pillar-icon has-image">
+                    <img src="/assets/calf/illustrations/wl_branding.jpg" alt="Dynamic Logos & Assets" loading="lazy" />
+                  </div>
+                  <span class="cs-decision-kicker">01 / Brand Assets</span>
+                  <h4>Dynamic Logos &amp; Assets</h4>
+                  <p>Upload corporate marks, favicons, and login splash banners with automated dark/light contrast adaptation.</p>
+                </div>
+
+                <div class="cs-wl-pillar-item">
+                  <div class="cs-wl-pillar-icon has-image">
+                    <img src="/assets/calf/illustrations/wl_darkmode.jpg" alt="Native Dark & Light Mode" loading="lazy" />
+                  </div>
+                  <span class="cs-decision-kicker">02 / Dual-Theme System</span>
+                  <h4>Native Dark &amp; Light Mode</h4>
+                  <p>Engineered a high-contrast dual-theme architecture providing crisp daylight readability and sleek, battery-saving dark mode for enterprise users.</p>
+                </div>
+
+                <div class="cs-wl-pillar-item">
+                  <div class="cs-wl-pillar-icon has-image">
+                    <img src="/assets/calf/illustrations/wl_palette.jpg" alt="Palette Re-Skinning" loading="lazy" />
+                  </div>
+                  <span class="cs-decision-kicker">03 / Color Tokens</span>
+                  <h4>Palette Re-Skinning</h4>
+                  <p>Primary, secondary, and accent colors propagate to buttons, badges, navigation bars, and progress tracks automatically.</p>
+                </div>
+
+                <div class="cs-wl-pillar-item">
+                  <div class="cs-wl-pillar-icon has-image">
+                    <img src="/assets/calf/illustrations/wl_typography.jpg" alt="Custom Font Engine" loading="lazy" />
+                  </div>
+                  <span class="cs-decision-kicker">04 / Typography</span>
+                  <h4>Custom Font Engine</h4>
+                  <p>Support for corporate custom web fonts and Google Fonts so the platform mirrors the client's internal software feel.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               SECTION 06: ADVANCED ENTERPRISE MODULES & AUTHORING ENGINES
+               ====================================================================== -->
+          <section class="cs-section" id="modules">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">Enterprise Engine Design</span>
+              <h2 class="cs-heading">High-Impact Platform Modules Beyond UI Hygiene</h2>
+              <p class="cs-subheading">
+                My responsibilities extended far beyond surface-level visual cleanup. I designed the interaction architectures and workflow UX for complex, mission-critical authoring and commerce engines.
+              </p>
+            </div>
+
+            <!-- Professional NDA / Trade Secrecy Notice -->
+            <div class="cs-nda-banner">
+              <div class="cs-nda-icon-badge">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <div class="cs-nda-content">
+                <span class="cs-decision-kicker">Proprietary IP &amp; Trade Secrets</span>
+                <h4>Confidentiality &amp; Non-Disclosure Notice</h4>
+                <p>
+                  To protect proprietary client IP, commercial trade secrets, and non-disclosure agreements (NDA), internal production UI screens for these modules are intentionally withheld. Below is the high-level system architecture and product design capabilities I established.
+                </p>
+              </div>
+            </div>
+
+            <!-- 6 High-Impact Enterprise Modules -->
+            <div class="cs-modules-grid">
+              <!-- Module 1: AI Course Creation -->
+              <div class="cs-module-card">
+                <div class="cs-module-card-top">
+                  <div class="cs-module-icon">
+                    <img src="/assets/calf/illustrations/mod_aicourse.jpg" alt="AI Course Creation Studio Illustration" loading="lazy" />
+                  </div>
+                  <span class="cs-module-tag">GEN-AI UX</span>
+                </div>
+                <h4>AI Course Creation Studio</h4>
+                <p>Generative AI authoring experience that turns raw subject prompts and corporate SOPs into comprehensive multi-module courses in minutes.</p>
+                <div class="cs-module-chips">
+                  <span class="cs-module-chip">Prompt-to-Syllabus</span>
+                  <span class="cs-module-chip">Auto Quizzes &amp; Rubrics</span>
+                  <span class="cs-module-chip">Human Oversight</span>
+                </div>
+              </div>
+
+              <!-- Module 2: In-Platform Video Content Creation & Editor -->
+              <div class="cs-module-card">
+                <div class="cs-module-card-top">
+                  <div class="cs-module-icon">
+                    <img src="/assets/calf/illustrations/mod_videoeditor.jpg" alt="In-Platform Video Creator &amp; Editor Illustration" loading="lazy" />
+                  </div>
+                  <span class="cs-module-tag">MEDIA STUDIO</span>
+                </div>
+                <h4>In-Platform Video Creator &amp; Editor</h4>
+                <p>Native in-browser video editor embedded directly inside CALF, eliminating reliance on external third-party software for course creators.</p>
+                <div class="cs-module-chips">
+                  <span class="cs-module-chip">Non-Linear Trimming</span>
+                  <span class="cs-module-chip">Checkpoint Quizzes</span>
+                  <span class="cs-module-chip">Screen &amp; Cam Recorder</span>
+                </div>
+              </div>
+
+              <!-- Module 3: PPT Generation & Interactive HTML Editor -->
+              <div class="cs-module-card">
+                <div class="cs-module-card-top">
+                  <div class="cs-module-icon">
+                    <img src="/assets/calf/illustrations/mod_pptslide.jpg" alt="PPT Generation &amp; HTML Slide Editor Illustration" loading="lazy" />
+                  </div>
+                  <span class="cs-module-tag">SLIDE &amp; HTML</span>
+                </div>
+                <h4>PPT Generation &amp; HTML Slide Editor</h4>
+                <p>Interactive presentation engine enabling instructors to import slide decks or author responsive, native HTML slides directly in the browser.</p>
+                <div class="cs-module-chips">
+                  <span class="cs-module-chip">Dynamic PPTX Import</span>
+                  <span class="cs-module-chip">WYSIWYG Layouts</span>
+                  <span class="cs-module-chip">In-Slide Knowledge Checks</span>
+                </div>
+              </div>
+
+              <!-- Module 4: Marketplace & E-Commerce Website Builder -->
+              <div class="cs-module-card">
+                <div class="cs-module-card-top">
+                  <div class="cs-module-icon">
+                    <img src="/assets/calf/illustrations/mod_storefront.jpg" alt="Marketplace &amp; Storefront Builder Illustration" loading="lazy" />
+                  </div>
+                  <span class="cs-module-tag">COMMERCE UX</span>
+                </div>
+                <h4>Marketplace &amp; Storefront Builder</h4>
+                <p>Visual website designer allowing commercial training organizations to publish custom-branded public storefronts and sell courses directly.</p>
+                <div class="cs-module-chips">
+                  <span class="cs-module-chip">Drag &amp; Drop Blocks</span>
+                  <span class="cs-module-chip">Multi-Currency Checkout</span>
+                  <span class="cs-module-chip">Instant Auto-Enrollment</span>
+                </div>
+              </div>
+
+              <!-- Module 5: Automated Certification & Credential Engine -->
+              <div class="cs-module-card">
+                <div class="cs-module-card-top">
+                  <div class="cs-module-icon">
+                    <img src="/assets/calf/illustrations/mod_certification.jpg" alt="Certification &amp; Digital Badging Illustration" loading="lazy" />
+                  </div>
+                  <span class="cs-module-tag">CREDENTIALS</span>
+                </div>
+                <h4>Certification &amp; Digital Badging</h4>
+                <p>Automated credentialing engine generating dynamically-rendered, tamper-evident completion certificates with corporate signatures.</p>
+                <div class="cs-module-chips">
+                  <span class="cs-module-chip">Visual Certificate Canvas</span>
+                  <span class="cs-module-chip">Dynamic Learner Metadata</span>
+                  <span class="cs-module-chip">Verifiable QR Badges</span>
+                </div>
+              </div>
+
+              <!-- Module 6: SCORM & xAPI Compliance Engine -->
+              <div class="cs-module-card">
+                <div class="cs-module-card-top">
+                  <div class="cs-module-icon">
+                    <img src="/assets/calf/illustrations/mod_scorm.jpg" alt="SCORM &amp; xAPI Compliance Engine Illustration" loading="lazy" />
+                  </div>
+                  <span class="cs-module-tag">STANDARDS</span>
+                </div>
+                <h4>SCORM &amp; xAPI Compliance Engine</h4>
+                <p>Robust enterprise e-learning integration framework supporting global interoperability standards across authoring tools and client LMS ecosystems.</p>
+                <div class="cs-module-chips">
+                  <span class="cs-module-chip">SCORM 1.2 &amp; 2004 4th Ed</span>
+                  <span class="cs-module-chip">xAPI Activity Tracking</span>
+                  <span class="cs-module-chip">Manifest Error Diagnostics</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               SECTION 07: CLOUD STORAGE & RESOURCE CREDIT GOVERNANCE
+               ====================================================================== -->
+          <section class="cs-section" id="storage-credits">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">Enterprise FinOps &amp; Governance</span>
+              <h2 class="cs-heading">Storage Quotas, Email Credits &amp; AI Consumption Hub</h2>
+              <p class="cs-subheading">
+                How an unexpected surge in cloud storage and email infrastructure expenses triggered a strategic product redesign — turning an unmonitored operational cost leak into an intuitive, self-serve resource management and monetization engine.
+              </p>
+            </div>
+
+            <!-- Context & Business Problem Callout -->
+            <div class="cs-ai-decision-card" style="border-color: rgba(234, 88, 12, 0.25); background: #FFFDFB; margin-bottom: 28px;">
+              <span class="cs-ai-decision-badge" style="color: #EA580C; background: #FFF7ED; border-color: #FED7AA;">THE BUSINESS CHALLENGE</span>
+              <h4 style="color: #0F172A; font-size: 20px; margin-bottom: 8px;">Uncapped Cloud Storage &amp; Infrastructure Cost Spikes</h4>
+              <p style="margin-bottom: 12px; color: #475569; line-height: 1.6;">
+                As CALF 2.0 scaled across enterprise clients, platform usage surged dramatically. Corporate training administrators and facilitators were uploading gigabytes of uncompressed high-definition video lessons, SCORM packages, and media assets, while triggering hundreds of thousands of automated learner notification emails.
+              </p>
+              <p style="margin-bottom: 12px; color: #475569; line-height: 1.6;">
+                Because legacy CALF had <strong>zero hard storage quotas or email delivery caps</strong>, NuVeda was hit with massive cloud infrastructure bills (AWS S3 storage and transactional email delivery) that the company had to <strong>absorb and pay out-of-pocket</strong> rather than billing back to clients.
+              </p>
+              <p style="color: #475569; line-height: 1.6;">
+                Following an update to our commercial Terms &amp; Conditions (T&amp;C), I was tasked with designing a transparent, self-serve <strong>Credit &amp; Storage Management Hub</strong> that gives enterprise clients real-time visibility into their consumption, allows them to clean up obsolete assets, and provides self-serve add-on purchasing for email credits and Gen-AI blocks.
+              </p>
+            </div>
+
+            <!-- 4 Architecture Pillars of the Resource Governance System -->
+            <div class="cs-principles-grid" style="grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 32px;">
+              <div class="cs-principle-card">
+                <div class="cs-principle-num" style="color: #EA580C;">01</div>
+                <h3>Cloud Storage Meter &amp; Asset Cleanup</h3>
+                <p>
+                  Visual capacity gauges showing real-time GB/TB usage against subscription plan limits. Empowered administrators to audit file categories (videos, SCORMs, documents) and directly delete orphan files to reclaim allocated storage.
+                </p>
+              </div>
+
+              <div class="cs-principle-card">
+                <div class="cs-principle-num" style="color: #EA580C;">02</div>
+                <h3>Email Notification Quota &amp; Top-Ups</h3>
+                <p>
+                  Granular tracking of automated transactional emails and learner campaigns. Proactive threshold warnings (80% / 90%) prevent bounced reminder emails, with instant self-serve purchasing of add-on email credit packs.
+                </p>
+              </div>
+
+              <div class="cs-principle-card">
+                <div class="cs-principle-num" style="color: #EA580C;">03</div>
+                <h3>AI Credit Blocks &amp; Authoring Balance</h3>
+                <p>
+                  Dedicated balance meters for Generative AI authoring features (AI Course Creator, automated quiz generator, and lesson summarizers), allowing teams to buy supplementary credit blocks on-demand.
+                </p>
+              </div>
+
+              <div class="cs-principle-card">
+                <div class="cs-principle-num" style="color: #EA580C;">04</div>
+                <h3>Ambient Menubar Quick-Access Widget</h3>
+                <p>
+                  A compact, non-intrusive status indicator situated persistently at the bottom of the main navigation menubar, providing at-a-glance capacity health and a one-click gateway to the management hub.
+                </p>
+              </div>
+            </div>
+
+            <!-- Full UI Showcase: Credits & Storage Dashboard -->
+            <div class="cs-post-onboarding-showcase" style="margin-top: 12px; margin-bottom: 32px;">
+              <h3 style="font-family: var(--font-serif-heading); font-size: 24px; margin-bottom: 8px; color: #0F172A;">
+                The Credits &amp; Storage Management Hub Interface
+              </h3>
+              <p style="font-family: var(--font-manrope); font-size: 14.5px; color: #475569; max-width: 820px; text-align: center; margin-bottom: 20px;">
+                Designed end-to-end to provide transparent usage tracking, self-serve credit purchasing, and asset deletion tools. Click on the dashboard screen below to inspect full UI details.
+              </p>
+              <img
+                src="/assets/calf/media/credits-and-storage.png"
+                alt="CALF Credits and Cloud Storage Management Page Dashboard Screen"
+                class="cs-post-onboarding-img cs-showcase-image"
+                loading="lazy"
+                data-zoomable="true"
+              />
+              <span class="cs-post-onboarding-caption">
+                Figure: CALF 2.0 Credits &amp; Storage Control Center — Real-time storage meter, email delivery volume, AI credit balances, and self-serve top-up actions.
+              </span>
+            </div>
+
+            <!-- Sidebar Micro-Interaction Callout with Indicator Image -->
+            <div class="cs-whitelabel-spotlight" style="padding: 24px 28px; background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 16px; margin-top: 16px;">
+              <div style="display: flex; gap: 28px; align-items: center;">
+                <div style="flex-shrink: 0; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                  <img
+                    src="/assets/calf/media/credits-indicator-sidebar.png"
+                    alt="CALF Menubar Bottom Storage and Credit Indicator Widget"
+                    style="max-width: 140px; height: auto; display: block; border-radius: 6px;"
+                    data-zoomable="true"
+                  />
+                </div>
+                <div style="flex: 1;">
+                  <span class="cs-decision-kicker" style="color: #EA580C; font-weight: 700; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;">AMBIENT NAVIGATION WIDGET</span>
+                  <h4 style="font-family: var(--font-serif-heading); font-size: 20px; color: #0F172A; margin: 4px 0 8px;">Persistent Menubar Status Indicator</h4>
+                  <p style="font-family: var(--font-manrope); font-size: 14px; color: #475569; line-height: 1.6; margin: 0;">
+                    To keep resource consumption top-of-mind without distracting administrators during daily LMS management, I embedded a persistent widget at the bottom of the navigation menubar. It provides immediate status cues and one-click quick jump into the storage and billing panel, drastically reducing quota shock and emergency support tickets.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               SECTION 08: MEASURABLE BUSINESS & DESIGN OUTCOMES
+               ====================================================================== -->
+          <section class="cs-section" id="outcomes">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">Measurable Results</span>
+              <h2 class="cs-heading">Impact Across Enterprise Deployments</h2>
+            </div>
+
+            <div class="cs-outcomes-card">
+              <div class="cs-outcomes-lead">
+                <h3>Scalable enterprise foundation</h3>
+                <p>
+                  The CALF 2.0 overhaul and new FinOps storage governance reconciled legacy stability with modern SaaS aesthetics, enabling NuVeda to onboard enterprise corporate clients with dynamic white-label branding, zero custom engineering overhead, and 100% cloud cost recovery.
+                </p>
+              </div>
+
+              <div class="cs-metrics-quad">
+                <div class="cs-metric-box">
+                  <div class="cs-metric-stat">-65%</div>
+                  <div class="cs-metric-label">Course Creation Time</div>
+                  <div class="cs-metric-sub">With new creator studio</div>
+                </div>
+
+                <div class="cs-metric-box">
+                  <div class="cs-metric-stat">+38%</div>
+                  <div class="cs-metric-label">Course Completion</div>
+                  <div class="cs-metric-sub">Across learner cohorts</div>
+                </div>
+
+                <div class="cs-metric-box">
+                  <div class="cs-metric-stat">100%</div>
+                  <div class="cs-metric-label">Cost Recovery</div>
+                  <div class="cs-metric-sub">Zero out-of-pocket cloud overages</div>
+                </div>
+
+                <div class="cs-metric-box">
+                  <div class="cs-metric-stat">100%</div>
+                  <div class="cs-metric-label">White-Label Ready</div>
+                  <div class="cs-metric-sub">Multi-tenant client theming</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               FOOTER & RECRUITER ACTION HUB
+               ====================================================================== -->
+          <footer class="cs-footer">
+            <h3 class="cs-footer-title">Let's build something extraordinary together.</h3>
+            <p class="cs-footer-desc">
+              Looking for a Product Designer who turns complex enterprise platforms into intuitive, high-adoption software? Let's connect.
+            </p>
+
+            <div class="cs-footer-actions">
+              <a href="mailto:naveenpullagura@gmail.com?subject=Design%20Opportunity%20-%20Naveen%20Pullagura" class="cs-footer-btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span>Get in Touch</span>
+              </a>
+
+              <a href="/nu-coach.html" class="cs-footer-btn-secondary">
+                <span>Next Case Study: NU Coach AI</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+
+            <div class="cs-footer-links-row">
+              <a href="/portfolio-home.html#nuveda-projects" class="cs-footer-sublink">← Back to All Projects</a>
+              <span class="cs-footer-dot">·</span>
+              <a href="#" class="cs-footer-sublink" id="back-to-top-btn">Back to Top ↑</a>
+            </div>
+
+            <p class="cs-footer-copy">© 2026 Naveen Pullagura · Product Designer at NuVeda Learning</p>
+          </footer>
+
+        </main>
+      </div>
+    </div>
+
+    <!-- Interactive script -->
+    <script type="module" src="/src/case-study.js"></script>
+  </body>
+</html>

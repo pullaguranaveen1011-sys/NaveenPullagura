@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NuVeda 360 Survey Platform — Product Design Case Study | Naveen Pullagura</title>
+    <meta
+      name="description"
+      content="A comprehensive Product Design case study by Naveen Pullagura: Unbundling an LMS module into an autonomous, AI-augmented enterprise 360 feedback platform."
+    />
+
+    <!-- Google Fonts: Balthazar, Cormorant Garamond, Manrope, Newsreader & JetBrains Mono (Design System) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Balthazar&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Dedicated Full-Screen Case Study Stylesheet -->
+    <link rel="stylesheet" href="/src/case-study.css" />
+
+    <script>
+      (function() {
+        try {
+          if (sessionStorage.getItem('curtain_reveal_pending') === '1') {
+            document.documentElement.classList.add('curtain-opening');
+            var col = sessionStorage.getItem('curtain_reveal_color') || '#0D9488';
+            document.documentElement.style.setProperty('--curtain-active-color', col);
+            setTimeout(function() {
+              document.documentElement.classList.remove('curtain-opening');
+            }, 2500);
+          }
+        } catch(e) {}
+      })();
+    </script>
+  </head>
+  <body class="cs-standalone-page theme-nu360">
+    <!-- Great UI Vertical Curtain Page Transition (0.3s Fast Duration) -->
+    <div id="curtain-page-transition" class="curtain-page-transition state-idle" aria-hidden="true">
+      <div class="curtain-panel curtain-panel-top"></div>
+      <div class="curtain-panel curtain-panel-bottom"></div>
+    </div>
+    
+    <!-- Ethereal Background Glow -->
+    <div class="cs-bg-ambient-glow" aria-hidden="true"></div>
+
+    <!-- Reading Progress Bar -->
+    <div class="cs-reading-progress-track" aria-hidden="true">
+      <div class="cs-reading-progress-fill" id="cs-progress-fill"></div>
+    </div>
+
+    <!-- Master Header Navigation (Synced with Portfolio Design System) -->
+    <header class="cs-navbar" id="cs-navbar">
+      <div class="cs-navbar-inner">
+        <div class="cs-navbar-left">
+          <a href="/portfolio-home.html#hero" class="logo-pill" id="site-logo" title="Return to Home">
+            Naveen Pullagura
+          </a>
+        </div>
+
+        <nav class="nav-pills-group" aria-label="Case study sections">
+          <a href="#overview" class="nav-pill active">Overview</a>
+          <a href="#problem" class="nav-pill">Problem</a>
+          <a href="#decisions" class="nav-pill">Decisions</a>
+          <a href="#onboarding" class="nav-pill">Onboarding</a>
+          <a href="#solution" class="nav-pill">Solution</a>
+          <a href="#principles" class="nav-pill">Principles</a>
+          <a href="#outcomes" class="nav-pill">Outcomes</a>
+        </nav>
+
+        <div class="cs-navbar-right">
+          <a href="/portfolio-home.html#nuveda-projects" class="nav-pill" id="nav-work-return" title="Back to NuVeda Projects">
+            <span>Work</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-left: 4px;">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Open-Bottom Container Frame (Continuous Portfolio Design Language) -->
+    <div class="cs-container-frame" id="cs-container-frame">
+      <div class="cs-container-card">
+        <main class="cs-page-wrapper">
+      
+      <!-- HERO SHOWCASE SECTION -->
+      <section class="cs-hero" id="overview">
+        <h1 class="cs-hero-title">
+          NuVeda 360 Survey Platform
+        </h1>
+
+        <p class="cs-hero-subtitle">
+          Transforming fragmented 360 feedback into a streamlined, autonomous enterprise SaaS platform.
+        </p>
+
+        <!-- Clean Large Dashboard Image (No Outer Browser Mockup Container) -->
+        <div class="cs-hero-image-wrapper">
+          <img
+            src="/assets/nu360/hero-thumbnail.png"
+            alt="NuVeda 360 Survey Platform Dashboard"
+            class="cs-hero-clean-img"
+            loading="eager"
+          />
+        </div>
+      </section>
+
+      <!-- SECTION 01: PRODUCT OVERVIEW & ARCHITECTURAL SCOPE -->
+      <section class="cs-section" id="scope">
+        <div class="cs-overview-card">
+          <div class="cs-overview-header">
+            <div class="cs-overview-title-group">
+              <h2>NuVeda 360 — <span class="cs-teal-text">Standalone 360-feedback product</span></h2>
+              <span class="cs-overview-category">OVERVIEW &amp; SCOPE</span>
+            </div>
+            <div class="cs-step-indicator-pill">
+              <span>01</span>
+              <span>Product Shift</span>
+            </div>
+          </div>
+
+          <p class="cs-overview-lead">
+            Originally built as a 360-degree feedback module tucked inside NuVeda's core LMS (CALF), leadership recognized strong enterprise demand and decided to spin it off into an autonomous commercial product. However, the initial engineering extraction was disjointed: missing onboarding, lacking enterprise white-labeling, and saddled with complex LMS navigation paths. Partnering closely with NuVeda leadership and engineering, I led the end-to-end UX redesign—establishing the standalone information architecture, 3-step white-label onboarding, and production design system.
+          </p>
+
+          <!-- Executive Project Snapshot (Replaces duplicate pillars with high-value recruiter context) -->
+          <div class="cs-project-snapshot-grid">
+            <div class="cs-snapshot-item">
+              <span class="cs-snapshot-label">Role &amp; Ownership</span>
+              <span class="cs-snapshot-val">Solo Product Designer</span>
+              <span class="cs-snapshot-sub">Led end-to-end UX, IA &amp; UI specs</span>
+            </div>
+            <div class="cs-snapshot-item">
+              <span class="cs-snapshot-label">Timeline &amp; Velocity</span>
+              <span class="cs-snapshot-val">6-Week Sprint</span>
+              <span class="cs-snapshot-sub">Discovery to dev production handover</span>
+            </div>
+            <div class="cs-snapshot-item">
+              <span class="cs-snapshot-label">Product Transformation</span>
+              <span class="cs-snapshot-val">LMS Module → Standalone SaaS</span>
+              <span class="cs-snapshot-sub">Unbundled multi-tenant platform</span>
+            </div>
+            <div class="cs-snapshot-item">
+              <span class="cs-snapshot-label">Key Deliverables</span>
+              <span class="cs-snapshot-val">Fixing UX Flows &amp; IA</span>
+              <span class="cs-snapshot-sub">3-Step Onboarding, White-Labeling &amp; AI Builder</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: THE PROBLEM -->
+      <section class="cs-section" id="problem">
+        <div class="cs-section-header">
+          <span class="cs-eyebrow">THE PROBLEM</span>
+          <h2 class="cs-heading">A fragmented experience trapped inside the LMS</h2>
+          <p class="cs-subheading">Why the original module failed to function as an independent enterprise product</p>
+        </div>
+
+        <!-- 1-to-1 Architectural Transformation Matrix -->
+        <div class="cs-transformation-matrix">
+          <div class="cs-matrix-header">
+            <div class="cs-matrix-col-header">
+              <span class="cs-matrix-badge badge-legacy">Legacy LMS Module</span>
+              <span class="cs-matrix-sub">Friction &amp; Structural Blockers</span>
+            </div>
+            <div class="cs-matrix-col-header" style="justify-content: center;">
+              <span class="cs-matrix-shift-label">Shift</span>
+            </div>
+            <div class="cs-matrix-col-header">
+              <span class="cs-matrix-badge badge-saas">Autonomous NU 360</span>
+              <span class="cs-matrix-sub">Redesigned SaaS Architecture</span>
+            </div>
+          </div>
+
+          <div class="cs-matrix-rows">
+            <!-- Row 1: Onboarding -->
+            <div class="cs-matrix-row">
+              <div class="cs-matrix-cell cs-cell-legacy">
+                <div class="cs-cell-tag-row">
+                  <span class="cs-cell-kicker">01 / Onboarding</span>
+                  <span class="cs-cell-metric metric-bad">Zero Guidance</span>
+                </div>
+                <h4 class="cs-cell-title">Blank Table Dumping Ground</h4>
+                <p class="cs-cell-desc">Admins were dropped directly into raw, unformatted data tables with zero setup wizard, causing immediate drop-off and support tickets.</p>
+              </div>
+
+              <div class="cs-matrix-divider">
+                <div class="cs-divider-line"></div>
+                <div class="cs-divider-icon" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 3L11 8L6 13" stroke="#0D9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="cs-divider-line"></div>
+              </div>
+
+              <div class="cs-matrix-cell cs-cell-saas">
+                <div class="cs-cell-tag-row">
+                  <span class="cs-cell-kicker cs-kicker-saas">Self-Serve Activation</span>
+                  <span class="cs-cell-metric metric-good">&lt; 3 Min Setup</span>
+                </div>
+                <h4 class="cs-cell-title">3-Step Guided Setup Wizard</h4>
+                <p class="cs-cell-desc">Step-by-step onboarding sequence handling workspace URL claim, domain verification, and initial survey launch in under 3 minutes.</p>
+              </div>
+            </div>
+
+            <!-- Row 2: White-Labeling -->
+            <div class="cs-matrix-row">
+              <div class="cs-matrix-cell cs-cell-legacy">
+                <div class="cs-cell-tag-row">
+                  <span class="cs-cell-kicker">02 / Branding</span>
+                  <span class="cs-cell-metric metric-bad">0% Customization</span>
+                </div>
+                <h4 class="cs-cell-title">Hardcoded LMS Theme</h4>
+                <p class="cs-cell-desc">Enterprise clients couldn't customize rater portals with their corporate identity, eroding employee trust in peer appraisals.</p>
+              </div>
+
+              <div class="cs-matrix-divider">
+                <div class="cs-divider-line"></div>
+                <div class="cs-divider-icon" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 3L11 8L6 13" stroke="#0D9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="cs-divider-line"></div>
+              </div>
+
+              <div class="cs-matrix-cell cs-cell-saas">
+                <div class="cs-cell-tag-row">
+                  <span class="cs-cell-kicker cs-kicker-saas">Enterprise Identity</span>
+                  <span class="cs-cell-metric metric-good">100% White-Label</span>
+                </div>
+                <h4 class="cs-cell-title">Multi-Tenant Theming Engine</h4>
+                <p class="cs-cell-desc">Enables clients to customize subdomains, upload logos, and apply brand colors with instant live CSS preview across rater evaluation portals.</p>
+              </div>
+            </div>
+
+            <!-- Row 3: Navigation -->
+            <div class="cs-matrix-row">
+              <div class="cs-matrix-cell cs-cell-legacy">
+                <div class="cs-cell-tag-row">
+                  <span class="cs-cell-kicker">03 / Navigation</span>
+                  <span class="cs-cell-metric metric-bad">5 Levels Deep</span>
+                </div>
+                <h4 class="cs-cell-title">Trapped Inside LMS Menus</h4>
+                <p class="cs-cell-desc">Extreme context-switching friction; admins had to dig through unrelated course hierarchies to locate active review cycles.</p>
+              </div>
+
+              <div class="cs-matrix-divider">
+                <div class="cs-divider-line"></div>
+                <div class="cs-divider-icon" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 3L11 8L6 13" stroke="#0D9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="cs-divider-line"></div>
+              </div>
+
+              <div class="cs-matrix-cell cs-cell-saas">
+                <div class="cs-cell-tag-row">
+                  <span class="cs-cell-kicker cs-kicker-saas">Standalone IA</span>
+                  <span class="cs-cell-metric metric-good">3-Tier SaaS IA</span>
+                </div>
+                <h4 class="cs-cell-title">Autonomous 3-Tier Navigation</h4>
+                <p class="cs-cell-desc">Clean SaaS information architecture with dedicated workspaces, isolated rater evaluation views, and integrated wallet administration.</p>
+              </div>
+            </div>
+
+            <!-- Row 4: Survey Setup -->
+            <div class="cs-matrix-row">
+              <div class="cs-matrix-cell cs-cell-legacy">
+                <div class="cs-cell-tag-row">
+                  <span class="cs-cell-kicker">04 / Survey Setup</span>
+                  <span class="cs-cell-metric metric-bad">3–4 Hours / Cycle</span>
+                </div>
+                <h4 class="cs-cell-title">Exhausting Manual Input</h4>
+                <p class="cs-cell-desc">HR managers had to write 50+ role-specific competencies and rubrics manually from scratch every cycle, causing severe fatigue.</p>
+              </div>
+
+              <div class="cs-matrix-divider">
+                <div class="cs-divider-line"></div>
+                <div class="cs-divider-icon" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 3L11 8L6 13" stroke="#0D9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="cs-divider-line"></div>
+              </div>
+
+              <div class="cs-matrix-cell cs-cell-saas">
+                <div class="cs-cell-tag-row">
+                  <span class="cs-cell-kicker cs-kicker-saas">AI Acceleration</span>
+                  <span class="cs-cell-metric metric-good">12-Min Synthesis</span>
+                </div>
+                <h4 class="cs-cell-title">AI-Assisted Survey Builder</h4>
+                <p class="cs-cell-desc">Generates calibrated role competencies, rating scales, and behavioral rubrics in 12 minutes via natural language prompts and token validation.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-problem-note-banner">
+          The previous LMS extraction was disorganized, slow, and lacked essential enterprise features. I restructured the journey from the ground up to establish market-ready SaaS autonomy.
+        </div>
+
+        <!-- Forensic Screen-by-Screen Audit Spotlight -->
+        <div class="cs-audit-card">
+          <div class="cs-audit-icon-box">
+            <img src="/assets/nu360/illustrations/audit.jpg" alt="Figma Forensic Screen Audit Illustration" loading="lazy" />
+          </div>
+          <div class="cs-audit-body">
+            <h4>My Screen-by-Screen Forensic Audit in Figma</h4>
+            <p>
+              Because this was my very first project at NuVeda, I took screenshots of every single existing legacy screen and user flow. In Figma, I mapped each screen sequentially against the user's mental model. This forensic audit uncovered critical structural flaws: buried action buttons, unformatted data tables, and an absence of loading states that caused duplicate form submissions.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: KEY DECISIONS -->
+      <section class="cs-section" id="decisions">
+        <div class="cs-section-header">
+          <span class="cs-eyebrow">KEY DECISIONS</span>
+          <h2 class="cs-heading">Strategic choices that shaped the product</h2>
+          <p class="cs-subheading">Core architectural decisions made during discovery and technical scoping</p>
+        </div>
+
+        <div class="cs-decisions-grid">
+          <div class="cs-decision-item">
+            <div class="cs-decision-icon">
+              <img src="/assets/nu360/illustrations/unbundled.jpg" alt="Unbundling from LMS Illustration" loading="lazy" />
+            </div>
+            <div class="cs-decision-content">
+              <span class="cs-decision-kicker">01 / Architecture</span>
+              <h3 class="cs-decision-title">Unbundling from LMS</h3>
+              <p class="cs-decision-desc">Created an independent information architecture, workspace isolation, and dedicated dashboard so the product could operate as a standalone SaaS tool.</p>
+            </div>
+          </div>
+
+          <div class="cs-decision-item">
+            <div class="cs-decision-icon">
+              <img src="/assets/nu360/illustrations/onboarding.jpg" alt="Seamless Onboarding Illustration" loading="lazy" />
+            </div>
+            <div class="cs-decision-content">
+              <span class="cs-decision-kicker">02 / Onboarding</span>
+              <h3 class="cs-decision-title">Seamless Onboarding</h3>
+              <p class="cs-decision-desc">Replaced manual IT configurations with an intuitive 3-step setup flow that guides admins from signup to their first active survey in under 3 minutes.</p>
+            </div>
+          </div>
+
+          <div class="cs-decision-item">
+            <div class="cs-decision-icon">
+              <img src="/assets/nu360/illustrations/whitelabel.jpg" alt="Enterprise White-Labeling Illustration" loading="lazy" />
+            </div>
+            <div class="cs-decision-content">
+              <span class="cs-decision-kicker">03 / White-Labeling</span>
+              <h3 class="cs-decision-title">Enterprise White-Labeling</h3>
+              <p class="cs-decision-desc">Enabled enterprise clients to fully customize workspace URLs, logos, and primary brand colors with real-time rater portal live previews.</p>
+            </div>
+          </div>
+
+          <div class="cs-decision-item">
+            <div class="cs-decision-icon">
+              <img src="/assets/nu360/illustrations/aicredits.jpg" alt="AI Survey Builder Illustration" loading="lazy" />
+            </div>
+            <div class="cs-decision-content">
+              <span class="cs-decision-kicker">04 / AI Synthesis</span>
+              <h3 class="cs-decision-title">AI-Assisted Survey Creation</h3>
+              <p class="cs-decision-desc">Integrated prompt-driven 360 competency synthesis supported by a transparent AI Credits purchase and validation system.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: 01 ONBOARDING EXPERIENCE -->
+      <section class="cs-section" id="onboarding">
+        <div class="cs-section-header">
+          <span class="cs-eyebrow">01 / ONBOARDING EXPERIENCE</span>
+          <h2 class="cs-heading">Getting started should be effortless</h2>
+          <p class="cs-subheading">Every enterprise tool needs to establish trust in the first 3 minutes. I designed an intuitive 3-step onboarding sequence.</p>
+        </div>
+
+        <div class="cs-step-rows-container">
+          <!-- Step 1: Workspace URL -->
+          <div class="cs-step-row">
+            <div class="cs-step-text-col">
+              <span class="cs-step-pill-tag">STEP 01</span>
+              <h3>Workspace URL &amp; Subdomain</h3>
+              <p>
+                Admins define their custom workspace URL (e.g., <code>company.nu360.com</code>). The interface provides real-time validation to verify domain availability immediately, establishing organizational boundaries.
+              </p>
+            </div>
+            <div class="cs-step-media-col">
+              <img
+                src="/assets/nu360/step-1-account.png"
+                alt="Step 1: Workspace URL & Subdomain Setup"
+                class="cs-clean-media-img"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <!-- Step 2: Org Profile (Reversed Row) -->
+          <div class="cs-step-row is-reversed">
+            <div class="cs-step-text-col">
+              <span class="cs-step-pill-tag">STEP 02</span>
+              <h3>Organization Profile &amp; White-Labeling</h3>
+              <p>
+                Enterprise clients need their employees to trust the survey source. Admins upload their logo and select primary brand colors with a dynamic live preview of the rater evaluation interface.
+              </p>
+            </div>
+            <div class="cs-step-media-col">
+              <img
+                src="/assets/nu360/step-2-org-profile.png"
+                alt="Step 2: Organization Profile & White-Labeling"
+                class="cs-clean-media-img"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <!-- Step 3: Language Settings (Single Clean Image, Right-Side Extra Removed) -->
+          <div class="cs-step-row">
+            <div class="cs-step-text-col">
+              <span class="cs-step-pill-tag">STEP 03</span>
+              <h3>Language Settings &amp; Verification</h3>
+              <p>
+                Configuring multi-lingual support for global enterprise workforces and establishing two-factor email verification to protect sensitive feedback data.
+              </p>
+            </div>
+            <div class="cs-step-media-col">
+              <img
+                src="/assets/nu360/step-3-language.png"
+                alt="Step 3: Language Settings Interface"
+                class="cs-clean-media-img"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Post-Onboarding Command Center Showcase (Clean, Sharp Image & Clear Explanation) -->
+        <div class="cs-post-onboarding-showcase">
+          <img
+            src="/assets/nu360/hero-thumbnail.png"
+            alt="Unified Post-Onboarding Dashboard"
+            class="cs-post-onboarding-img"
+            loading="lazy"
+          />
+          <p class="cs-post-onboarding-caption">
+            <strong>The Post-Onboarding Command Center:</strong> After completing the 3-step setup, administrators arrive at a unified dashboard displaying active 360 feedback cycles, rater completion rates, and an always-accessible AI credit balance.
+          </p>
+        </div>
+      </section>
+
+      <!-- SECTION: 02 THE SOLUTION -->
+      <section class="cs-section" id="solution">
+        <div class="cs-section-header">
+          <span class="cs-eyebrow">02 / THE SOLUTION</span>
+          <h2 class="cs-heading">A cohesive product journey from onboarding to value</h2>
+          <p class="cs-subheading">Transforming complex administrative workflows into streamlined, AI-augmented experiences.</p>
+        </div>
+
+        <!-- Solution Pair 1: Survey Hub & AI Builder (Direct Clean Images, No Nested Containers) -->
+        <div class="cs-solution-pair-grid">
+          <div class="cs-sol-card">
+            <div class="cs-sol-header">
+              <span class="cs-sol-tag">HUB</span>
+              <h3 class="cs-sol-title">Survey Hub &amp; Reviewer Management</h3>
+            </div>
+            <p class="cs-sol-desc">
+              Real-time visual progress bars breaking down completion across Self, Peer, and Manager raters, paired with automated 1-click scheduled reminder emails.
+            </p>
+            <img
+              src="/assets/nu360/survey-hub.png"
+              alt="Survey Hub"
+              class="cs-sol-clean-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="cs-sol-card">
+            <div class="cs-sol-header">
+              <span class="cs-sol-tag">AI</span>
+              <h3 class="cs-sol-title">Prompt-Driven Survey Creation</h3>
+            </div>
+            <p class="cs-sol-desc">
+              Admins simply specify the target role and evaluation focus areas. The AI generates a balanced multi-rater rubric with measurable behavioral indicators in seconds.
+            </p>
+            <img
+              src="/assets/nu360/survey-creation.png"
+              alt="AI Survey Creation"
+              class="cs-sol-clean-img"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <!-- Solution Pair 2: Credit Wallet & History (Direct Clean Images, No Nested Containers) -->
+        <div class="cs-solution-pair-grid">
+          <div class="cs-sol-card">
+            <div class="cs-sol-header">
+              <span class="cs-sol-tag">WALLET</span>
+              <h3 class="cs-sol-title">AI Credit Wallet &amp; Top-Up</h3>
+            </div>
+            <p class="cs-sol-desc">
+              Always-accessible wallet displaying remaining credits, token burn rate, and 1-click tier upgrade packs without navigating away from active surveys.
+            </p>
+            <img
+              src="/assets/nu360/credit-wallet.png"
+              alt="AI Credit Wallet"
+              class="cs-sol-clean-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="cs-sol-card">
+            <div class="cs-sol-header">
+              <span class="cs-sol-tag">AUDIT</span>
+              <h3 class="cs-sol-title">Credit History &amp; Transaction Log</h3>
+            </div>
+            <p class="cs-sol-desc">
+              Complete historical ledger of purchased credit batches, invoice receipts, and transparent breakdowns of which survey cycles consumed credits.
+            </p>
+            <img
+              src="/assets/nu360/credit-history.png"
+              alt="Credit History"
+              class="cs-sol-clean-img"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <!-- Key AI UX Decision Card -->
+        <div class="cs-ai-decision-card">
+          <span class="cs-ai-decision-badge">KEY AI UX DECISION</span>
+          <h4>Pre-Flight Cost Transparency</h4>
+          <p>
+            Before any AI generation starts, the UI surfaces a clear confirmation: <em>"Generating this 360 framework will consume 5 credits. Your balance: 42 credits."</em> This simple confirmation eliminated billing anxiety and prevented accidental token waste.
+          </p>
+        </div>
+      </section>
+
+      <!-- SECTION: DESIGN PRINCIPLES -->
+      <section class="cs-section" id="principles">
+        <div class="cs-section-header">
+          <span class="cs-eyebrow">DESIGN PRINCIPLES</span>
+          <h2 class="cs-heading">A senior design reflection on NuVeda 360</h2>
+          <p class="cs-subheading">Lessons and systems thinking principles distilled from leading this enterprise redesign</p>
+        </div>
+
+        <div class="cs-principles-grid">
+          <div class="cs-principle-card">
+            <div class="cs-principle-num">01</div>
+            <h3>Architect for Autonomy, Not Just Independence</h3>
+            <p>
+              You cannot simply rip a feature out of a monolith LMS and slap a new logo on it. Standalone products require their own authentication, workspace navigation, multi-tenant billing, and onboarding mental models.
+            </p>
+          </div>
+
+          <div class="cs-principle-card">
+            <div class="cs-principle-num">02</div>
+            <h3>Economic Clarity Drives AI Adoption</h3>
+            <p>
+              When introducing generative AI into enterprise B2B SaaS, the interaction design must make token costs transparent. Surfacing credit previews before generation gave HR admins complete peace of mind.
+            </p>
+          </div>
+
+          <div class="cs-principle-card">
+            <div class="cs-principle-num">03</div>
+            <h3>Speed to Value Outranks Feature Quantity</h3>
+            <p>
+              By shrinking onboarding down to 3 minutes and survey creation from 4 hours to 12 minutes, we delivered immediate commercial ROI without cluttering the interface with unnecessary bells and whistles.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: WHAT HAPPENED (OUTCOMES) -->
+      <section class="cs-section" id="outcomes">
+        <div class="cs-section-header">
+          <span class="cs-eyebrow">WHAT HAPPENED</span>
+          <h2 class="cs-heading">A clearer workflow validated the standalone product</h2>
+          <p class="cs-subheading">Quantifiable business impact and design efficiency achievements</p>
+        </div>
+
+        <div class="cs-outcomes-card">
+          <div class="cs-outcomes-lead">
+            <h3>Validated Standalone SaaS Viability</h3>
+            <p>
+              NuVeda successfully unbundled the module into an independent product line, enabling direct sales pitches to enterprise HR teams seeking dedicated 360-degree feedback tools.
+            </p>
+          </div>
+
+          <div class="cs-metrics-quad">
+            <div class="cs-metric-box">
+              <div class="cs-metric-stat">-90%</div>
+              <div class="cs-metric-label">Survey Creation Time</div>
+              <div class="cs-metric-sub">From ~4 hours to ~12 minutes (measured in internal pilot testing)</div>
+            </div>
+
+            <div class="cs-metric-box">
+              <div class="cs-metric-stat">&lt; 3 Min</div>
+              <div class="cs-metric-label">Self-Serve Onboarding</div>
+              <div class="cs-metric-sub">Zero IT configuration needed</div>
+            </div>
+
+            <div class="cs-metric-box">
+              <div class="cs-metric-stat">100%</div>
+              <div class="cs-metric-label">White-Label Ready</div>
+              <div class="cs-metric-sub">Multi-tenant custom branding</div>
+            </div>
+
+            <div class="cs-metric-box">
+              <div class="cs-metric-stat">0 Defects</div>
+              <div class="cs-metric-label">Production Handover</div>
+              <div class="cs-metric-sub">Complete Figma design tokens</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER & RECRUITER ACTION HUB -->
+      <footer class="cs-footer">
+        <h3 class="cs-footer-title">Let's build something extraordinary together.</h3>
+        <p class="cs-footer-desc">
+          Looking for a Product Designer who turns complex enterprise workflows into clean, high-adoption software? Let's talk.
+        </p>
+
+        <div class="cs-footer-actions">
+          <a href="mailto:naveenpullagura@gmail.com?subject=Design%20Opportunity%20-%20Naveen%20Pullagura" class="cs-footer-btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span>Get in Touch</span>
+          </a>
+
+          <a href="/calf.html" class="cs-footer-btn-secondary">
+            <span>Next Case Study: CALF 2.0</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+
+        <div class="cs-footer-links-row">
+          <a href="/portfolio-home.html#nuveda-projects" class="cs-footer-sublink">← Back to All Projects</a>
+          <span class="cs-footer-dot">·</span>
+          <a href="#" class="cs-footer-sublink" id="back-to-top-btn">Back to Top ↑</a>
+        </div>
+
+        <p class="cs-footer-copy">© 2026 Naveen Pullagura · Product Designer at NuVeda Learning</p>
+      </footer>
+
+        </main>
+      </div>
+    </div>
+
+    <!-- Interactive script -->
+    <script type="module" src="/src/case-study.js"></script>
+  </body>
+</html>

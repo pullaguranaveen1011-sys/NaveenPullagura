@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NU Coach — AI-Powered Gamified Workplace Coaching Platform | Naveen Pullagura</title>
+    <meta
+      name="description"
+      content="A comprehensive Product Design case study by Naveen Pullagura: Transforming an unrefined, AI-coded Lovable prototype into an enterprise-grade gamified AI coaching and scenario simulation platform."
+    />
+
+    <!-- Google Fonts: Balthazar, Cormorant Garamond, Manrope, Newsreader & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Balthazar&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Dedicated Full-Screen Case Study Stylesheet -->
+    <link rel="stylesheet" href="/src/case-study.css" />
+
+    <script>
+      (function() {
+        try {
+          if (sessionStorage.getItem('curtain_reveal_pending') === '1') {
+            document.documentElement.classList.add('curtain-opening');
+            var col = sessionStorage.getItem('curtain_reveal_color') || '#6366F1';
+            document.documentElement.style.setProperty('--curtain-active-color', col);
+            setTimeout(function() {
+              document.documentElement.classList.remove('curtain-opening');
+            }, 2500);
+          }
+        } catch(e) {}
+      })();
+    </script>
+  </head>
+  <body class="cs-standalone-page theme-nucoach">
+    <!-- Great UI Vertical Curtain Page Transition (0.3s Fast Duration) -->
+    <div id="curtain-page-transition" class="curtain-page-transition state-idle" aria-hidden="true">
+      <div class="curtain-panel curtain-panel-top"></div>
+      <div class="curtain-panel curtain-panel-bottom"></div>
+    </div>
+    
+    <!-- Ethereal Background Glow -->
+    <div class="cs-bg-ambient-glow" aria-hidden="true"></div>
+
+    <!-- Reading Progress Bar -->
+    <div class="cs-reading-progress-track" aria-hidden="true">
+      <div class="cs-reading-progress-fill" id="cs-progress-fill"></div>
+    </div>
+
+    <!-- Master Header Navigation (Synced with Portfolio Design System) -->
+    <header class="cs-navbar" id="cs-navbar">
+      <div class="cs-navbar-inner">
+        <div class="cs-navbar-left">
+          <a href="/portfolio-home.html#hero" class="logo-pill" id="site-logo" title="Return to Home">
+            Naveen Pullagura
+          </a>
+        </div>
+
+        <nav class="nav-pills-group" aria-label="Case study sections">
+          <a href="#hero" class="nav-pill active">Overview</a>
+          <a href="#initial-condition" class="nav-pill">Genesis</a>
+          <a href="#strategy" class="nav-pill">Strategy</a>
+          <a href="#core-touchpoints" class="nav-pill">3 Milestones</a>
+          <a href="#mobile-experience" class="nav-pill">Mobile</a>
+          <a href="#walkthrough" class="nav-pill">Walkthrough</a>
+          <a href="#proprietary-architecture" class="nav-pill">Architecture</a>
+          <a href="#outcomes" class="nav-pill">Outcomes</a>
+        </nav>
+
+        <div class="cs-navbar-right">
+          <a href="/portfolio-home.html#nuveda-projects" class="nav-pill" id="nav-work-return" title="Back to NuVeda Projects">
+            <span>Work</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-left: 4px;">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Open-Bottom Container Frame -->
+    <div class="cs-container-frame">
+      <div class="cs-container-card">
+        <main class="cs-page-wrapper">
+
+          <!-- ======================================================================
+               HERO SECTION: THE EVOLUTION OF NU COACH
+               ====================================================================== -->
+          <section class="cs-hero" id="hero">
+            <h1 class="cs-hero-title">NU Coach: AI Workplace Coaching &amp; Gamified Simulations</h1>
+            
+            <p class="cs-hero-subtitle">
+              Transforming an unrefined AI-generated concept into a gamified, enterprise-ready workplace coaching and scenario simulation platform.
+            </p>
+
+            <!-- Unified Hero Meta Bar -->
+            <div class="cs-hero-meta-bar">
+              <div class="cs-meta-col">
+                <span class="cs-meta-col-label">ROLE</span>
+                <span class="cs-meta-col-val">Lead Product Designer</span>
+              </div>
+              <div class="cs-meta-col">
+                <span class="cs-meta-col-label">TIMELINE</span>
+                <span class="cs-meta-col-val">8 Weeks (Figma to Launch)</span>
+              </div>
+              <div class="cs-meta-col">
+                <span class="cs-meta-col-label">PLATFORMS</span>
+                <span class="cs-meta-col-val">Web, iOS &amp; Android</span>
+              </div>
+              <div class="cs-meta-col">
+                <span class="cs-meta-col-label">STATUS</span>
+                <span class="cs-meta-col-val">Live in Production</span>
+              </div>
+            </div>
+
+            <!-- Prominent Large Hero Showcase Banner -->
+            <div class="cs-hero-image-wrapper">
+              <img
+                src="/assets/nucoach/hero-section.png"
+                alt="NU Coach Platform Interface Overview — 3D Composite of Redesigned Gamified Dashboard, AI Coach Audio Workspace, and Crisis Simulation Cockpit"
+                class="cs-hero-clean-img cs-showcase-image"
+                loading="eager"
+                data-zoomable="true"
+              />
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               STAGE 1: THE STARTING POINT — THE INITIAL LOVABLE PROTOTYPE
+               ====================================================================== -->
+          <section class="cs-section" id="initial-condition">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">The Genesis</span>
+              <h2 class="cs-heading">From Raw AI Prototype to Enterprise Product</h2>
+              <p class="cs-subheading">
+                Product Manager Deepak built an initial prototype on Lovable AI to test the concept. While it proved the core hypothesis, the experience had significant UI debt, zero gamification, and fragmented flows.
+              </p>
+            </div>
+
+            <div class="cs-media-showcase-card">
+              <div class="cs-media-header">
+                <div class="cs-media-title-group">
+                  <h3>The Initial Lovable Build</h3>
+                  <p>
+                    The raw prototype screens: initial Dashboard (left), Audio Roleplay (top right), and basic Incident Quiz (bottom right).
+                  </p>
+                </div>
+                <span class="cs-media-tag tag-legacy">Initial Build</span>
+              </div>
+
+              <div class="cs-showcase-image-wrapper">
+                <img
+                  src="/assets/nucoach/initial-lovable-prototype.png"
+                  alt="Initial Lovable Prototype by Product Manager Deepak"
+                  class="cs-showcase-image"
+                  loading="lazy"
+                />
+              </div>
+
+              <!-- Dedicated Narrative Directly Below Image -->
+              <div class="cs-story-callout">
+                <div class="cs-story-callout-header">
+                  <span class="cs-story-callout-tag">Design Assessment</span>
+                  <span class="cs-story-callout-title">The Gap to Close</span>
+                </div>
+                <p class="cs-story-callout-text">
+                  The initial AI prototype built by PM Deepak validated that an LLM could evaluate workplace interactions. However, it lacked visual hierarchy, predictable design tokens, and retention mechanisms. Collaborating closely with Deepak on product requirements and edge cases, I led the complete design transformation: establishing a scalable design system, introducing habit-building streaks, and making the AI interactions intuitive, transparent, and enterprise-ready.
+                </p>
+              </div>
+
+              <!-- 3-Column Editorial Insights -->
+              <div class="cs-media-annotations">
+                <div class="cs-annotation-item">
+                  <h4>Component Debt</h4>
+                  <p>Unstandardized fonts, inconsistent paddings, and raw AI input elements.</p>
+                </div>
+
+                <div class="cs-annotation-item">
+                  <h4>No Retention Mechanics</h4>
+                  <p>Lacked streaks, leaderboards, or rewards to bring learners back.</p>
+                </div>
+
+                <div class="cs-annotation-item">
+                  <h4>Unguided AI Feedback</h4>
+                  <p>Interactions felt like a cold test rather than supportive executive coaching.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               STAGE 2: STRATEGIC CHOICES & ARCHITECTURE
+               ====================================================================== -->
+          <section class="cs-section" id="strategy">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">Strategic Architecture</span>
+              <h2 class="cs-heading">Key Design Decisions That Redefined NU Coach</h2>
+              <p class="cs-subheading">
+                Transforming rapid AI code into an enterprise product requires systems thinking. Here are the 4 core design bets I made.
+              </p>
+            </div>
+
+            <div class="cs-decisions-grid">
+              <!-- Decision 1 -->
+              <div class="cs-decision-item">
+                <div class="cs-decision-icon">
+                  <img src="/assets/nucoach/illustrations/decision_gamification.jpg" alt="Gamification &amp; Streak Multipliers Illustration" loading="lazy" />
+                </div>
+                <div class="cs-decision-content">
+                  <span class="cs-decision-kicker">01 / Habit Architecture</span>
+                  <h3 class="cs-decision-title">Gamification &amp; Leaderboards</h3>
+                  <p class="cs-decision-desc">
+                    Replaced sporadic training with sticky daily routines: weekly simulation streaks, XP multipliers, peer leaderboards, and immediate post-incident reward feedback.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Decision 2 -->
+              <div class="cs-decision-item">
+                <div class="cs-decision-icon">
+                  <img src="/assets/nucoach/illustrations/decision_aicoach.jpg" alt="Conversational AI Coach Persona Illustration" loading="lazy" />
+                </div>
+                <div class="cs-decision-content">
+                  <span class="cs-decision-kicker">02 / Empathic Audio UX</span>
+                  <h3 class="cs-decision-title">Conversational AI Coach</h3>
+                  <p class="cs-decision-desc">
+                    Replaced intimidating blank prompts with live audio waveforms, real-time speech transcription, dynamic sentiment indicators, and supportive executive coaching.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Decision 3 -->
+              <div class="cs-decision-item">
+                <div class="cs-decision-icon">
+                  <img src="/assets/nucoach/illustrations/decision_simulations.jpg" alt="Branching Scenario Engine Illustration" loading="lazy" />
+                </div>
+                <div class="cs-decision-content">
+                  <span class="cs-decision-kicker">03 / Systems Logic</span>
+                  <h3 class="cs-decision-title">Branching Scenario Engine</h3>
+                  <p class="cs-decision-desc">
+                    Architected realistic crisis cockpits where learner choices branch into distinct consequences under SLA countdown pressure, measuring composure and leadership judgment.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Decision 4 -->
+              <div class="cs-decision-item">
+                <div class="cs-decision-icon">
+                  <img src="/assets/nucoach/illustrations/decision_tokens.jpg" alt="Scalable Design Tokens Illustration" loading="lazy" />
+                </div>
+                <div class="cs-decision-content">
+                  <span class="cs-decision-kicker">04 / Enterprise Rigor</span>
+                  <h3 class="cs-decision-title">Scalable Design Tokens</h3>
+                  <p class="cs-decision-desc">
+                    Built a production Figma token architecture supporting OLED dark and light modes, strict non-deterministic AI state matrices (streaming, low confidence, latency), and 48px touch ergonomics.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               STAGE 3: THE 3 CORE MILESTONE TOUCHPOINTS
+               ====================================================================== -->
+          <section class="cs-section" id="core-touchpoints">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">Milestone Spotlight</span>
+              <h2 class="cs-heading">The 3 Selected Product Milestones</h2>
+              <p class="cs-subheading">
+                A focused exploration of the three representative touchpoints that define the user experience of NU Coach.
+              </p>
+            </div>
+
+            <div class="cs-step-rows-container">
+              <!-- Touchpoint 1 -->
+              <div class="cs-step-row">
+                <div class="cs-step-text-col">
+                  <span class="cs-step-pill-tag">MILESTONE 01</span>
+                  <h3>The Gamified Engagement &amp; Motivation Dashboard</h3>
+                  <p>
+                    Replaced passive learning lists with intrinsic habit triggers: weekly practice streaks, peer leaderboards, personalized skill XP, and instant simulation reward deposit celebrations.
+                  </p>
+                  <p>
+                    Key features: <code>Dynamic XP Multipliers</code>, <code>Simulation Reward Celebrations</code>, <code>Weekly Cohort Leaderboard Podium</code>.
+                  </p>
+                </div>
+                <div class="cs-step-media-col">
+                  <div class="cs-media-duo-stack">
+                    <div class="cs-media-subcard">
+                      <img
+                        src="/assets/nucoach/gamified-reward.png"
+                        alt="NU Coach Gamified Simulation Reward Modal — XP Level Score (7,883 XP), Streak Bonus (+75 XP) and Rank Climbing"
+                        class="cs-clean-media-img cs-showcase-image"
+                        loading="lazy"
+                        data-zoomable="true"
+                      />
+                      <span class="cs-media-caption">Simulation Reward Deposited: Instant XP &amp; Rank Climbing Celebration Modal</span>
+                    </div>
+                    <div class="cs-media-subcard">
+                      <img
+                        src="/assets/nucoach/leaderboard-podium.png"
+                        alt="NU Coach Team Leaderboard — Weekly Cohort Rankings, 5-Person Podium, and Individual Rising Status"
+                        class="cs-clean-media-img cs-showcase-image"
+                        loading="lazy"
+                        data-zoomable="true"
+                      />
+                      <span class="cs-media-caption">Cohort Leaderboard: Peer Rankings &amp; Top 8% Rising Status</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Touchpoint 2 -->
+              <div class="cs-step-row is-reversed">
+                <div class="cs-step-text-col">
+                  <span class="cs-step-pill-tag">MILESTONE 02</span>
+                  <h3>The Contextual AI Coach &amp; Audio Roleplay Workspace</h3>
+                  <p>
+                    Designed an empathetic coaching interface with live audio waveforms, real-time speech transcription, and instant sentiment calibration for safe leadership practice.
+                  </p>
+                  <p>
+                    Key features: <code>Dual-Persona Audio Workspace</code>, <code>Live Transcription &amp; Waveforms</code>, <code>Real-Time Sentiment Calibration</code>.
+                  </p>
+                </div>
+                <div class="cs-step-media-col">
+                  <div class="cs-media-duo-stack">
+                    <div class="cs-video-player-wrapper">
+                      <video
+                        class="cs-showcase-video"
+                        src="/assets/nucoach/roleplay.mp4"
+                        controls
+                        playsinline
+                        preload="metadata"
+                      >
+                        <source src="/assets/nucoach/roleplay.mp4" type="video/mp4" />
+                        Your browser does not support HTML5 video.
+                      </video>
+                    </div>
+                    <div class="cs-media-subcard">
+                      <img
+                        src="/assets/nucoach/ai-roleplay-screen.png"
+                        alt="Contextual AI Roleplay Workspace — Director of IT Persona, Audio Particle Waveform, Stakeholder Panels, and Real-Time Transcript"
+                        class="cs-clean-media-img cs-showcase-image"
+                        loading="lazy"
+                        data-zoomable="true"
+                      />
+                      <span class="cs-media-caption">High-Res Inspection: Director of IT Persona, Speech Transcript &amp; Live Waveforms</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Touchpoint 3 -->
+              <div class="cs-step-row">
+                <div class="cs-step-text-col">
+                  <span class="cs-step-pill-tag">MILESTONE 03</span>
+                  <h3>The Interactive Scenario Simulation Engine</h3>
+                  <p>
+                    Created realistic, branching scenario trees with time-pressure constraints and immediate feedback on leadership trade-offs and team morale impact.
+                  </p>
+                  <p>
+                    Key features: <code>Zenith Outage Cockpit</code>, <code>30-Minute SLA Target Clock</code>, <code>Compliance Hazard Scoring Rubrics</code>.
+                  </p>
+                </div>
+                <div class="cs-step-media-col">
+                  <div class="cs-media-duo-stack">
+                    <div class="cs-video-player-wrapper">
+                      <video
+                        class="cs-showcase-video"
+                        src="/assets/nucoach/simulations.mp4"
+                        controls
+                        playsinline
+                        preload="metadata"
+                      >
+                        <source src="/assets/nucoach/simulations.mp4" type="video/mp4" />
+                        Your browser does not support HTML5 video.
+                      </video>
+                    </div>
+                    <div class="cs-media-subcard">
+                      <img
+                        src="/assets/nucoach/simulation-cockpit.png"
+                        alt="Zenith Outage Cockpit — Database Outage Simulation with Option Scoring and Compliance Hazard Feedback"
+                        class="cs-clean-media-img cs-showcase-image"
+                        loading="lazy"
+                        data-zoomable="true"
+                      />
+                      <span class="cs-media-caption">High-Res Inspection: Zenith Outage Cockpit with 10/10 Score Breakdown &amp; SLA Clock</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- AI UX Highlight Decision Card -->
+            <div class="cs-ai-decision-card">
+              <span class="cs-ai-decision-badge">AI Interaction Highlight</span>
+              <h4>Designing for Human Agency &amp; Trust</h4>
+              <p>
+                Every AI coaching score is paired with verbatim citations from the learner's responses, allowing managers to understand, verify, and act on the feedback with confidence.
+              </p>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               STAGE 4: MOBILE NATIVE EXPERIENCE — ANDROID & IOS
+               ====================================================================== -->
+          <section class="cs-section" id="mobile-experience">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">Cross-Platform Reach</span>
+              <h2 class="cs-heading">Mobile Native Experience — Android &amp; iOS</h2>
+              <p class="cs-subheading">
+                Executive managers and busy team leads practice in short sprint windows during daily commutes. I architected responsive, touch-first Android and iOS micro-learning experiences designed for 3-minute scenario drills, tactile haptic feedback, and instant streak preservation.
+              </p>
+            </div>
+
+            <div class="cs-mobile-grid">
+              <!-- Android Showcase Card -->
+              <div class="cs-media-showcase-card">
+                <div class="cs-media-header">
+                  <div class="cs-media-title-group">
+                    <h3>Android Multi-Device Fleet Experience</h3>
+                    <p>
+                      Sleek dark-mode experience optimized for punch-hole camera Android devices, featuring thumb-reachable navigation and real-time streak updates.
+                    </p>
+                  </div>
+                  <span class="cs-media-tag tag-android">Android 14+ Ecosystem</span>
+                </div>
+
+                <div class="cs-video-player-wrapper">
+                  <video
+                    class="cs-showcase-video"
+                    src="/assets/nucoach/mobile-android-showcase.mp4"
+                    controls
+                    playsinline
+                    preload="auto"
+                  >
+                    <source src="/assets/nucoach/mobile-android-showcase.mp4" type="video/mp4" />
+                    Your browser does not support HTML5 video.
+                  </video>
+                </div>
+
+                <div class="cs-mobile-feature-grid">
+                  <div class="cs-mobile-feature-card">
+                    <h4 class="cs-mobile-card-title">Thumb-First Action Bar</h4>
+                    <p class="cs-mobile-card-desc">Lower 40% reach zone designed for single-thumb commute practice.</p>
+                  </div>
+
+                  <div class="cs-mobile-feature-card">
+                    <h4 class="cs-mobile-card-title">Streak Micro-Celebrations</h4>
+                    <p class="cs-mobile-card-desc">Spring-physics XP micro-rewards reinforcing daily learning habits.</p>
+                  </div>
+
+                  <div class="cs-mobile-feature-card">
+                    <h4 class="cs-mobile-card-title">Offline Resilience</h4>
+                    <p class="cs-mobile-card-desc">Transit-safe local state caching preventing progress dropouts.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- iOS & Adaptive System Showcase Card -->
+              <div class="cs-media-showcase-card">
+                <div class="cs-media-header">
+                  <div class="cs-media-title-group">
+                    <h3>Adaptive Theme System &amp; Fluid Flows</h3>
+                    <p>
+                      Fluid iOS tokens supporting system appearance matching (OLED Dark &amp; Light) and touch-tested decision pathways.
+                    </p>
+                  </div>
+                  <span class="cs-media-tag tag-ios">iOS Adaptive System</span>
+                </div>
+
+                <div class="cs-video-player-wrapper">
+                  <video
+                    class="cs-showcase-video"
+                    src="/assets/nucoach/mobile-ios-grid.mp4"
+                    controls
+                    playsinline
+                    preload="auto"
+                  >
+                    <source src="/assets/nucoach/mobile-ios-grid.mp4" type="video/mp4" />
+                    Your browser does not support HTML5 video.
+                  </video>
+                </div>
+
+                <div class="cs-mobile-feature-grid">
+                  <div class="cs-mobile-feature-card">
+                    <h4 class="cs-mobile-card-title">OLED Dark &amp; Light Theming</h4>
+                    <p class="cs-mobile-card-desc">Dynamic daylight & dark mode matching system appearance.</p>
+                  </div>
+
+                  <div class="cs-mobile-feature-card">
+                    <h4 class="cs-mobile-card-title">Touch-Target Ergonomics</h4>
+                    <p class="cs-mobile-card-desc">Strict 48px+ tap hitboxes preventing accidental scenario misses.</p>
+                  </div>
+
+                  <div class="cs-mobile-feature-card">
+                    <h4 class="cs-mobile-card-title">Compact Metrics</h4>
+                    <p class="cs-mobile-card-desc">Glanceable composure and empathy metrics under 3 seconds.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               STAGE 5: INTERACTIVE PLATFORM WALKTHROUGH
+               ====================================================================== -->
+          <section class="cs-section" id="walkthrough">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">Motion in Action</span>
+              <h2 class="cs-heading">NU Coach Platform Motion &amp; Interaction Walkthrough</h2>
+              <p class="cs-subheading">
+                Demonstrating the live interaction synergy between the motivation dashboard, conversational roleplay, and AI diagnostic feedback.
+              </p>
+            </div>
+
+            <div class="cs-media-showcase-card">
+              <div class="cs-media-header">
+                <div class="cs-media-title-group">
+                  <h3>Master Platform Experience — Light &amp; Dark Mode Tour</h3>
+                  <p>
+                    Full product tour recording demonstrating adaptive theme switching (Light and Dark mode), scenario launching, interactive AI feedback states, and gamified leaderboards.
+                  </p>
+                </div>
+                <span class="cs-media-tag tag-nucoach">Full Product Tour</span>
+              </div>
+
+              <div class="cs-video-player-wrapper">
+                <video
+                  class="cs-showcase-video"
+                  src="/assets/nucoach/product-tour-light-dark.mp4"
+                  controls
+                  playsinline
+                  preload="metadata"
+                >
+                  <source src="/assets/nucoach/product-tour-light-dark.mp4" type="video/mp4" />
+                  Your browser does not support HTML5 video.
+                </video>
+              </div>
+
+              <!-- Dedicated Narrative Directly Below Video -->
+              <div class="cs-story-callout">
+                <div class="cs-story-callout-header">
+                  <span class="cs-story-callout-tag">Design Systems in Motion</span>
+                  <span class="cs-story-callout-title">Interactive Handoff</span>
+                </div>
+                <p class="cs-story-callout-text">
+                  Completing a simulation triggers a seamless transition back to the dashboard: XP bars animate with spring physics, leaderboard ranks update dynamically, and AI diagnostic feedback renders progressively without layout shifts.
+                </p>
+              </div>
+
+
+              <div class="cs-media-annotations">
+                <div class="cs-annotation-item">
+                  <h4>Fluid Layout Hierarchy</h4>
+                  <p>Harmonious card scaling and generous spatial breathing room ensuring effortless scanability for busy executives.</p>
+                </div>
+
+                <div class="cs-annotation-item">
+                  <h4>Contextual State Transitions</h4>
+                  <p>Seamless handoff from the dashboard into immersive, distraction-free roleplay and simulation modes.</p>
+                </div>
+
+                <div class="cs-annotation-item">
+                  <h4>Actionable Feedback Loops</h4>
+                  <p>Real-time speech tone, composure, and empathy metrics presented with clear, supportive behavioral coaching.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               STAGE 5: PROPRIETARY SYSTEMS ARCHITECTURE UNDER NDA
+               ====================================================================== -->
+          <section class="cs-section" id="proprietary-architecture">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">Enterprise Scope</span>
+              <h2 class="cs-heading">Proprietary Systems Architecture (Protected Under NDA)</h2>
+              <p class="cs-subheading">
+                While only 3 representative screens are displayed above, my design engagement spanned the complete enterprise coaching ecosystem. Here is an overview of the systems I architected.
+              </p>
+            </div>
+
+            <div class="cs-whitelabel-spotlight">
+              <div class="cs-whitelabel-header">
+                <div class="cs-whitelabel-header-content">
+                  <h3>End-to-End Platform Modules Architected</h3>
+                  <p>
+                    These modules were fully designed in Figma and handed over to PM and engineering teams for production implementation, with UI visuals withheld under corporate confidentiality.
+                  </p>
+                </div>
+              </div>
+
+              <div class="cs-modules-grid">
+                <!-- Module 1 -->
+                <div class="cs-module-card">
+                  <div class="cs-module-card-top">
+                    <div class="cs-module-icon">
+                      <img src="/assets/nucoach/illustrations/mod_scoring.jpg" alt="Scoring &amp; Streak Rule Engine Illustration" loading="lazy" />
+                    </div>
+                    <span class="cs-module-tag">Gamification</span>
+                  </div>
+                  <h4>Scoring &amp; Streak Rule Engine</h4>
+                  <p>Algorithmic tier mechanics governing daily streaks, point decay, peer competition brackets, and milestone rewards.</p>
+                  <ul class="cs-module-points">
+                    <li>Dynamic Streak Multipliers</li>
+                    <li>Anti-Burnout Grace Days</li>
+                    <li>Cohort Brackets</li>
+                  </ul>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="cs-module-card">
+                  <div class="cs-module-card-top">
+                    <div class="cs-module-icon">
+                      <img src="/assets/nucoach/illustrations/mod_studio.jpg" alt="Scenario Builder Studio Illustration" loading="lazy" />
+                    </div>
+                    <span class="cs-module-tag">Authoring</span>
+                  </div>
+                  <h4>Scenario Builder Studio</h4>
+                  <p>Intuitive authoring environment enabling L&amp;D admins to craft custom branching workplace roleplays without writing code.</p>
+                  <ul class="cs-module-points">
+                    <li>Visual Decision Trees</li>
+                    <li>Persona Customization</li>
+                    <li>Competency Tagging</li>
+                  </ul>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="cs-module-card">
+                  <div class="cs-module-card-top">
+                    <div class="cs-module-icon">
+                      <img src="/assets/nucoach/illustrations/mod_matrix.jpg" alt="Competency &amp; Skill Matrix Illustration" loading="lazy" />
+                    </div>
+                    <span class="cs-module-tag">Rubrics</span>
+                  </div>
+                  <h4>Competency &amp; Skill Matrix</h4>
+                  <p>Standardized behavioral rubrics mapping simulation performance directly to enterprise leadership frameworks.</p>
+                  <ul class="cs-module-points">
+                    <li>Emotional Intelligence Rubrics</li>
+                    <li>Crisis Management Scoring</li>
+                    <li>Managerial Feedback Matrix</li>
+                  </ul>
+                </div>
+
+                <!-- Module 4 -->
+                <div class="cs-module-card">
+                  <div class="cs-module-card-top">
+                    <div class="cs-module-icon">
+                      <img src="/assets/nucoach/illustrations/mod_analytics.jpg" alt="Cohort &amp; HR Admin Dashboard Illustration" loading="lazy" />
+                    </div>
+                    <span class="cs-module-tag">Analytics</span>
+                  </div>
+                  <h4>Cohort &amp; HR Admin Dashboard</h4>
+                  <p>Aggregated team-level reporting showing skill gaps, completion velocity, and leadership readiness across business units.</p>
+                  <ul class="cs-module-points">
+                    <li>Team Skill Heatmaps</li>
+                    <li>Anonymized Benchmark Trends</li>
+                    <li>ROI &amp; Engagement Exports</li>
+                  </ul>
+                </div>
+
+                <!-- Module 5 -->
+                <div class="cs-module-card">
+                  <div class="cs-module-card-top">
+                    <div class="cs-module-icon">
+                      <img src="/assets/nucoach/illustrations/mod_guardrails.jpg" alt="Enterprise AI Guardrails Illustration" loading="lazy" />
+                    </div>
+                    <span class="cs-module-tag">Trust &amp; Safety</span>
+                  </div>
+                  <h4>Enterprise AI Guardrails</h4>
+                  <p>Defensive design mechanisms ensuring safe AI responses, hallucination fallbacks, and confidential data privacy.</p>
+                  <ul class="cs-module-points">
+                    <li>Graceful Ambiguity Fallbacks</li>
+                    <li>Zero Data Retention Toggles</li>
+                    <li>Explicit Reasoning Disclosures</li>
+                  </ul>
+                </div>
+
+                <!-- Module 6 -->
+                <div class="cs-module-card">
+                  <div class="cs-module-card-top">
+                    <div class="cs-module-icon">
+                      <img src="/assets/nucoach/illustrations/mod_whitelabel.jpg" alt="White-Label Brand Engine Illustration" loading="lazy" />
+                    </div>
+                    <span class="cs-module-tag">Multi-Tenancy</span>
+                  </div>
+                  <h4>White-Label Brand Engine</h4>
+                  <p>Client branding system allowing enterprise customers to seamlessly skin the platform with custom colors and logos.</p>
+                  <ul class="cs-module-points">
+                    <li>Dynamic Palette Adaptation</li>
+                    <li>Custom Subdomain Binding</li>
+                    <li>Branded Certificate Generator</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               STAGE 6: WHAT HAPPENED & OUTCOMES
+               ====================================================================== -->
+          <section class="cs-section" id="outcomes">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">Impact &amp; Production Release</span>
+              <h2 class="cs-heading">Shipped to Production: Transforming Rapid AI Prototypes into Enterprise Software</h2>
+              <p class="cs-subheading">
+                By bridging the gap between raw AI generation and human-centered design, NU Coach was successfully transformed into a live enterprise coaching and simulation platform now running in production.
+              </p>
+            </div>
+
+            <div class="cs-outcomes-card">
+              <div class="cs-outcomes-lead">
+                <h3>Live Production Delivery &amp; Measurable Outcomes</h3>
+                <p>
+                  The redesign established complete parity between AI capabilities and enterprise UX standards, successfully deployed across Web, iOS, and Android for active enterprise client training.
+                </p>
+              </div>
+
+              <div class="cs-metrics-quad">
+                <!-- Stat 1 -->
+                <div class="cs-metric-box">
+                  <div class="cs-metric-stat">100%</div>
+                  <div class="cs-metric-label">Design Token System</div>
+                  <div class="cs-metric-sub">Complete Figma component library across Web, iOS &amp; Android</div>
+                </div>
+
+                <!-- Stat 2 -->
+                <div class="cs-metric-box">
+                  <div class="cs-metric-stat">Live</div>
+                  <div class="cs-metric-label">Enterprise Release</div>
+                  <div class="cs-metric-sub">Shipped to production for corporate cohorts</div>
+                </div>
+
+                <!-- Stat 3 -->
+                <div class="cs-metric-box">
+                  <div class="cs-metric-stat">8 Wks</div>
+                  <div class="cs-metric-label">Figma to Release</div>
+                  <div class="cs-metric-sub">From raw prototype to live software</div>
+                </div>
+
+                <!-- Stat 4 -->
+                <div class="cs-metric-box">
+                  <div class="cs-metric-stat">3 Core</div>
+                  <div class="cs-metric-label">Interactive AI Workspaces</div>
+                  <div class="cs-metric-sub">Coaching, Roleplay &amp; Simulations</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               FOOTER & RECRUITER ACTION HUB
+               ====================================================================== -->
+          <footer class="cs-footer">
+            <h3 class="cs-footer-title">Let's build something extraordinary together.</h3>
+            <p class="cs-footer-desc">
+              Looking for a Lead / Senior Product Designer who bridges AI complexity, systems design, and business outcomes? Let's connect.
+            </p>
+
+            <div class="cs-footer-actions">
+              <a href="mailto:naveenpullagura@gmail.com?subject=Design%20Opportunity%20-%20Naveen%20Pullagura" class="cs-footer-btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span>Get in Touch</span>
+              </a>
+
+              <a href="/phantasm.html" class="cs-footer-btn-secondary">
+                <span>Next Case Study: Phantasm Solutions</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+
+            <div class="cs-footer-links-row">
+              <a href="/portfolio-home.html#nuveda-projects" class="cs-footer-sublink">← Back to All Projects</a>
+              <span class="cs-footer-dot">·</span>
+              <a href="#" class="cs-footer-sublink" id="back-to-top-btn">Back to Top ↑</a>
+            </div>
+
+            <p class="cs-footer-copy">© 2026 Naveen Pullagura · Lead Product Designer</p>
+          </footer>
+
+        </main>
+      </div>
+    </div>
+
+    <!-- Master Interactive Controller (Progress Bar, Smooth Scroll & Scroll Spy) -->
+    <script type="module" src="/src/case-study.js"></script>
+  </body>
+</html>

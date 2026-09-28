@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smokewana: White-Label WMS &amp; Multi-Channel SaaS — Phantasm Solutions Case Study | Naveen Pullagura</title>
+    <meta
+      name="description"
+      content="A streamlined B2B SaaS and UX Architecture case study by Naveen Pullagura: Designing a white-label warehouse management system (WMS), zero-code storefront builder, and legal vape/cannabis commerce ecosystem for US distributors."
+    />
+
+    <!-- Google Fonts: Balthazar, Cormorant Garamond, Manrope, Newsreader & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Balthazar&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Dedicated Full-Screen Case Study Stylesheet -->
+    <link rel="stylesheet" href="/src/case-study.css" />
+
+    <!-- Zero-glitch early curtain lock -->
+    <script>
+      (function() {
+        try {
+          if (sessionStorage.getItem('curtain_reveal_pending') === '1') {
+            document.documentElement.classList.add('curtain-opening');
+            var col = sessionStorage.getItem('curtain_reveal_color') || '#78350F';
+            document.documentElement.style.setProperty('--curtain-active-color', col);
+            setTimeout(function() {
+              document.documentElement.classList.remove('curtain-opening');
+            }, 2500);
+          }
+        } catch(e) {}
+      })();
+    </script>
+  </head>
+  <body class="cs-standalone-page theme-phantasm">
+    <!-- Great UI Vertical Curtain Page Transition (0.3s Fast Duration) -->
+    <div id="curtain-page-transition" class="curtain-page-transition state-idle" aria-hidden="true">
+      <div class="curtain-panel curtain-panel-top"></div>
+      <div class="curtain-panel curtain-panel-bottom"></div>
+    </div>
+    
+    <!-- Ethereal Background Glow (Warm Brown Ambience) -->
+    <div class="cs-bg-ambient-glow" aria-hidden="true" style="background: radial-gradient(circle at 50% 30%, rgba(120, 53, 15, 0.08), rgba(250, 249, 246, 0) 70%);"></div>
+
+    <!-- Reading Progress Bar -->
+    <div class="cs-reading-progress-track" aria-hidden="true">
+      <div class="cs-reading-progress-fill" id="cs-progress-fill"></div>
+    </div>
+
+    <!-- Master Header Navigation -->
+    <header class="cs-navbar" id="cs-navbar">
+      <div class="cs-navbar-inner">
+        <div class="cs-navbar-left">
+          <a href="/portfolio-home.html#hero" class="logo-pill" id="site-logo" title="Return to Home">
+            Naveen Pullagura
+          </a>
+        </div>
+
+        <nav class="nav-pills-group" aria-label="Case study sections">
+          <a href="#overview" class="nav-pill active">Overview</a>
+          <a href="#team" class="nav-pill">Team &amp; Role</a>
+          <a href="#problem" class="nav-pill">The Challenge</a>
+          <a href="#smokewana" class="nav-pill">Smokewana WMS</a>
+          <a href="#concepts" class="nav-pill">Storefront Concepts</a>
+          <a href="#outcomes" class="nav-pill">Outcomes</a>
+        </nav>
+
+        <div class="cs-navbar-right">
+          <a href="/portfolio-home.html#work" class="nav-pill" id="nav-work-return" title="Back to All Work">
+            <span>Work</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-left: 4px;">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Open-Bottom Container Frame -->
+    <div class="cs-container-frame">
+      <div class="cs-container-card">
+        <main class="cs-page-wrapper">
+
+          <!-- ======================================================================
+               HERO SECTION
+               ====================================================================== -->
+          <section class="cs-hero" id="overview">
+            <h1 class="cs-hero-title">Smokewana: White-Label WMS &amp; Multi-Channel SaaS</h1>
+            
+            <p class="cs-hero-subtitle">
+              Designing an end-to-end B2B warehouse platform, zero-code storefront customizer,<br class="desktop-only-br" />
+              and native shopping apps for licensed distributors in the US legal market.
+            </p>
+
+            <!-- Unified Hero Meta Bar -->
+            <div class="cs-hero-meta-bar">
+              <div class="cs-meta-col">
+                <span class="cs-meta-col-label">ROLE</span>
+                <span class="cs-meta-col-val">Lead UX Designer &amp; Researcher</span>
+              </div>
+              <div class="cs-meta-col">
+                <span class="cs-meta-col-label">INDUSTRY</span>
+                <span class="cs-meta-col-val">US Legal Vape &amp; Cannabis (B2B/B2C)</span>
+              </div>
+              <div class="cs-meta-col">
+                <span class="cs-meta-col-label">TEAM POD</span>
+                <span class="cs-meta-col-val">PM, Lead UX, UI Designer, Graphic</span>
+              </div>
+              <div class="cs-meta-col">
+                <span class="cs-meta-col-label">SCOPE</span>
+                <span class="cs-meta-col-val">B2B SaaS · WMS · E-Com · Mobile Apps</span>
+              </div>
+            </div>
+
+            <!-- Hero Showcase Screenshot -->
+            <div class="cs-hero-image-wrapper">
+              <img
+                src="/assets/phantasm/saas-ecom-wms.png"
+                alt="Smokewana Multi-Channel WMS and E-Commerce Platform Architecture"
+                class="cs-hero-clean-img cs-showcase-image"
+                loading="eager"
+                data-zoomable="true"
+              />
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               SECTION 1: CONTEXT & AT-A-GLANCE METRICS
+               ====================================================================== -->
+          <section class="cs-section" id="context">
+            <div class="cs-overview-card">
+              <div class="cs-overview-header">
+                <div class="cs-overview-title-group">
+                  <span class="cs-overview-category">PHANTASM SOLUTIONS · US REGULATED CANNABIS &amp; VAPE COMMERCE</span>
+                  <h2>Modernizing regulated commerce with a <span class="cs-teal-text">turn-key white-label suite</span></h2>
+                </div>
+                <div class="cs-step-indicator-pill">
+                  <span>US Legal State Markets</span>
+                </div>
+              </div>
+
+              <p class="cs-overview-lead">
+                The US legal cannabis and vape industry operates under strict state regulations: mandatory 21+ age verification, seed-to-sale inventory compliance, wholesale excise taxes, and warehouse logistics. However, licensed distributors and warehouse operators were constrained by 10-year-old legacy software that couldn't sync with consumer storefronts.
+              </p>
+
+              <p class="cs-overview-lead">
+                At Phantasm Solutions, our mission was to build <strong>Smokewana</strong> from scratch — an integrated white-label ecosystem delivering a B2B Warehouse Management System (WMS), responsive e-commerce web storefront, customer mobile apps (iOS &amp; Android), and a zero-code layout customizer that requires zero developer intervention.
+              </p>
+
+              <!-- 4 Project Snapshot Metrics -->
+              <div class="cs-project-snapshot-grid">
+                <div class="cs-snapshot-item">
+                  <span class="cs-snapshot-label">AUTONOMY</span>
+                  <span class="cs-snapshot-val">0 Dev Dependencies</span>
+                  <span class="cs-snapshot-sub">Clients customize layouts, headers, &amp; banners visually</span>
+                </div>
+                <div class="cs-snapshot-item">
+                  <span class="cs-snapshot-label">PRODUCT PACKAGE</span>
+                  <span class="cs-snapshot-val">3-in-1 Platform</span>
+                  <span class="cs-snapshot-sub">Cloud WMS SaaS + Web Store + iOS/Android Apps</span>
+                </div>
+                <div class="cs-snapshot-item">
+                  <span class="cs-snapshot-label">ACCURACY</span>
+                  <span class="cs-snapshot-val">90% Shipped Fidelity</span>
+                  <span class="cs-snapshot-sub">Structured wireframe skeletons &amp; close UI pairing</span>
+                </div>
+                <div class="cs-snapshot-item">
+                  <span class="cs-snapshot-label">ONBOARDING</span>
+                  <span class="cs-snapshot-val">&lt; 5 Min Setup</span>
+                  <span class="cs-snapshot-sub">Instant white-label branding, domains, &amp; pricing tiers</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               SECTION 2: TEAM COLLABORATION & MY STRATEGIC ROLE
+               ====================================================================== -->
+          <section class="cs-section" id="team">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">TEAM POD &amp; OWNERSHIP</span>
+              <h2 class="cs-heading">Our 4-person design &amp; product team</h2>
+              <p class="cs-subheading">
+                Transforming complex legal B2B requirements into clean software through synchronized ownership and rapid screen design.
+              </p>
+            </div>
+
+            <!-- Team Grid with Generated Visual Portraits -->
+            <div class="cs-pillars-grid">
+              <!-- Pod Member 1: Sainath (Product Manager) -->
+              <div class="cs-pillar-card">
+                <div class="cs-team-avatar-wrap">
+                  <img src="/assets/phantasm/team-sainath.jpg" alt="Sainath - Product Manager" class="cs-team-avatar" />
+                </div>
+                <div class="cs-pillar-content">
+                  <h4>Sainath · Product Manager</h4>
+                  <p>
+                    Led client discovery with US distributors and warehouse stakeholders. Translated legal compliance constraints and business goals into structured sprint requirements.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Pod Member 2: Naveen Pullagura (Lead UX Designer & Researcher) -->
+              <div class="cs-pillar-card" style="border-color: rgba(120, 53, 15, 0.4); box-shadow: 0 4px 16px -2px rgba(120, 53, 15, 0.1);">
+                <div class="cs-team-avatar-wrap" style="border-color: #78350F;">
+                  <img src="/assets/phantasm/team-naveen.jpg" alt="Naveen Pullagura - Lead UX Designer" class="cs-team-avatar" />
+                </div>
+                <div class="cs-pillar-content">
+                  <h4>Naveen Pullagura · Lead UX &amp; Research</h4>
+                  <p>
+                    Audited legacy competitor tools, mapped user journey flows, authored documentation, built wireframe skeletons for admin/dispatcher dashboards, and co-designed production UI screens.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Pod Member 3: Prakash Sannisetti (Visual / UI Designer) -->
+              <div class="cs-pillar-card">
+                <div class="cs-team-avatar-wrap">
+                  <img src="/assets/phantasm/team-prakash.jpg" alt="Prakash Sannisetti - Visual UI Designer" class="cs-team-avatar" />
+                </div>
+                <div class="cs-pillar-content">
+                  <h4>Prakash Sannisetti · UI Designer</h4>
+                  <p>
+                    Architected the visual design system, color tokens, and typography. Transformed wireframes into high-fidelity UI components and created Option 2 landing page concepts.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Pod Member 4: Graphic Designer -->
+              <div class="cs-pillar-card">
+                <div class="cs-team-avatar-wrap">
+                  <img src="/assets/phantasm/team-graphic.jpg" alt="Graphic & Merchandising Designer" class="cs-team-avatar" />
+                </div>
+                <div class="cs-pillar-content">
+                  <h4>Graphic Designer · Merchandising</h4>
+                  <p>
+                    Produced photorealistic 3D vape hardware mockups, promotional banners, and visual merchandising kits that enabled white-label clients to launch with retail polish.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pod Operational Rhythm Callout -->
+            <div class="cs-ai-decision-card" style="margin-top: 24px; border-color: rgba(120, 53, 15, 0.25);">
+              <span class="cs-ai-decision-badge">HOW WE WORKED</span>
+              <h4>From Wireframe Skeletons to Production Screens</h4>
+              <p>
+                Sainath brought raw inputs and compliance requirements from distributor interviews. I synthesized them into user flows, information architecture maps, and wireframe skeletons for the admin and storefront tools. Prakash and I then co-designed the production UI screens, ensuring that complex warehouse tables, delivery maps, and storefront settings were visually clean and effortless to use.
+              </p>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               SECTION 3: THE CHALLENGE & UX RESEARCH
+               ====================================================================== -->
+          <section class="cs-section" id="problem">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">THE CHALLENGE &amp; RESEARCH</span>
+              <h2 class="cs-heading">Auditing legacy tools &amp; identifying the gaps</h2>
+              <p class="cs-subheading">
+                We audited existing enterprise warehouse tools and uncovered major operational bottlenecks holding back US distributors.
+              </p>
+            </div>
+
+            <!-- Simplified Research & Problem Grid -->
+            <div class="cs-decisions-grid">
+              <div class="cs-decision-item">
+                <div class="cs-decision-icon">
+                  <span style="font-weight: 800; font-size: 15px;">01</span>
+                </div>
+                <div class="cs-decision-content">
+                  <span class="cs-decision-kicker">BOTTLENECK 01</span>
+                  <h4 class="cs-decision-title">Siloed Inventory &amp; Stockouts</h4>
+                  <p class="cs-decision-desc">
+                    Legacy software kept warehouse counts on offline servers, resulting in frequent stockouts, double-booking, and slow phone verifications. We designed real-time inventory sync across facilities and digital storefronts.
+                  </p>
+                </div>
+              </div>
+
+              <div class="cs-decision-item">
+                <div class="cs-decision-icon">
+                  <span style="font-weight: 800; font-size: 15px;">02</span>
+                </div>
+                <div class="cs-decision-content">
+                  <span class="cs-decision-kicker">BOTTLENECK 02</span>
+                  <h4 class="cs-decision-title">Rigid Layouts &amp; Dev Costs</h4>
+                  <p class="cs-decision-desc">
+                    Updating a promotional banner or category required hiring developers. We built a modular zero-code customizer so business owners can change headers, footers, and brand colors in minutes.
+                  </p>
+                </div>
+              </div>
+
+              <div class="cs-decision-item">
+                <div class="cs-decision-icon">
+                  <span style="font-weight: 800; font-size: 15px;">03</span>
+                </div>
+                <div class="cs-decision-content">
+                  <span class="cs-decision-kicker">BOTTLENECK 03</span>
+                  <h4 class="cs-decision-title">Manual Wholesale Tier Pricing</h4>
+                  <p class="cs-decision-desc">
+                    Distributors negotiated bulk prices via offline spreadsheets. We designed an automated setup tool that applies volume case discounts and state excise taxes dynamically upon login.
+                  </p>
+                </div>
+              </div>
+
+              <div class="cs-decision-item">
+                <div class="cs-decision-icon">
+                  <span style="font-weight: 800; font-size: 15px;">04</span>
+                </div>
+                <div class="cs-decision-content">
+                  <span class="cs-decision-kicker">BOTTLENECK 04</span>
+                  <h4 class="cs-decision-title">Frictionless 21+ Age Compliance</h4>
+                  <p class="cs-decision-desc">
+                    Blunt overlay gates caused 40%+ bounce rates. We designed a compliant age verification pattern that stores consent securely across sessions without blocking product browsing.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               SECTION 4: SMOKEWEANA — THE CORE B2B WMS SAAS PLATFORM
+               ====================================================================== -->
+          <section class="cs-section" id="smokewana">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">THE CORE PRODUCT</span>
+              <h2 class="cs-heading">Smokewana: Multi-Channel B2B WMS Platform</h2>
+              <p class="cs-subheading">
+                A unified operating system built from scratch to power wholesale warehouse operations, delivery logistics, and storefront customization.
+              </p>
+            </div>
+
+            <!-- 4 Pillar Architecture Grid -->
+            <div class="cs-principles-grid" style="grid-template-columns: repeat(2, 1fr); gap: 20px;">
+              <div class="cs-principle-card">
+                <div class="cs-principle-num">01</div>
+                <h3>Zero-Code Storefront Customizer</h3>
+                <p>
+                  A visual layout builder empowering non-technical operators to customize navigation bars, headers, footers, promo carousels, and brand colors without writing a single line of code.
+                </p>
+              </div>
+
+              <div class="cs-principle-card">
+                <div class="cs-principle-num">02</div>
+                <h3>B2B Warehouse &amp; Inventory Hub</h3>
+                <p>
+                  Centralized multi-facility stock management: live inventory counts, barcode scanner intake, batch/lot tracking for seed-to-sale compliance, and automated low-stock PO triggers.
+                </p>
+              </div>
+
+              <div class="cs-principle-card">
+                <div class="cs-principle-num">03</div>
+                <h3>Fleet Delivery Dispatch &amp; Logistics</h3>
+                <p>
+                  Complete last-mile delivery infrastructure: driver route assignments, state compliance manifest checklists, digital proof-of-delivery signatures, and real-time customer tracking.
+                </p>
+              </div>
+
+              <div class="cs-principle-card">
+                <div class="cs-principle-num">04</div>
+                <h3>Wholesale Tier Pricing &amp; Setup Tool</h3>
+                <p>
+                  A comprehensive setup module for configuring legal licenses, warehouse zones, dynamic bulk case discounts (1-10, 11-50, 50+ cases), state tax rules, and instant B2B invoicing.
+                </p>
+              </div>
+            </div>
+
+            <!-- Feature Showcase with High-Res Screenshot -->
+            <div class="cs-post-onboarding-showcase" style="margin-top: 32px;">
+              <h3 style="font-family: var(--font-serif-heading); font-size: 26px; margin-bottom: 10px; color: #0F172A;">
+                Smokewana Multi-Channel Admin &amp; WMS Control Center
+              </h3>
+              <p style="font-family: var(--font-manrope); font-size: 15px; color: #475569; max-width: 820px; text-align: center; margin-bottom: 20px;">
+                Designed from scratch by Naveen Pullagura (UX Architecture &amp; Wireframing) and Prakash Sannisetti (Visual UI Design) under PM guidance from Sainath. Click on the interface below to inspect high-resolution UI details.
+              </p>
+              <img
+                src="/assets/phantasm/saas-ecom-wms.png"
+                alt="Smokewana SaaS Control Center Dashboard Screens"
+                class="cs-post-onboarding-img cs-showcase-image"
+                loading="lazy"
+                data-zoomable="true"
+              />
+              <span class="cs-post-onboarding-caption">
+                Figure 1: Smokewana Multi-Channel SaaS — Modular layout builder, wholesale inventory management, and live order dispatch control center.
+              </span>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               SECTION 5: CONSUMER STOREFRONT & CLIENT LANDING PAGES
+               (Images Side by Side with Unified Explanation Below)
+               ====================================================================== -->
+          <section class="cs-section" id="concepts">
+            <div class="cs-section-header">
+              <span class="cs-eyebrow">DIGITAL TOUCHPOINTS &amp; FUNNELS</span>
+              <h2 class="cs-heading">Consumer storefront &amp; client concept landing pages</h2>
+              <p class="cs-subheading">
+                Extending our white-label SaaS foundation into consumer-facing digital channels and tailored client pitch funnels.
+              </p>
+            </div>
+
+            <!-- Side-by-Side Dual Images Row -->
+            <div class="cs-dual-gallery-row">
+              <div class="cs-gallery-item">
+                <img
+                  src="/assets/phantasm/flying-kush-storefront.png"
+                  alt="Flying Kush Web Storefront and Mobile E-commerce Interface"
+                  class="cs-gallery-img cs-showcase-image"
+                  loading="lazy"
+                  data-zoomable="true"
+                />
+                <div class="cs-gallery-caption">Figure 2: Flying Kush Storefront &amp; Native Mobile Apps</div>
+              </div>
+
+              <div class="cs-gallery-item">
+                <img
+                  src="/assets/phantasm/client-landing-pages.png"
+                  alt="Different Clients Landing Pages and Merchandise Design Grid"
+                  class="cs-gallery-img cs-showcase-image"
+                  loading="lazy"
+                  data-zoomable="true"
+                />
+                <div class="cs-gallery-caption">Figure 3: Multi-Client Concept Landing Pages &amp; Merchandising</div>
+              </div>
+            </div>
+
+            <!-- Unified Single Explanation Box Below the Images -->
+            <div class="cs-concepts-explanation-box">
+              <h3 style="font-family: var(--font-serif-heading); font-size: 22px; color: #0F172A; margin-bottom: 14px;">
+                Connecting the Storefront Customizer to Client Success
+              </h3>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                <div>
+                  <h4 style="font-family: var(--font-manrope); font-size: 15px; font-weight: 700; color: #78350F; margin-bottom: 6px;">
+                    Flying Kush: Flagship Dispensary Experience
+                  </h4>
+                  <p style="font-family: var(--font-manrope); font-size: 14px; color: #475569; line-height: 1.6; margin: 0;">
+                    To validate the white-label customizer engine, we launched <strong>Flying Kush</strong> — a production-ready shopping platform across responsive web, iOS, and Android. It directly synchronizes with Smokewana WMS for real-time inventory, features 21+ compliance verification, strain terpene profiles, and live delivery driver dispatch tracking.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 style="font-family: var(--font-manrope); font-size: 15px; font-weight: 700; color: #78350F; margin-bottom: 6px;">
+                    Client Pitch Landing Pages &amp; 3D Merchandising
+                  </h4>
+                  <p style="font-family: var(--font-manrope); font-size: 14px; color: #475569; line-height: 1.6; margin: 0;">
+                    When onboarding prospective US vape and distributor clients, our pod presented two distinct concept landing page directions. <strong>Option 1 (Naveen)</strong> focused on structured conversion architecture, clear hardware specs, and wholesale sample requests. <strong>Option 2 (Prakash)</strong> delivered bold lifestyle brand storytelling. Both were supported by photorealistic 3D vape hardware renders created by our graphic designer.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               SECTION 6: MEASURABLE BUSINESS IMPACT & DESIGN REFLECTION
+               ====================================================================== -->
+          <section class="cs-section" id="outcomes">
+            <div class="cs-outcomes-card">
+              <div class="cs-outcomes-lead">
+                <span class="cs-overview-category">MEASURABLE OUTCOMES · PHANTASM SOLUTIONS</span>
+                <h3>Impact achieved across US distributor partnerships</h3>
+                <p>
+                  By taking a systems-first approach to UX research, wireframe skeletons, and collaborative UI production, our 4-person pod transformed an outdated industry vertical into a turn-key commercial SaaS platform.
+                </p>
+              </div>
+
+              <!-- 4 Quantifiable Impact Metrics -->
+              <div class="cs-metrics-quad">
+                <div class="cs-metric-box">
+                  <div class="cs-metric-stat">100%</div>
+                  <div class="cs-metric-label">Autonomous Customization</div>
+                  <div class="cs-metric-sub">Zero developer support required for layout updates</div>
+                </div>
+
+                <div class="cs-metric-box">
+                  <div class="cs-metric-stat">90%</div>
+                  <div class="cs-metric-label">Design-to-Dev Fidelity</div>
+                  <div class="cs-metric-sub">Structured wireframe skeletons &amp; weekly syncs</div>
+                </div>
+
+                <div class="cs-metric-box">
+                  <div class="cs-metric-stat">40%</div>
+                  <div class="cs-metric-label">Faster Order Processing</div>
+                  <div class="cs-metric-sub">Streamlined warehouse pick-lists &amp; barcode intake</div>
+                </div>
+
+                <div class="cs-metric-box">
+                  <div class="cs-metric-stat">3</div>
+                  <div class="cs-metric-label">Unified Surfaces</div>
+                  <div class="cs-metric-sub">Web e-com, iOS/Android apps, and cloud WMS</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Senior UX Design Reflection -->
+            <div class="cs-ai-decision-card" style="margin-top: 32px; border-color: rgba(120, 53, 15, 0.25);">
+              <span class="cs-ai-decision-badge">SENIOR DESIGN REFLECTION</span>
+              <h4>What designing for regulated US commerce taught me</h4>
+              <p style="margin-bottom: 12px;">
+                Designing Smokewana and the Phantasm ecosystem reinforced a fundamental product design truth: <strong>the best UX work happens where extreme operational complexity meets non-technical human reality.</strong>
+              </p>
+              <p>
+                Warehouse workers need ruthless visual clarity, high-contrast status feedback, and zero-latency barcode scanning while packing bulk orders in busy facilities. Similarly, dispensary owners shouldn't have to hire engineers just to update a promotional banner or store hours. Collaborating closely with PM Sainath, UI Designer Prakash, and our graphic designer taught me how to operate as a high-velocity product design engine — synthesizing ambiguous business inputs into defensible wireframe architectures, co-designing polished UI screens, and delivering measurable enterprise value.
+              </p>
+            </div>
+          </section>
+
+          <!-- ======================================================================
+               FOOTER: RECRUITER ACTION HUB & SEQUENTIAL NAVIGATION
+               ====================================================================== -->
+          <footer class="cs-footer">
+            <h3 class="cs-footer-title">Let's build something extraordinary together.</h3>
+            <p class="cs-footer-desc">
+              Looking for a Product Designer who turns complex enterprise workflows into intuitive, high-adoption software? Let's talk.
+            </p>
+
+            <div class="cs-footer-actions">
+              <a href="mailto:naveenpullagura@gmail.com?subject=Design%20Opportunity%20-%20Naveen%20Pullagura" class="cs-footer-btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span>Get in Touch</span>
+              </a>
+
+              <a href="/index.html" class="cs-footer-btn-secondary">
+                <span>Next Case Study: NuVeda 360</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+
+            <div class="cs-footer-links-row">
+              <a href="/portfolio-home.html#work" class="cs-footer-sublink">← Back to Work</a>
+              <span class="cs-footer-dot">·</span>
+              <a href="/portfolio-home.html#case-study-phantasm" class="cs-footer-sublink">Phantasm Overview</a>
+              <span class="cs-footer-dot">·</span>
+              <a href="#" class="cs-footer-sublink" id="back-to-top-btn">Back to Top ↑</a>
+            </div>
+
+            <p class="cs-footer-copy">© 2026 Naveen Pullagura · Lead UX &amp; Product Designer</p>
+          </footer>
+
+        </main>
+      </div>
+    </div>
+
+    <!-- Interactive script -->
+    <script type="module" src="/src/case-study.js"></script>
+  </body>
+</html>

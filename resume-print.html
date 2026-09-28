@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Naveen Pullagura — Product Designer Resume</title>
+  <style>
+    @page {
+      size: letter portrait;
+      margin: 0;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      background: #FFFFFF;
+      color: #0F172A;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Fixed 1-page Letter Sheet: 8.5in x 11in */
+    .resume-page {
+      width: 8.5in;
+      height: 11in;
+      max-height: 11in;
+      overflow: hidden;
+      margin: 0 auto;
+      padding: 0.42in 0.52in 0.42in 0.52in;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: #FFFFFF;
+      box-sizing: border-box;
+    }
+
+    /* Top Header */
+    .header {
+      border-bottom: 2px solid #022EB4;
+      padding-bottom: 7px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .header-left {
+      display: flex;
+      flex-direction: column;
+    }
+    .name {
+      font-size: 24px;
+      font-weight: 850;
+      color: #0A0F1D;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+    .title-tagline {
+      font-size: 12px;
+      font-weight: 700;
+      color: #022EB4;
+      margin-top: 4px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* Contact Details */
+    .header-right {
+      text-align: right;
+      font-size: 11px;
+      color: #334155;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+    .header-right a {
+      color: #022EB4;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .header-right a:hover {
+      text-decoration: underline;
+    }
+    .contact-sep {
+      color: #94A3B8;
+      margin: 0 4px;
+    }
+    .location-text {
+      color: #475569;
+    }
+
+    /* Section Component */
+    .section {
+      margin-bottom: 9px;
+    }
+    .section:last-of-type {
+      margin-bottom: 0;
+    }
+    .section-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #022EB4;
+      border-bottom: 1px solid #CBD5E1;
+      padding-bottom: 2px;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    /* Summary */
+    .summary-text {
+      font-size: 10.5px;
+      color: #1E293B;
+      line-height: 1.42;
+      text-align: justify;
+    }
+
+    /* Competencies Table */
+    .competencies-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.5px;
+      line-height: 1.38;
+    }
+    .competencies-table td {
+      padding: 1.5px 0;
+      vertical-align: top;
+    }
+    .comp-label {
+      width: 155px;
+      font-weight: 700;
+      color: #0B132B;
+      white-space: nowrap;
+    }
+    .comp-val {
+      color: #334155;
+    }
+
+    /* Experience Entries */
+    .job-entry {
+      margin-bottom: 7px;
+    }
+    .job-entry:last-child {
+      margin-bottom: 0;
+    }
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1.5px;
+    }
+    .job-role {
+      font-size: 11.5px;
+      font-weight: 750;
+      color: #0B132B;
+    }
+    .job-company {
+      font-weight: 750;
+      color: #022EB4;
+    }
+    .job-date {
+      font-size: 10px;
+      font-weight: 600;
+      color: #64748B;
+      text-align: right;
+    }
+    .job-sub {
+      font-size: 10px;
+      font-style: italic;
+      color: #475569;
+      margin-bottom: 3px;
+    }
+    ul.bullets {
+      list-style-type: disc;
+      padding-left: 15px;
+      margin: 0;
+    }
+    ul.bullets li {
+      margin-bottom: 2.5px;
+      font-size: 10.3px;
+      color: #1E293B;
+      line-height: 1.36;
+    }
+    ul.bullets li:last-child {
+      margin-bottom: 0;
+    }
+    ul.bullets li strong {
+      color: #0B132B;
+      font-weight: 700;
+    }
+
+    /* 2-Column Split: Education & Tools */
+    .two-col-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 2px;
+    }
+    .col-half {
+      flex: 1;
+    }
+    .edu-entry {
+      font-size: 10.5px;
+      line-height: 1.4;
+    }
+    .edu-title {
+      font-weight: 750;
+      color: #0B132B;
+    }
+    .edu-sub {
+      color: #475569;
+      font-size: 10px;
+    }
+    .tools-list {
+      font-size: 10.3px;
+      color: #334155;
+      line-height: 1.4;
+    }
+    .tools-list strong {
+      color: #0B132B;
+    }
+  </style>
+</head>
+<body>
+  <div class="resume-page">
+    <!-- TOP HEADER -->
+    <header class="header">
+      <div class="header-left">
+        <h1 class="name">Naveen Pullagura</h1>
+        <p class="title-tagline">Product Designer · B2B SaaS &amp; AI Systems</p>
+      </div>
+      <div class="header-right">
+        <div>
+          <a href="mailto:pullaguranaveen1011@gmail.com">pullaguranaveen1011@gmail.com</a>
+          <span class="contact-sep">•</span>
+          <span>+91 90323 53678</span>
+        </div>
+        <div class="location-text">
+          <span>Eluru, Andhra Pradesh, India</span>
+        </div>
+        <div>
+          <a href="https://www.linkedin.com/in/naveen-pullagura-ab7217246/" target="_blank" rel="noopener">linkedin.com/in/naveen-pullagura-ab7217246</a>
+          <span class="contact-sep">•</span>
+          <a href="https://naveenpullagura.vercel.app" target="_blank" rel="noopener">naveenpullagura.vercel.app</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- PROFESSIONAL SUMMARY -->
+    <section class="section">
+      <h2 class="section-title">Professional Summary</h2>
+      <p class="summary-text">
+        Product Designer leading end-to-end enterprise SaaS redesigns, architecting intuitive AI interaction workflows, and engineering scalable design token systems. Proven track record of transforming complex legacy architectures into intuitive, high-adoption products (NuVeda 360, CALF 2.0, NU Coach) with measurable efficiency gains, 90% reduction in workflow creation time, and seamless cross-functional developer collaboration.
+      </p>
+    </section>
+
+    <!-- CORE COMPETENCIES -->
+    <section class="section">
+      <h2 class="section-title">Core Competencies</h2>
+      <table class="competencies-table">
+        <tr>
+          <td class="comp-label">Product Design &amp; UX:</td>
+          <td class="comp-val">End-to-End Product Architecture, User Flows, Journey Mapping, Usability Audits, Interactive Wireframes, Rapid Prototyping.</td>
+        </tr>
+        <tr>
+          <td class="comp-label">AI Systems &amp; UX:</td>
+          <td class="comp-val">AI Interaction Models, Conversational Voice Roleplay UX, Non-Deterministic Feedback Loops, AI-Assisted Prototyping.</td>
+        </tr>
+        <tr>
+          <td class="comp-label">Design Systems:</td>
+          <td class="comp-val">Figma Component Architecture, Tokens Studio, 100% White-Label Theming Engines, WCAG 2.1 AA Accessibility Standards.</td>
+        </tr>
+        <tr>
+          <td class="comp-label">Engineering Synergy:</td>
+          <td class="comp-val">95% Design-to-Code Fidelity, Semantic HTML5/CSS3 Systems, Component Props Mapping, Developer Handoff Acceleration.</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- PROFESSIONAL EXPERIENCE -->
+    <section class="section">
+      <h2 class="section-title">Professional Experience</h2>
+
+      <!-- NuVeda Learning -->
+      <article class="job-entry">
+        <div class="job-header">
+          <div class="job-role">Product Designer · <span class="job-company">NuVeda Learning</span></div>
+          <div class="job-date">June 2025 – Present | India</div>
+        </div>
+        <div class="job-sub">Enterprise Learning Management Systems (LMS) &amp; AI-Augmented Platforms</div>
+        <ul class="bullets">
+          <li><strong>NuVeda 360 (SaaS Unbundling):</strong> Re-architected an unwieldy legacy survey feature into an autonomous commercial product; designed an intuitive AI setup wizard that <strong>reduced survey creation time by 90%</strong> and simplified buyer onboarding to under 3 minutes.</li>
+          <li><strong>CALF 2.0 (Flagship LMS Overhaul):</strong> Led end-to-end UX redesign across 4 core user roles (Admin, Manager, Facilitator, Learner), resolving 60+ navigation bottlenecks and deep multi-tenant usability debt.</li>
+          <li><strong>Multi-Tenant White-Labeling:</strong> Engineered a 100% white-label design token system allowing 100+ enterprise clients to instantly apply custom brand palettes and dark themes with zero engineering rewrites.</li>
+          <li><strong>NU Coach (AI Conversational UX):</strong> Transformed a raw AI prototype into a gamified workplace coaching platform with conversational voice roleplay simulations, crisis scenarios, and daily streak mechanics.</li>
+          <li><strong>Design System Delivery:</strong> Centralized components across web and mobile, <strong>increasing dev velocity by 20%</strong> with <strong>95% handoff fidelity</strong>.</li>
+        </ul>
+      </article>
+
+      <!-- Phantasm Solutions -->
+      <article class="job-entry">
+        <div class="job-header">
+          <div class="job-role">UI/UX Designer · <span class="job-company">Phantasm Solutions</span></div>
+          <div class="job-date">July 2024 – January 2025 | India</div>
+        </div>
+        <div class="job-sub">Warehouse Management Systems (WMS) &amp; E-Commerce Platforms</div>
+        <ul class="bullets">
+          <li><strong>WMS Operations Architecture:</strong> Designed end-to-end interface for enterprise warehouse systems, streamlining real-time inventory counts, batch order dispatching, and logistics tracking.</li>
+          <li><strong>E-Commerce Funnels:</strong> Built responsive e-commerce storefronts with optimized category filtering and multi-step checkout funnels that improved checkout completion rates.</li>
+          <li><strong>Design-to-Code Quality:</strong> Partnered closely with front-end engineers to enforce design standards, achieving <strong>90%+ visual and functional fidelity</strong>.</li>
+        </ul>
+      </article>
+
+      <!-- DBASE Solutions -->
+      <article class="job-entry">
+        <div class="job-header">
+          <div class="job-role">Business Executive → UX Contributor · <span class="job-company">DBASE Solutions</span></div>
+          <div class="job-date">October 2023 – July 2024 | India</div>
+        </div>
+        <div class="job-sub">University ERP &amp; Examination Platforms</div>
+        <ul class="bullets">
+          <li><strong>Campus User Discovery:</strong> Conducted dozens of live campus demonstrations and faculty interviews, directly uncovering high error rates in university exam evaluations.</li>
+          <li><strong>Workflow Streamlining:</strong> Designed wireframes and step-by-step task flows resolving confusing multi-tier navigation, <strong>cutting user support tickets and error rates</strong>.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- EDUCATION & TOOLS ROW -->
+    <div class="two-col-row">
+      <div class="col-half">
+        <div class="section-title">Education</div>
+        <div class="edu-entry">
+          <div class="edu-title">Bachelor of Technology (B.Tech)</div>
+          <div class="edu-sub">Engineering Graduate · Andhra Pradesh, India</div>
+        </div>
+      </div>
+      <div class="col-half">
+        <div class="section-title">Tools &amp; Methods</div>
+        <div class="tools-list">
+          <div><strong>Design:</strong> Figma, FigJam, Tokens Studio, Auto-Layout, Interactive Prototyping</div>
+          <div><strong>Front-End &amp; AI:</strong> HTML5, CSS3, Token Systems, AI Tools (Claude, Gemini, Lovable)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
