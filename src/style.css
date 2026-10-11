@@ -709,13 +709,13 @@ a {
 
 .about-master-card {
   width: 100%;
-  height: auto;
-  max-width: 1240px;
-  max-height: 620px;
+  height: 100%;
+  max-width: 1352px;
+  max-height: 725px;
   min-height: 0;
   border: 1px solid var(--color-card-border, var(--color-border-hero));
   border-radius: 14px;
-  padding: 26px 36px;
+  padding: 38px 46px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -738,10 +738,10 @@ a {
 
 .about-card-inner {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 32px;
+  grid-template-columns: 285px 1fr;
+  gap: 46px;
   align-items: center;
   box-sizing: border-box;
 }
@@ -752,16 +752,15 @@ a {
 .about-left-col {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
   justify-content: center;
   height: auto;
 }
 
 .about-portrait-wrap {
   width: 100%;
-  max-width: 240px;
-  height: 310px;
+  max-width: 285px;
+  height: 385px;
   border-radius: 12px;
   overflow: hidden;
   background-color: #0b0f19;
@@ -789,15 +788,14 @@ a {
 .about-identity-badge {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 1px;
-  margin-top: 8px;
+  align-items: flex-start;
+  gap: 2px;
+  margin-top: 12px;
 }
 
 .about-identity-name {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--color-dark-text, #111827);
   letter-spacing: -0.01em;
@@ -806,7 +804,7 @@ a {
 
 .about-identity-role {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--color-primary-blue, #0052FF);
   letter-spacing: 0.02em;
@@ -815,17 +813,16 @@ a {
 .about-socials-row {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 8px;
+  gap: 10px;
+  margin-top: 12px;
 }
 
 .about-social-icon-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
@@ -846,19 +843,17 @@ a {
 .about-contact-group {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 2px;
-  margin-top: 5px;
+  gap: 3px;
+  margin-top: 10px;
 }
 
 .about-contact-text-link {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--color-dark-text, #111827);
   text-decoration: none;
-  line-height: 1.4;
+  line-height: 1.45;
   transition: color 0.2s ease;
 }
 
@@ -874,22 +869,22 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: auto;
-  max-height: none;
-  padding-left: 0;
+  height: 100%;
+  max-height: 540px;
+  padding-left: 2px;
   box-sizing: border-box;
-  gap: 14px;
+  gap: 22px;
 }
 
 .about-narrative-header {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 }
 
 .about-eyebrow {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 800;
   color: var(--color-primary-blue, #0052FF);
   letter-spacing: 0.8px;
@@ -899,9 +894,9 @@ a {
 
 .about-main-headline {
   font-family: var(--font-balthazar), var(--font-cormorant), Georgia, serif;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 400;
-  line-height: 1.22;
+  line-height: 1.24;
   color: var(--color-dark-text, #111827);
   margin: 0;
   letter-spacing: -0.015em;
@@ -909,19 +904,19 @@ a {
 
 .about-lead-para {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--color-body-text, #4B5563);
   margin: 0;
-  max-width: 800px;
+  max-width: 820px;
 }
 
 /* 3-Principles Horizontal Grid (Clean borderless layout matching editorial reference) */
 .about-principles-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 24px;
   padding: 0;
   border: none;
   margin: 0;
@@ -930,12 +925,12 @@ a {
 .about-principle-item {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 5px;
 }
 
 .about-principle-kicker {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 10.5px;
+  font-size: 11.5px;
   font-weight: 800;
   color: var(--color-primary-blue, #0052FF);
   letter-spacing: 0.6px;
@@ -945,18 +940,18 @@ a {
 
 .about-principle-title {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 13.5px;
+  font-size: 14.5px;
   font-weight: 700;
   color: var(--color-dark-text, #111827);
   margin: 0;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 .about-principle-text {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.45;
   color: var(--color-body-text, #4B5563);
   margin: 0;
 }
@@ -965,13 +960,13 @@ a {
 .about-tools-container {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   margin: 0;
 }
 
 .about-tools-title {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 800;
   color: var(--color-dark-text, #111827);
   letter-spacing: 0.8px;
@@ -982,21 +977,21 @@ a {
 .about-tools-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 .about-tool-chip {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 12px 5px 8px;
+  gap: 8px;
+  padding: 7px 16px 7px 12px;
   border-radius: 9999px;
   background-color: var(--color-pill-bg, #F8FAFC);
   border: 1px solid var(--color-card-border, #E2E8F0);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   font-family: var(--font-manrope), sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--color-dark-text, #334155);
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
@@ -1023,8 +1018,8 @@ a {
 }
 
 .about-tool-chip .about-tool-img {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
   flex-shrink: 0;
 }
@@ -2967,16 +2962,16 @@ html.preload-phantasm-projects .view-phantasm-projects {
 
   .about-master-card {
     height: auto;
-    min-height: auto;
+    min-height: max(620px, calc(100dvh - 160px));
     max-height: none;
-    padding: 24px 20px;
+    padding: 36px 28px;
     border-radius: 14px;
     flex: 1 1 auto;
   }
 
   .about-card-inner {
     grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 24px;
   }
 
   .about-left-col {
@@ -2986,14 +2981,14 @@ html.preload-phantasm-projects .view-phantasm-projects {
   }
 
   .about-portrait-wrap {
-    max-width: 180px;
-    height: 230px;
+    max-width: 240px;
+    height: 320px;
   }
 
   .about-right-col {
     max-height: none;
     padding-left: 0;
-    gap: 12px;
+    gap: 20px;
   }
 
   .about-principles-grid {
@@ -3510,7 +3505,7 @@ html.preload-phantasm-projects .view-phantasm-projects {
     height: auto !important;
     max-height: none !important;
     min-height: auto !important;
-    padding: 16px 14px 20px !important;
+    padding: 28px 16px 32px !important;
     border-radius: 14px;
     border: 1px solid var(--color-card-border, var(--color-border-hero)) !important;
     box-shadow: 
@@ -3528,7 +3523,7 @@ html.preload-phantasm-projects .view-phantasm-projects {
   .about-card-inner {
     display: flex !important;
     flex-direction: column !important;
-    gap: 12px !important;
+    gap: 22px !important;
     width: 100% !important;
     height: auto !important;
     align-items: stretch !important;
@@ -3544,48 +3539,49 @@ html.preload-phantasm-projects .view-phantasm-projects {
   }
 
   .about-portrait-wrap {
-    width: 110px !important;
-    max-width: 110px !important;
-    height: 140px !important;
+    width: 160px !important;
+    max-width: 160px !important;
+    height: 220px !important;
     margin: 0 auto !important;
-    border-radius: 10px !important;
+    border-radius: 12px !important;
     flex-shrink: 0 !important;
   }
 
   .about-identity-badge {
-    margin-top: 5px !important;
+    align-items: center !important;
     text-align: center !important;
-    gap: 1px !important;
+    margin-top: 10px !important;
+    gap: 2px !important;
   }
 
   .about-identity-name {
-    font-size: 14px !important;
-    line-height: 1.2 !important;
+    font-size: 15px !important;
+    line-height: 1.25 !important;
   }
 
   .about-identity-role {
-    font-size: 11px !important;
+    font-size: 12px !important;
   }
 
   .about-socials-row {
     justify-content: center !important;
-    margin-top: 6px !important;
-    gap: 8px !important;
+    margin-top: 12px !important;
+    gap: 10px !important;
   }
 
   .about-social-icon-btn {
-    width: 28px !important;
-    height: 28px !important;
+    width: 36px !important;
+    height: 36px !important;
   }
 
   .about-contact-group {
     align-items: center !important;
     text-align: center !important;
-    margin-top: 3px !important;
+    margin-top: 8px !important;
   }
 
   .about-contact-text-link {
-    font-size: 11.5px !important;
+    font-size: 13px !important;
   }
 
   .about-right-col {
@@ -3593,31 +3589,31 @@ html.preload-phantasm-projects .view-phantasm-projects {
     height: auto !important;
     max-height: none !important;
     padding: 0 !important;
-    gap: 10px !important;
+    gap: 18px !important;
     justify-content: flex-start !important;
   }
 
   .about-narrative-header {
     text-align: center !important;
-    gap: 2px !important;
+    gap: 4px !important;
   }
 
   .about-eyebrow {
-    font-size: 9.5px !important;
+    font-size: 11px !important;
     text-align: center !important;
-    letter-spacing: 0.6px !important;
+    letter-spacing: 0.8px !important;
   }
 
   .about-main-headline {
-    font-size: 19px !important;
-    line-height: 1.24 !important;
+    font-size: 24px !important;
+    line-height: 1.3 !important;
     text-align: center !important;
     margin: 0 !important;
   }
 
   .about-lead-para {
-    font-size: 12.5px !important;
-    line-height: 1.45 !important;
+    font-size: 14px !important;
+    line-height: 1.55 !important;
     text-align: left !important;
     margin: 0 !important;
   }
@@ -3625,7 +3621,7 @@ html.preload-phantasm-projects .view-phantasm-projects {
   .about-principles-grid {
     display: flex !important;
     flex-direction: column !important;
-    gap: 6px !important;
+    gap: 10px !important;
     width: 100% !important;
     margin: 0 !important;
   }
@@ -3633,34 +3629,34 @@ html.preload-phantasm-projects .view-phantasm-projects {
   .about-principle-item {
     background: var(--color-pill-bg, #F8FAFC);
     border: 1px solid var(--color-card-border, #E2E8F0);
-    border-radius: 6px;
-    padding: 7px 10px;
+    border-radius: 10px;
+    padding: 12px 14px;
     text-align: left;
-    gap: 1px !important;
+    gap: 3px !important;
   }
 
   .about-principle-kicker {
-    font-size: 9.5px !important;
+    font-size: 11px !important;
   }
 
   .about-principle-title {
-    font-size: 12px !important;
-    line-height: 1.25 !important;
+    font-size: 13.5px !important;
+    line-height: 1.3 !important;
   }
 
   .about-principle-text {
-    font-size: 11px !important;
-    line-height: 1.35 !important;
+    font-size: 12.5px !important;
+    line-height: 1.45 !important;
   }
 
   .about-tools-container {
     width: 100% !important;
-    margin-top: 0 !important;
-    gap: 5px !important;
+    margin-top: 4px !important;
+    gap: 10px !important;
   }
 
   .about-tools-title {
-    font-size: 9px !important;
+    font-size: 10.5px !important;
     letter-spacing: 0.6px !important;
     text-align: left !important;
   }
@@ -3668,19 +3664,19 @@ html.preload-phantasm-projects .view-phantasm-projects {
   .about-tools-row {
     display: flex !important;
     flex-wrap: wrap !important;
-    gap: 5px !important;
+    gap: 8px !important;
     justify-content: flex-start !important;
   }
 
   .about-tool-chip {
-    padding: 4px 8px 4px 6px !important;
-    font-size: 10.5px !important;
-    gap: 4px !important;
+    padding: 6px 14px 6px 10px !important;
+    font-size: 12px !important;
+    gap: 6px !important;
   }
 
   .about-tool-chip .about-tool-img {
-    width: 14px !important;
-    height: 14px !important;
+    width: 18px !important;
+    height: 18px !important;
   }
 
   .hero-stack {
@@ -4132,7 +4128,7 @@ html.preload-phantasm-projects .view-phantasm-projects {
   }
 
   .about-master-card {
-    padding: 24px 14px 20px;
+    padding: 24px 16px 28px !important;
   }
 }
 
