@@ -2,7 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#022EB4" />
     <title>Naveen Pullagura — Product Designer Portfolio</title>
     <meta name="description" content="Portfolio of Naveen Pullagura — I Design Products That People Actually Want To Use." />
 
@@ -118,12 +120,6 @@
                   id="nuveda-link"
                 >NuVeda Learning</a>.
               </p>
-
-              <div class="cta-wrapper">
-                <button type="button" class="cta-button" id="hero-cta-btn">
-                  <span>See my work</span>
-                </button>
-              </div>
             </div>
 
             <!-- Absolute-anchored tactile scroll indicator (does not shift hero-stack typography) -->
@@ -183,6 +179,17 @@
                   loading="eager"
                 />
               </div>
+
+              <!-- Mobile-only Flow Navigation -->
+              <div class="mobile-only-flow">
+                <button type="button" class="mobile-nav-next-btn" data-target-company="phantasm" aria-label="Next Company: Phantasm Solutions">
+                  <span>Next: Phantasm Solutions</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
             </article>
 
             <!-- 2B. Case Study Card: Phantasm Solutions (COMPANY 02) -->
@@ -232,6 +239,17 @@
                   <span>View Case Study</span>
                 </div>
               </a>
+
+              <!-- Mobile-only Flow Navigation -->
+              <div class="mobile-only-flow">
+                <button type="button" class="mobile-nav-next-btn" data-target-company="dbase" aria-label="Next Company: DBASE Solutions">
+                  <span>Next: DBASE Solutions</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
             </article>
 
             <!-- 2C. Case Study Card: DBASE Solutions (COMPANY 01) -->
@@ -340,6 +358,17 @@
                   </div>
                 </div>
               </div>
+
+              <!-- Mobile-only Flow Navigation -->
+              <div class="mobile-only-flow">
+                <button type="button" class="mobile-nav-next-btn" data-target-view="about" aria-label="Continue to About Naveen">
+                  <span>Continue to About Me</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
             </article>
           </div>
 
@@ -349,16 +378,19 @@
               <svg width="15" height="16" viewBox="0 0 15 16" fill="none" aria-hidden="true">
                 <path d="M7.5 0.5C7.8 4.3 10.7 7.2 14.5 7.5C10.7 7.8 7.8 10.7 7.5 14.5C7.2 10.7 4.3 7.8 0.5 7.5C4.3 7.2 7.2 4.3 7.5 0.5Z" class="star-shape" fill="#0000FF"/>
               </svg>
+              <span class="indicator-company-label">03 NuVeda</span>
             </button>
             <button class="indicator-item" data-company="phantasm" aria-label="Company 02: Phantasm Solutions" type="button">
               <svg width="15" height="16" viewBox="0 0 15 16" fill="none" aria-hidden="true">
                 <path d="M7.5 0.5C7.8 4.3 10.7 7.2 14.5 7.5C10.7 7.8 7.8 10.7 7.5 14.5C7.2 10.7 4.3 7.8 0.5 7.5C4.3 7.2 7.2 4.3 7.5 0.5Z" class="star-shape" fill="#DFDFDF"/>
               </svg>
+              <span class="indicator-company-label">02 Phantasm</span>
             </button>
             <button class="indicator-item" data-company="dbase" aria-label="Company 01: DBASE Solutions" type="button">
               <svg width="15" height="16" viewBox="0 0 15 16" fill="none" aria-hidden="true">
                 <path d="M7.5 0.5C7.8 4.3 10.7 7.2 14.5 7.5C10.7 7.8 7.8 10.7 7.5 14.5C7.2 10.7 4.3 7.8 0.5 7.5C4.3 7.2 7.2 4.3 7.5 0.5Z" class="star-shape" fill="#DFDFDF"/>
               </svg>
+              <span class="indicator-company-label">01 DBASE</span>
             </button>
           </aside>
           </div>
@@ -605,6 +637,17 @@
                     </div>
                   </div>
                 </div>
+
+                <!-- Mobile-only Flow Navigation -->
+                <div class="mobile-only-flow">
+                  <button type="button" class="mobile-nav-next-btn" data-target-view="resume" aria-label="Continue to Resume">
+                    <span>Continue to Resume</span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
           </article>
@@ -643,6 +686,17 @@
                   </span>
                   <span class="resume-download-btn-label">Download Resume</span>
                 </a>
+              </div>
+
+              <!-- Mobile-only Flow Navigation -->
+              <div class="mobile-only-flow">
+                <button type="button" class="mobile-nav-next-btn" data-target-view="contact" aria-label="Let's Talk — Contact Naveen">
+                  <span>Let's Talk — Contact Naveen</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
               </div>
             </div>
           </article>

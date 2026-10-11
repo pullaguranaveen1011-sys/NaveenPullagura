@@ -156,15 +156,25 @@ function initPortfolio() {
       clearTimeout(carouselScrollTimer);
       carouselScrollTimer = setTimeout(() => {
         const scrollLeft = workCardsCarousel.scrollLeft;
-        const cardWidth = workCardsCarousel.clientWidth || 1;
-        const activeIdx = Math.min(companies.length - 1, Math.max(0, Math.round(scrollLeft / cardWidth)));
-        const activeCompany = companies[activeIdx];
+        let closestIdx = 0;
+        let minDistance = Infinity;
+        companies.forEach((comp, idx) => {
+          const card = cardElements[comp];
+          if (card) {
+            const distance = Math.abs(card.offsetLeft - scrollLeft);
+            if (distance < minDistance) {
+              minDistance = distance;
+              closestIdx = idx;
+            }
+          }
+        });
+        const activeCompany = companies[closestIdx];
 
         if (activeCompany && currentCompany !== activeCompany) {
           currentCompany = activeCompany;
           updateIndicators(activeCompany);
         }
-      }, 60);
+      }, 50);
     }, { passive: true });
   }
 
@@ -1212,6 +1222,27 @@ function initPortfolio() {
         switchCompany(targetCompany);
       }
     });
+  });
+
+  // Dedicated Mobile Flow Navigation buttons (zero desktop footprint)
+  document.addEventListener('click', (e) => {
+    const nextBtn = e.target.closest('.mobile-nav-next-btn');
+    if (!nextBtn) return;
+    e.preventDefault();
+    const targetComp = nextBtn.getAttribute('data-target-company');
+    const targetView = nextBtn.getAttribute('data-target-view');
+    if (targetComp && companies.includes(targetComp)) {
+      switchCompany(targetComp);
+    } else if (targetView === 'about') {
+      history.pushState(null, '', '#about');
+      switchToAbout(false);
+    } else if (targetView === 'resume') {
+      history.pushState(null, '', '#resume');
+      switchToResume(false);
+    } else if (targetView === 'contact') {
+      history.pushState(null, '', '#contact');
+      switchToContact(false);
+    }
   });
 
   // ==========================================================================
