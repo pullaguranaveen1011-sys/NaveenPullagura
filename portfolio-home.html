@@ -30,6 +30,7 @@
         }
         try {
           if (sessionStorage.getItem('curtain_reveal_pending') === '1') {
+            window.__curtainPendingOnLoad = true;
             document.documentElement.classList.add('curtain-opening');
             var col = sessionStorage.getItem('curtain_reveal_color') || '#022EB4';
             document.documentElement.style.setProperty('--curtain-active-color', col);
@@ -123,6 +124,17 @@
                   <span>See my work</span>
                 </button>
               </div>
+            </div>
+
+            <!-- Absolute-anchored tactile scroll indicator (does not shift hero-stack typography) -->
+            <div class="hero-scroll-indicator" id="hero-scroll-indicator" role="button" tabindex="0" aria-label="Scroll to explore work">
+              <span class="scroll-mouse-pill">
+                <span class="scroll-mouse-wheel"></span>
+              </span>
+              <span class="scroll-indicator-text">Scroll to explore</span>
+              <svg class="scroll-indicator-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </div>
           </div>
         </main>
@@ -983,7 +995,7 @@
       <!-- Master Footer Bar (Single instance, no duplicates) -->
       <footer class="footer-bar">
         <span class="footer-meta footer-meta-left">INDIA</span>
-        <span class="footer-meta footer-meta-right">@2023</span>
+        <span class="footer-meta footer-meta-right">@2026</span>
       </footer>
     </div>
 
@@ -996,24 +1008,16 @@
           <span class="theme-tooltip-text" id="theme-tooltip-text">Signature Blue</span>
         </div>
 
-        <!-- 16-Dot Vertical Rhythm Track -->
+        <!-- 8-Dot Vertical Rhythm Track -->
         <div class="theme-dots-track" id="theme-dots-track">
           <span class="theme-dot dot-major is-active" data-index="0" title="Signature Blue"></span>
-          <span class="theme-dot dot-minor" data-index="1" title="Royal Blue Light"></span>
-          <span class="theme-dot dot-minor" data-index="2" title="Obsidian Midnight"></span>
-          <span class="theme-dot dot-minor" data-index="3" title="Obsidian Dark"></span>
-          <span class="theme-dot dot-major" data-index="4" title="Electric Indigo"></span>
-          <span class="theme-dot dot-minor" data-index="5" title="Twilight Violet"></span>
-          <span class="theme-dot dot-minor" data-index="6" title="Pastel Lilac"></span>
-          <span class="theme-dot dot-minor" data-index="7" title="Wisteria Lavender"></span>
-          <span class="theme-dot dot-major" data-index="8" title="Pastel Matcha"></span>
-          <span class="theme-dot dot-minor" data-index="9" title="Soft Sage Pine"></span>
-          <span class="theme-dot dot-minor" data-index="10" title="Pastel Blush"></span>
-          <span class="theme-dot dot-minor" data-index="11" title="Desert Peach"></span>
-          <span class="theme-dot dot-major" data-index="12" title="Warm Terracotta"></span>
-          <span class="theme-dot dot-minor" data-index="13" title="Editorial Sand"></span>
-          <span class="theme-dot dot-minor" data-index="14" title="Nordic Slate"></span>
-          <span class="theme-dot dot-minor" data-index="15" title="Arctic Glacier Ice"></span>
+          <span class="theme-dot dot-minor" data-index="1" title="Obsidian Dark"></span>
+          <span class="theme-dot dot-minor" data-index="2" title="Electric Indigo"></span>
+          <span class="theme-dot dot-minor" data-index="3" title="Pastel Lilac"></span>
+          <span class="theme-dot dot-major" data-index="4" title="Pastel Matcha"></span>
+          <span class="theme-dot dot-minor" data-index="5" title="Pastel Blush"></span>
+          <span class="theme-dot dot-minor" data-index="6" title="Warm Terracotta"></span>
+          <span class="theme-dot dot-minor" data-index="7" title="Nordic Slate"></span>
         </div>
 
         <!-- Hidden Native Range Slider -->
@@ -1022,9 +1026,9 @@
           id="theme-range-slider" 
           class="theme-capsule-range" 
           min="0" 
-          max="15" 
+          max="7" 
           step="1" 
-          value="15" 
+          value="7" 
           orient="vertical"
           aria-label="Theme scrubber"
         />

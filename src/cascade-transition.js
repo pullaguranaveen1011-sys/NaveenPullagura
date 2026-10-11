@@ -99,7 +99,7 @@ export class CascadeTransitionController {
    * Screen is ALREADY covered in pure blue with "Hi, how are you!".
    * Holds for holdMs, then cascades UPWARDS to reveal the hero section.
    */
-  triggerInitialReveal({ holdMs = 1100, onComplete } = {}) {
+  triggerInitialReveal({ holdMs = 950, onComplete } = {}) {
     if (this.isTransitioning) return;
     this.isTransitioning = true;
 
@@ -112,8 +112,16 @@ export class CascadeTransitionController {
     this.container.classList.add('state-covered', 'is-active');
     this.container.setAttribute('aria-hidden', 'false');
 
-    // Hold greeting on the blue screen, then sweep UP to reveal hero
-    setTimeout(() => {
+    let isExiting = false;
+    let holdTimer = null;
+
+    const sweepUp = () => {
+      if (isExiting) return;
+      isExiting = true;
+      clearTimeout(holdTimer);
+      this.container.removeEventListener('click', sweepUp);
+      window.removeEventListener('keydown', handleKey);
+
       this.container.classList.remove('state-covered');
       this.container.classList.add('state-exiting');
 
@@ -127,7 +135,19 @@ export class CascadeTransitionController {
           onComplete();
         }
       }, exitTotalMs + 40);
-    }, holdMs);
+    };
+
+    const handleKey = (e) => {
+      if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+        sweepUp();
+      }
+    };
+
+    this.container.addEventListener('click', sweepUp, { once: true });
+    window.addEventListener('keydown', handleKey, { once: true });
+
+    // Hold greeting on the blue screen, then sweep UP to reveal hero
+    holdTimer = setTimeout(sweepUp, holdMs);
   }
 
   /**

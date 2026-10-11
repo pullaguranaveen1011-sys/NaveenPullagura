@@ -5,21 +5,13 @@
 
 export const THEMES = [
   { id: 'signature-blue', label: 'Signature Blue', accent: '#022EB4' },
-  { id: 'signature-blue', label: 'Royal Blue Light', accent: '#2563EB' },
-  { id: 'obsidian-dark', label: 'Obsidian Midnight', accent: '#38BDF8' },
-  { id: 'obsidian-dark', label: 'Obsidian Dark', accent: '#0EA5E9' },
+  { id: 'obsidian-dark', label: 'Obsidian Dark', accent: '#38BDF8' },
   { id: 'electric-indigo', label: 'Electric Indigo', accent: '#A78BFA' },
-  { id: 'electric-indigo', label: 'Twilight Violet', accent: '#818CF8' },
   { id: 'pastel-lilac', label: 'Pastel Lilac', accent: '#7C3AED' },
-  { id: 'pastel-lilac', label: 'Wisteria Lavender', accent: '#9333EA' },
   { id: 'pastel-matcha', label: 'Pastel Matcha', accent: '#0D7A5F' },
-  { id: 'pastel-matcha', label: 'Soft Sage Pine', accent: '#059669' },
   { id: 'pastel-blush', label: 'Pastel Blush', accent: '#E11D48' },
-  { id: 'pastel-blush', label: 'Desert Peach', accent: '#F43F5E' },
   { id: 'warm-paper', label: 'Warm Terracotta', accent: '#C2410C' },
-  { id: 'warm-paper', label: 'Editorial Sand', accent: '#EA580C' },
   { id: 'nordic-slate', label: 'Nordic Slate', accent: '#2563EB' },
-  { id: 'nordic-slate', label: 'Arctic Glacier Ice', accent: '#0284C7' },
 ];
 
 const STORAGE_KEY = 'naveen_portfolio_theme';
@@ -157,7 +149,7 @@ export class ThemeController {
         if (!this.dockEl.classList.contains('is-expanded')) {
           this.dockEl.classList.add('is-expanded');
         }
-        const nextIdx = (this.currentIndex + 2) % THEMES.length;
+        const nextIdx = (this.currentIndex + 1) % THEMES.length;
         this.applyTheme(nextIdx, true);
         this.showTooltip(true);
         this.scheduleHideTooltip();
@@ -176,7 +168,7 @@ export class ThemeController {
     window.addEventListener('keydown', (e) => {
       if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
       if (e.key === 't' || e.key === 'T') {
-        const nextIdx = (this.currentIndex + 2) % THEMES.length;
+        const nextIdx = (this.currentIndex + 1) % THEMES.length;
         this.applyTheme(nextIdx, true);
         this.showTooltip(true);
         this.scheduleHideTooltip();

@@ -520,7 +520,7 @@ a {
   margin: 0 0 20px 0;
   padding: 0 12px;
   max-width: 780px;
-  min-height: clamp(82px, 8.5vw, 115px);
+  min-height: auto;
   text-wrap: balance;
   position: relative;
   font-style: normal;
@@ -530,21 +530,54 @@ a {
   text-align: center;
 }
 
-.resume-statement-quote.is-typing::after {
-  content: '';
-  display: inline-block;
-  width: 2.5px;
-  height: 1.15em;
-  background-color: var(--color-primary-blue, #022EB4);
-  border-radius: 2px;
-  margin-left: 4px;
-  vertical-align: -0.15em;
-  animation: resumeBlinkCursor 0.75s ease-in-out infinite;
+@keyframes resumeQuoteEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
 }
 
-@keyframes resumeBlinkCursor {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+@keyframes resumeAuthorEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes resumeCtaEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.view-resume.is-active .resume-statement-quote {
+  animation: resumeQuoteEntrance 0.52s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity, filter;
+}
+
+.view-resume.is-active .resume-statement-author {
+  animation: resumeAuthorEntrance 0.48s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+  will-change: transform, opacity;
+}
+
+.view-resume.is-active .resume-cta-container {
+  animation: resumeCtaEntrance 0.48s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
+  will-change: transform, opacity;
 }
 
 .resume-statement-author {
@@ -570,7 +603,7 @@ a {
   margin-top: 4px;
 }
 
-/* Distinct, Tactile, High-Contrast Download Button */
+/* Distinct, Tactile, Flat Download Button (No drop shadow) */
 .resume-primary-download-btn {
   display: inline-flex;
   align-items: center;
@@ -579,25 +612,25 @@ a {
   background-color: var(--color-primary-blue);
   color: #FFFFFF !important;
   text-decoration: none !important;
-  padding: 16px 38px;
+  padding: 15px 36px;
   border-radius: 9999px;
   font-family: var(--font-manrope);
   font-size: 17px;
   font-weight: 700;
   letter-spacing: 0.01em;
-  border: 2px solid var(--color-primary-blue);
+  border: none;
   cursor: pointer;
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 6px 20px rgba(2, 46, 180, 0.30), 0 2px 4px rgba(0, 0, 0, 0.06);
-  transform: translateY(0);
+  transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+  box-shadow: none !important;
+  transform: none;
   -webkit-tap-highlight-color: transparent;
 }
 
 .resume-primary-download-btn:hover {
   background-color: #012494;
-  border-color: #012494;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(2, 46, 180, 0.42), 0 4px 8px rgba(0, 0, 0, 0.08);
+  border-color: transparent;
+  transform: none;
+  box-shadow: none !important;
   color: #FFFFFF !important;
 }
 
@@ -606,13 +639,15 @@ a {
 }
 
 .resume-primary-download-btn:active {
-  transform: translateY(1px);
-  box-shadow: 0 3px 10px rgba(2, 46, 180, 0.3);
+  opacity: 0.88;
+  transform: none;
+  box-shadow: none !important;
 }
 
 .resume-primary-download-btn:focus-visible {
-  outline: 3px solid rgba(2, 46, 180, 0.4);
-  outline-offset: 4px;
+  outline: 2px solid var(--color-primary-blue);
+  outline-offset: 3px;
+  box-shadow: none !important;
 }
 
 .resume-download-btn-icon {
@@ -1315,6 +1350,133 @@ html.preload-phantasm-projects .view-phantasm-projects {
 }
 
 /* ==========================================================================
+   Hero Scroll Indicator (Tactile affordance to guide users to scroll)
+   ========================================================================== */
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: var(--color-dark-text, #111827);
+  opacity: 0.68;
+  transition: opacity 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: 2;
+  text-decoration: none;
+}
+
+.view-hero.is-active .hero-scroll-indicator {
+  animation: heroScrollIndicatorEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both;
+}
+
+@keyframes heroScrollIndicatorEntrance {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(8px);
+  }
+  100% {
+    opacity: 0.68;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.hero-scroll-indicator:hover {
+  opacity: 1;
+  background-color: rgba(var(--color-inner-glow-rgb, 9, 64, 255), 0.05);
+  border-color: rgba(var(--color-inner-glow-rgb, 9, 64, 255), 0.16);
+  transform: translateX(-50%) translateY(2px);
+}
+
+.hero-scroll-indicator:focus-visible {
+  outline: 2px solid var(--color-primary-blue);
+  outline-offset: 2px;
+}
+
+.scroll-mouse-pill {
+  width: 13px;
+  height: 20px;
+  border: 1.3px solid var(--color-primary-blue);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 2.5px;
+  box-sizing: border-box;
+  opacity: 0.85;
+}
+
+.scroll-mouse-wheel {
+  width: 2px;
+  height: 4px;
+  background-color: var(--color-primary-blue);
+  border-radius: 2px;
+  animation: mouseWheelGlide 1.8s ease-in-out infinite;
+}
+
+@keyframes mouseWheelGlide {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
+
+.scroll-indicator-text {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-dark-text, #111827);
+  transition: color 0.2s ease;
+}
+
+.hero-scroll-indicator:hover .scroll-indicator-text {
+  color: var(--color-primary-blue);
+}
+
+.scroll-indicator-chevron {
+  color: var(--color-primary-blue);
+  animation: chevronBounce 1.8s ease-in-out infinite;
+  opacity: 0.85;
+}
+
+@keyframes chevronBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2.5px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-mouse-wheel,
+  .scroll-indicator-chevron,
+  .view-hero.is-active .hero-scroll-indicator {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
    Footer Bar (Figma: Space Between, Center Align, Padding Top 20px)
    ========================================================================== */
 .footer-bar {
@@ -2004,26 +2166,34 @@ html.preload-phantasm-projects .view-phantasm-projects {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: none !important;
-  transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.38s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity;
+  transform: translateY(28px) scale(0.985);
+  transition: transform 0.44s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.44s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
 }
 
 .case-study-card.is-active {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: none !important;
+  transform: translateY(0) scale(1);
   z-index: 2;
 }
 
-.case-study-card.is-leaving-up,
+.case-study-card.is-leaving-up {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-28px) scale(0.985);
+  z-index: 1;
+}
+
 .case-study-card.is-leaving-down {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: none !important;
+  transform: translateY(28px) scale(0.985);
   z-index: 1;
 }
 
@@ -3507,6 +3677,16 @@ html.preload-phantasm-projects .view-phantasm-projects {
     box-shadow: 
       inset 0px 5px 38px rgba(9, 64, 255, 0.24),
       inset 0px -20px 46px rgba(9, 64, 255, 0.18);
+  }
+
+  .hero-scroll-indicator {
+    bottom: 12px;
+    padding: 4px 10px;
+    gap: 6px;
+  }
+
+  .scroll-indicator-text {
+    font-size: 11px;
   }
 
   .nav-pill {

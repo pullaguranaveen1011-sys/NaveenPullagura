@@ -315,7 +315,7 @@ Ask me about his **case studies**, **design philosophy**, **freelancing availabi
 • **Foundation**: B.Tech Engineering paired with strong systems-thinking and 95%+ dev fidelity.
 • **Key Work**: NuVeda 360 (90% faster surveys), CALF 2.0 (enterprise LMS), and NU Coach (voice AI).
 • **Open to**: Full-time roles, contracts, and freelance projects.
-👉 [View Case Studies](/portfolio-home.html#work) or [Contact Naveen](/contact.html)`;
+👉 [View Case Studies](/index.html#work) or [Contact Naveen](/contact.html)`;
   }
 
   // =========================================================================
@@ -686,7 +686,7 @@ export class PortfolioAIAssistant {
         this.isResponding = false;
         this.scrollToBottom();
       }
-    }, 18);
+    }, 28);
   }
 
   scrollToBottom() {

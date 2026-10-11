@@ -3,6 +3,9 @@ import { setupContactForm } from './contact-form.js';
 import { initThemeController } from './theme-controller.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.footer-meta-right').forEach((el) => {
+    el.textContent = '@2026';
+  });
   // Initialize theme controller (Billy Sweeney style theme scrubber)
   initThemeController();
 

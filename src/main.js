@@ -8,6 +8,9 @@ import { PortfolioAIAssistant } from './ai-agent.js';
  * Interactive behaviors & micro-interactions for Portfolio
  */
 function initPortfolio() {
+  document.querySelectorAll('.footer-meta-right').forEach((el) => {
+    el.textContent = '@2026';
+  });
   initThemeController();
   const curtainTransition = getCurtainTransition({ duration: 0.3, color: '#022EB4' });
   const overlay = document.getElementById('work-intro-overlay');
@@ -142,7 +145,7 @@ function initPortfolio() {
 
     setTimeout(() => {
       isCompanySwitching = false;
-    }, 550);
+    }, 400);
   };
 
   // Listen to native horizontal swipe/scroll on mobile carousel
@@ -203,10 +206,6 @@ function initPortfolio() {
       clearInterval(id);
     });
     resumeIntroTimers = [];
-    if (resumeTypewriterRaf) {
-      cancelAnimationFrame(resumeTypewriterRaf);
-      resumeTypewriterRaf = null;
-    }
   };
 
   const dismissAllOverlays = () => {
@@ -444,87 +443,11 @@ function initPortfolio() {
   };
 
   // ==========================================================================
-  // Resume Statement Typewriter & Download Button Reveal (Silky Smooth rAF)
+  // Resume Statement & Download Button (Instant Editorial Stagger Reveal)
   // ==========================================================================
-  let resumeTypewriterRaf = null;
   const fullResumeQuoteText = '“Your decision to bring me onboard is appreciated — you’re going to see a transformative shift in your product.”';
 
-  const triggerResumeTypewriter = () => {
-    const resumeQuoteEl = document.querySelector('.resume-statement-quote');
-    const resumeAuthorEl = document.querySelector('.resume-statement-author');
-    const resumeCtaBox = document.querySelector('.resume-cta-container');
-
-    if (!resumeQuoteEl) return;
-    if (resumeTypewriterRaf) {
-      cancelAnimationFrame(resumeTypewriterRaf);
-      resumeTypewriterRaf = null;
-    }
-
-    resumeQuoteEl.textContent = '';
-    resumeQuoteEl.classList.add('is-typing');
-    if (resumeAuthorEl) {
-      resumeAuthorEl.style.opacity = '0';
-      resumeAuthorEl.style.transform = 'translateY(10px)';
-      resumeAuthorEl.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-    }
-    if (resumeCtaBox) {
-      resumeCtaBox.style.opacity = '0';
-      resumeCtaBox.style.transform = 'translateY(12px)';
-      resumeCtaBox.style.pointerEvents = 'none';
-      resumeCtaBox.style.transition = 'opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-    }
-
-    let charIndex = 0;
-    let lastTime = performance.now();
-
-    // Natural human typing rhythm
-    const getCharDelay = (char) => {
-      if (char === '—') return 130;
-      if (char === ',' || char === '.') return 70;
-      if (char === ' ') return 20;
-      return 26;
-    };
-
-    let currentDelay = getCharDelay(fullResumeQuoteText[0]);
-
-    const step = (currentTime) => {
-      if (currentTime - lastTime >= currentDelay) {
-        lastTime = currentTime;
-        charIndex++;
-        resumeQuoteEl.textContent = fullResumeQuoteText.slice(0, charIndex);
-
-        if (charIndex >= fullResumeQuoteText.length) {
-          resumeTypewriterRaf = null;
-          resumeQuoteEl.classList.remove('is-typing');
-
-          if (resumeAuthorEl) {
-            resumeAuthorEl.style.opacity = '1';
-            resumeAuthorEl.style.transform = 'translateY(0)';
-          }
-          setTimeout(() => {
-            if (resumeCtaBox) {
-              resumeCtaBox.style.opacity = '1';
-              resumeCtaBox.style.transform = 'translateY(0)';
-              resumeCtaBox.style.pointerEvents = 'auto';
-            }
-          }, 160);
-          return;
-        }
-
-        currentDelay = getCharDelay(fullResumeQuoteText[charIndex]);
-      }
-
-      resumeTypewriterRaf = requestAnimationFrame(step);
-    };
-
-    resumeTypewriterRaf = requestAnimationFrame(step);
-  };
-
-  const fastForwardResumeTypewriter = () => {
-    if (resumeTypewriterRaf) {
-      cancelAnimationFrame(resumeTypewriterRaf);
-      resumeTypewriterRaf = null;
-    }
+  const triggerResumeReveal = () => {
     const resumeQuoteEl = document.querySelector('.resume-statement-quote');
     const resumeAuthorEl = document.querySelector('.resume-statement-author');
     const resumeCtaBox = document.querySelector('.resume-cta-container');
@@ -547,19 +470,21 @@ function initPortfolio() {
   const switchToResume = (withIntro = false) => {
     if (withIntro && resumeOverlay && !hasResumeIntroPlayedOnce) {
       playResumeIntroSequence(() => {
-        triggerResumeTypewriter();
+        triggerResumeReveal();
       });
     } else {
       dismissAllOverlays();
       deactivateAllViews();
       if (resumeView) {
+        resumeView.classList.remove('is-active');
+        void resumeView.offsetWidth; // Force reflow so smooth CSS stagger animations re-trigger
         resumeView.classList.add('is-active');
         resumeView.setAttribute('aria-hidden', 'false');
       }
       setActiveNavPill(navResume);
       currentView = 'resume';
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      triggerResumeTypewriter();
+      triggerResumeReveal();
     }
   };
 
@@ -659,18 +584,25 @@ function initPortfolio() {
   });
 
   const playHeroIntroSequence = () => {
-    const hash = window.location.hash;
-    const search = window.location.search;
-    const isDirectOtherRoute = hash === '#work' || hash === '#nuveda-projects' || hash === '#projects' || hash === '#resume' || hash === '#about' || hash === '#contact' || search.includes('view=');
-    const isCurtainTransition = sessionStorage.getItem('curtain_reveal_pending') === '1' || window.__curtainJustRevealed;
+    try {
+      sessionStorage.removeItem('hero_intro_seen');
+    } catch (e) {}
 
-    if (isDirectOtherRoute || isCurtainTransition) {
+    const isCurtainTransition = sessionStorage.getItem('curtain_reveal_pending') === '1' || window.__curtainJustRevealed || window.__curtainPendingOnLoad;
+
+    // Only skip splash cascade if explicitly returning from a case study via curtain transition
+    if (isCurtainTransition) {
       cascadeTransition.hide();
       return;
     }
 
+    // Reset hash on load so visitor starts at Hero with the iconic greeting splash
+    if (window.location.hash && window.location.hash !== '#hero') {
+      history.replaceState(null, '', window.location.pathname);
+    }
+
     // Screen starts covered in pure blue with "Hi, how are you!", holds, then smoothly cascades UP to reveal hero
-    cascadeTransition.triggerInitialReveal({ holdMs: 1000 });
+    cascadeTransition.triggerInitialReveal({ holdMs: 950 });
   };
 
   playHeroIntroSequence();
@@ -682,31 +614,63 @@ function initPortfolio() {
   // ==========================================================================
   // Full-Screen Cinematic Work Intro Orchestration
   // ==========================================================================
+  // ==========================================================================
+  // Full-Screen Cinematic Work Intro Orchestration (Snappy & Skippable)
+  // ==========================================================================
   const playWorkIntroSequence = () => {
     if (isIntroPlaying || !overlay) return;
     clearWorkIntroTimers();
     isIntroPlaying = true;
     hasIntroPlayedOnce = true;
 
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const finishIntroFast = () => {
+      clearWorkIntroTimers();
+      deactivateAllViews();
+      if (workView) {
+        workView.classList.add('is-active');
+        workView.setAttribute('aria-hidden', 'false');
+      }
+      setActiveNavPill(navWork);
+      currentView = 'work';
+      overlay.classList.remove('is-active', 'step-card', 'step-quote', 'is-exiting');
+      overlay.setAttribute('aria-hidden', 'true');
+      isIntroPlaying = false;
+      switchCompany('nuveda', true);
+    };
+
+    if (isReducedMotion) {
+      finishIntroFast();
+      return;
+    }
+
     // Reset overlay state
     overlay.setAttribute('aria-hidden', 'false');
     overlay.classList.remove('is-exiting', 'step-card', 'step-quote');
+    overlay.style.cursor = 'pointer';
     if (typewriterEl) typewriterEl.textContent = '';
+
+    const handleSkipClick = () => {
+      overlay.removeEventListener('click', handleSkipClick);
+      finishIntroFast();
+    };
+    overlay.addEventListener('click', handleSkipClick, { once: true });
 
     // 1. Background expands from center immediately
     overlay.classList.add('is-active');
 
-    // 2. Icon and Work title animate into centered position
+    // 2. Icon and Work title animate into centered position (250ms)
     const t1 = setTimeout(() => {
       overlay.classList.add('step-card');
-    }, 450);
+    }, 250);
     workIntroTimers.push(t1);
 
-    // 3. Quote typing animation starts
+    // 3. Quote typing animation starts at natural, legible human reading cadence
     const t2 = setTimeout(() => {
       overlay.classList.add('step-quote');
       let charIndex = 0;
-      const typeSpeed = 30;
+      const typeSpeed = 26; // Readable cadence (~38 chars/sec)
 
       const typeInterval = setInterval(() => {
         if (!typewriterEl) {
@@ -721,7 +685,7 @@ function initPortfolio() {
         if (charIndex >= quoteText.length) {
           clearInterval(typeInterval);
 
-          // While still in overlay, swap views in the background seamlessly
+          // Swap views in background
           deactivateAllViews();
           if (workView) {
             workView.classList.add('is-active');
@@ -731,18 +695,28 @@ function initPortfolio() {
           currentView = 'work';
           window.scrollTo({ top: 0, behavior: 'instant' });
 
-          // 4. Hold briefly, then reveal the work view smoothly
+          // 4. Comfortable reading hold so the full quote can be read and digested
           const t3 = setTimeout(() => {
             finishIntro();
-          }, 1100);
+          }, 950);
           workIntroTimers.push(t3);
         }
       }, typeSpeed);
       workIntroTimers.push(typeInterval);
-    }, 1100);
+    }, 450);
     workIntroTimers.push(t2);
 
+    const handleKeySkip = (e) => {
+      if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+        window.removeEventListener('keydown', handleKeySkip);
+        finishIntroFast();
+      }
+    };
+    window.addEventListener('keydown', handleKeySkip);
+
     const finishIntro = () => {
+      window.removeEventListener('keydown', handleKeySkip);
+      overlay.removeEventListener('click', handleSkipClick);
       overlay.classList.add('is-exiting');
 
       const tExit = setTimeout(() => {
@@ -750,13 +724,13 @@ function initPortfolio() {
         overlay.setAttribute('aria-hidden', 'true');
         isIntroPlaying = false;
         switchCompany('nuveda', true);
-      }, 700);
+      }, 350);
       workIntroTimers.push(tExit);
     };
   };
 
   // ==========================================================================
-  // Full-Screen Cinematic About Intro Orchestration (Matching Image 1 Reference)
+  // Full-Screen Cinematic About Intro Orchestration (Snappy & Skippable)
   // ==========================================================================
   const playAboutIntroSequence = (onComplete) => {
     if (isAboutIntroPlaying || !aboutOverlay) {
@@ -767,20 +741,49 @@ function initPortfolio() {
     isAboutIntroPlaying = true;
     hasAboutIntroPlayedOnce = true;
 
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const finishAboutIntroFast = () => {
+      clearAboutIntroTimers();
+      deactivateAllViews();
+      if (aboutView) {
+        aboutView.classList.add('is-active');
+        aboutView.setAttribute('aria-hidden', 'false');
+      }
+      setActiveNavPill(navAbout);
+      currentView = 'about';
+      aboutOverlay.classList.remove('is-active', 'step-card', 'is-exiting');
+      aboutOverlay.setAttribute('aria-hidden', 'true');
+      isAboutIntroPlaying = false;
+      if (onComplete) onComplete();
+    };
+
+    if (isReducedMotion) {
+      finishAboutIntroFast();
+      return;
+    }
+
     // Reset overlay state
     aboutOverlay.setAttribute('aria-hidden', 'false');
     aboutOverlay.classList.remove('is-exiting', 'step-card');
+    aboutOverlay.style.cursor = 'pointer';
 
-    // 1. Background expands from center immediately
+    const handleSkipClick = () => {
+      aboutOverlay.removeEventListener('click', handleSkipClick);
+      finishAboutIntroFast();
+    };
+    aboutOverlay.addEventListener('click', handleSkipClick, { once: true });
+
+    // 1. Background expands
     aboutOverlay.classList.add('is-active');
 
-    // 2. Poster card frame smoothly scales into view
+    // 2. Poster card scales in (200ms)
     const t1 = setTimeout(() => {
       aboutOverlay.classList.add('step-card');
-    }, 450);
+    }, 200);
     aboutIntroTimers.push(t1);
 
-    // 3. Switch views in the background while intro is visible
+    // 3. Switch views in background (350ms)
     const t2 = setTimeout(() => {
       deactivateAllViews();
       if (aboutView) {
@@ -790,16 +793,17 @@ function initPortfolio() {
       setActiveNavPill(navAbout);
       currentView = 'about';
       window.scrollTo({ top: 0, behavior: 'instant' });
-    }, 1100);
+    }, 350);
     aboutIntroTimers.push(t2);
 
-    // 4. Hold briefly, then dissolve out smoothly into the About card
+    // 4. Smooth dissolve out (600ms)
     const t3 = setTimeout(() => {
       finishAboutIntro();
-    }, 1800);
+    }, 600);
     aboutIntroTimers.push(t3);
 
     const finishAboutIntro = () => {
+      aboutOverlay.removeEventListener('click', handleSkipClick);
       aboutOverlay.classList.add('is-exiting');
 
       const tExit = setTimeout(() => {
@@ -807,13 +811,13 @@ function initPortfolio() {
         aboutOverlay.setAttribute('aria-hidden', 'true');
         isAboutIntroPlaying = false;
         if (onComplete) onComplete();
-      }, 700);
+      }, 300);
       aboutIntroTimers.push(tExit);
     };
   };
 
   // ==========================================================================
-  // Full-Screen Cinematic Contact Intro Orchestration
+  // Full-Screen Cinematic Contact Intro Orchestration (Snappy & Skippable)
   // ==========================================================================
   const playContactIntroSequence = (onComplete) => {
     if (isContactIntroPlaying || !contactOverlay) {
@@ -824,20 +828,49 @@ function initPortfolio() {
     isContactIntroPlaying = true;
     hasContactIntroPlayedOnce = true;
 
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const finishContactIntroFast = () => {
+      clearContactIntroTimers();
+      deactivateAllViews();
+      if (contactView) {
+        contactView.classList.add('is-active');
+        contactView.setAttribute('aria-hidden', 'false');
+      }
+      setActiveNavPill(navContact);
+      currentView = 'contact';
+      contactOverlay.classList.remove('is-active', 'step-card', 'is-exiting');
+      contactOverlay.setAttribute('aria-hidden', 'true');
+      isContactIntroPlaying = false;
+      if (onComplete) onComplete();
+    };
+
+    if (isReducedMotion) {
+      finishContactIntroFast();
+      return;
+    }
+
     // Reset overlay state
     contactOverlay.setAttribute('aria-hidden', 'false');
     contactOverlay.classList.remove('is-exiting', 'step-card');
+    contactOverlay.style.cursor = 'pointer';
 
-    // 1. Background expands from center immediately
+    const handleSkipClick = () => {
+      contactOverlay.removeEventListener('click', handleSkipClick);
+      finishContactIntroFast();
+    };
+    contactOverlay.addEventListener('click', handleSkipClick, { once: true });
+
+    // 1. Background expands
     contactOverlay.classList.add('is-active');
 
-    // 2. Chat bubble icon & title frame smoothly scales into view
+    // 2. Chat bubble scales in (200ms)
     const t1 = setTimeout(() => {
       contactOverlay.classList.add('step-card');
-    }, 450);
+    }, 200);
     contactIntroTimers.push(t1);
 
-    // 3. Switch views in the background while intro is visible
+    // 3. Switch views in background (350ms)
     const t2 = setTimeout(() => {
       deactivateAllViews();
       if (contactView) {
@@ -847,16 +880,17 @@ function initPortfolio() {
       setActiveNavPill(navContact);
       currentView = 'contact';
       window.scrollTo({ top: 0, behavior: 'instant' });
-    }, 1100);
+    }, 350);
     contactIntroTimers.push(t2);
 
-    // 4. Hold briefly, then dissolve out smoothly into the Contact card
+    // 4. Smooth dissolve out (600ms)
     const t3 = setTimeout(() => {
       finishContactIntro();
-    }, 1800);
+    }, 600);
     contactIntroTimers.push(t3);
 
     const finishContactIntro = () => {
+      contactOverlay.removeEventListener('click', handleSkipClick);
       contactOverlay.classList.add('is-exiting');
 
       const tExit = setTimeout(() => {
@@ -864,13 +898,13 @@ function initPortfolio() {
         contactOverlay.setAttribute('aria-hidden', 'true');
         isContactIntroPlaying = false;
         if (onComplete) onComplete();
-      }, 700);
+      }, 300);
       contactIntroTimers.push(tExit);
     };
   };
 
   // ==========================================================================
-  // Full-Screen Cinematic Resume Intro Orchestration
+  // Full-Screen Cinematic Resume Intro Orchestration (Snappy & Skippable)
   // ==========================================================================
   const playResumeIntroSequence = (onComplete) => {
     if (isResumeIntroPlaying || !resumeOverlay) {
@@ -881,20 +915,49 @@ function initPortfolio() {
     isResumeIntroPlaying = true;
     hasResumeIntroPlayedOnce = true;
 
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const finishResumeIntroFast = () => {
+      clearResumeIntroTimers();
+      deactivateAllViews();
+      if (resumeView) {
+        resumeView.classList.add('is-active');
+        resumeView.setAttribute('aria-hidden', 'false');
+      }
+      setActiveNavPill(navResume);
+      currentView = 'resume';
+      resumeOverlay.classList.remove('is-active', 'step-card', 'is-exiting');
+      resumeOverlay.setAttribute('aria-hidden', 'true');
+      isResumeIntroPlaying = false;
+      if (onComplete) onComplete();
+    };
+
+    if (isReducedMotion) {
+      finishResumeIntroFast();
+      return;
+    }
+
     // Reset overlay state
     resumeOverlay.setAttribute('aria-hidden', 'false');
     resumeOverlay.classList.remove('is-exiting', 'step-card');
+    resumeOverlay.style.cursor = 'pointer';
 
-    // 1. Background expands from center immediately
+    const handleSkipClick = () => {
+      resumeOverlay.removeEventListener('click', handleSkipClick);
+      finishResumeIntroFast();
+    };
+    resumeOverlay.addEventListener('click', handleSkipClick, { once: true });
+
+    // 1. Background expands
     resumeOverlay.classList.add('is-active');
 
-    // 2. Star scroll icon & title frame smoothly scales into view
+    // 2. Star scroll scales in (200ms)
     const t1 = setTimeout(() => {
       resumeOverlay.classList.add('step-card');
-    }, 450);
+    }, 200);
     resumeIntroTimers.push(t1);
 
-    // 3. Switch views in the background while intro is visible
+    // 3. Switch views in background (350ms)
     const t2 = setTimeout(() => {
       deactivateAllViews();
       if (resumeView) {
@@ -904,16 +967,17 @@ function initPortfolio() {
       setActiveNavPill(navResume);
       currentView = 'resume';
       window.scrollTo({ top: 0, behavior: 'instant' });
-    }, 1100);
+    }, 350);
     resumeIntroTimers.push(t2);
 
-    // 4. Hold briefly, then dissolve out smoothly into the Resume card
+    // 4. Dissolve out cleanly (600ms)
     const t3 = setTimeout(() => {
       finishResumeIntro();
-    }, 1800);
+    }, 600);
     resumeIntroTimers.push(t3);
 
     const finishResumeIntro = () => {
+      resumeOverlay.removeEventListener('click', handleSkipClick);
       resumeOverlay.classList.add('is-exiting');
 
       const tExit = setTimeout(() => {
@@ -921,7 +985,7 @@ function initPortfolio() {
         resumeOverlay.setAttribute('aria-hidden', 'true');
         isResumeIntroPlaying = false;
         if (onComplete) onComplete();
-      }, 700);
+      }, 300);
       resumeIntroTimers.push(tExit);
     };
   };
@@ -961,6 +1025,22 @@ function initPortfolio() {
       e.preventDefault();
       history.pushState(null, '', '#work');
       switchToWork(!hasIntroPlayedOnce);
+    });
+  }
+
+  const heroScrollIndicator = document.getElementById('hero-scroll-indicator');
+  if (heroScrollIndicator) {
+    heroScrollIndicator.addEventListener('click', (e) => {
+      e.preventDefault();
+      history.pushState(null, '', '#work');
+      switchToWork(!hasIntroPlayedOnce);
+    });
+    heroScrollIndicator.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        history.pushState(null, '', '#work');
+        switchToWork(!hasIntroPlayedOnce);
+      }
     });
   }
 
@@ -1135,66 +1215,89 @@ function initPortfolio() {
   });
 
   // ==========================================================================
-  // Instant-Sync Wheel Detection (Bidirectional scrolling between sections & companies)
+  // Instant-Sync Wheel Detection (Bidirectional scrolling with momentum absorption)
   // ==========================================================================
+  let viewScrollLocked = false;
+  let viewScrollUnlockTimer = null;
+  const lockScroll = (ms = 850) => {
+    viewScrollLocked = true;
+    clearTimeout(viewScrollUnlockTimer);
+    viewScrollUnlockTimer = setTimeout(() => {
+      viewScrollLocked = false;
+    }, ms);
+  };
+
   window.addEventListener('wheel', (e) => {
-    if (isIntroPlaying || isAboutIntroPlaying || isContactIntroPlaying || isResumeIntroPlaying || isTransitioning || isCompanySwitching || currentView === 'nu360-case-study' || currentView === 'ai-chat') return;
+    if (viewScrollLocked || isIntroPlaying || isAboutIntroPlaying || isContactIntroPlaying || isResumeIntroPlaying || isTransitioning || isCompanySwitching || currentView === 'nu360-case-study' || currentView === 'ai-chat') {
+      if (currentView === 'work' || currentView === 'hero' || currentView === 'about' || currentView === 'resume') {
+        e.preventDefault();
+      }
+      return;
+    }
 
     // Scrolling down from Hero -> Work view (NuVeda)
     if (currentView === 'hero' && e.deltaY > 15) {
       e.preventDefault();
+      lockScroll(850);
       history.pushState(null, '', '#work');
       switchToWork(!hasIntroPlayedOnce);
       switchCompany('nuveda', true);
     }
-    // In Work view:
+    // In Work view on desktop: scroll switches smoothly between company cards, then seamlessly continues to About
     else if (currentView === 'work') {
       if (window.innerWidth <= 1024) return;
       const currentIdx = companies.indexOf(currentCompany);
 
-      if (e.deltaY > 65) {
-        // Scroll down to next company
+      if (e.deltaY > 28) {
         if (currentIdx < companies.length - 1) {
           e.preventDefault();
           switchCompany(companies[currentIdx + 1]);
-        } else if (currentIdx === companies.length - 1) {
-          // Reached last company (dbase) -> scroll down to About Me section!
+        } else {
+          // Seamless scroll continuity: After DBASE Solutions, scroll directly into About with inertia lock!
           e.preventDefault();
+          lockScroll(950);
           history.pushState(null, '', '#about');
           switchToAbout(!hasAboutIntroPlayedOnce);
         }
-      } else if (e.deltaY < -65) {
-        // Scroll up to previous company or hero
+      } else if (e.deltaY < -28) {
         if (currentIdx > 0) {
           e.preventDefault();
           switchCompany(companies[currentIdx - 1]);
         } else if (currentIdx === 0 && window.scrollY <= 10) {
           e.preventDefault();
+          lockScroll(850);
           history.pushState(null, '', window.location.pathname);
           switchToHero();
         }
       }
     }
-    // In About view:
+    // In About view on desktop: scroll continuity down to Resume or up back to Work (DBASE)
     else if (currentView === 'about') {
-      if (e.deltaY > 20) {
-        // Scroll down to Resume
+      if (window.innerWidth <= 1024) return;
+
+      if (e.deltaY > 40) {
+        // Distinct intentional scroll down from About -> Resume
         e.preventDefault();
+        lockScroll(950);
         history.pushState(null, '', '#resume');
-        switchToResume(!hasResumeIntroPlayedOnce);
-      } else if (e.deltaY < -20) {
-        // Scroll up to Work (landing on dbase, the last company)
+        switchToResume(false);
+      } else if (e.deltaY < -40) {
+        // Distinct intentional scroll up from About -> back to DBASE Solutions in Work
         e.preventDefault();
+        lockScroll(950);
         history.pushState(null, '', '#work');
         switchToWork(false);
         switchCompany('dbase', true);
       }
     }
-    // In Resume view:
+    // In Resume view on desktop: scroll continuity back up to About
     else if (currentView === 'resume') {
-      if (e.deltaY < -20) {
-        // Scroll up to About
+      if (window.innerWidth <= 1024) return;
+
+      if (e.deltaY < -40) {
+        // Distinct intentional scroll up from Resume -> back to About
         e.preventDefault();
+        lockScroll(950);
         history.pushState(null, '', '#about');
         switchToAbout(false);
       }
@@ -1224,58 +1327,6 @@ function initPortfolio() {
       history.pushState(null, '', '#work');
       switchToWork(!hasIntroPlayedOnce);
       switchCompany('nuveda', true);
-    }
-    // In Work view:
-    else if (currentView === 'work') {
-      const isMobile = window.innerWidth <= 1024;
-      const isAtTop = window.scrollY <= 15;
-      const currentIdx = companies.indexOf(currentCompany);
-
-      if (!isMobile) {
-        // Desktop / Laptop touch screens: vertical card switching
-        if (diffY > 50) {
-          if (currentIdx < companies.length - 1) {
-            switchCompany(companies[currentIdx + 1]);
-          } else if (currentIdx === companies.length - 1) {
-            history.pushState(null, '', '#about');
-            switchToAbout(!hasAboutIntroPlayedOnce);
-          }
-        } else if (diffY < -50) {
-          if (currentIdx > 0) {
-            switchCompany(companies[currentIdx - 1]);
-          } else if (currentIdx === 0 && isAtTop) {
-            history.pushState(null, '', window.location.pathname);
-            switchToHero();
-          }
-        }
-      } else {
-        // Mobile screens:
-        if (diffY > 60 && currentIdx === companies.length - 1) {
-          history.pushState(null, '', '#about');
-          switchToAbout(!hasAboutIntroPlayedOnce);
-        } else if (diffY < -60 && isAtTop && currentIdx === 0) {
-          history.pushState(null, '', window.location.pathname);
-          switchToHero();
-        }
-      }
-    }
-    // In About view:
-    else if (currentView === 'about') {
-      if (diffY > 50) {
-        history.pushState(null, '', '#resume');
-        switchToResume(!hasResumeIntroPlayedOnce);
-      } else if (diffY < -50) {
-        history.pushState(null, '', '#work');
-        switchToWork(false);
-        switchCompany('dbase', true);
-      }
-    }
-    // In Resume view:
-    else if (currentView === 'resume') {
-      if (diffY < -50) {
-        history.pushState(null, '', '#about');
-        switchToAbout(false);
-      }
     }
   }, { passive: true });
 
