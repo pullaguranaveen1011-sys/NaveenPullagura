@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A44F2"/>
+      <stop offset="100%" stop-color="#022EB4"/>
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Squircle Base with Signature Blue Gradient -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#bgGrad)" stroke="rgba(255, 255, 255, 0.18)" stroke-width="1.5"/>
+
+  <!-- Subtle Ambient Radial Glow inside -->
+  <circle cx="32" cy="28" r="22" fill="#3B82F6" opacity="0.3" filter="blur(8px)"/>
+
+  <!-- Signature 4-Point Star Burst (Naveen Branding) -->
+  <path d="M32 10 C33.5 22 42 30.5 54 32 C42 33.5 33.5 42 32 54 C30.5 42 22 33.5 10 32 C22 30.5 30.5 22 32 10 Z"
+        fill="#FFFFFF"
+        filter="url(#softGlow)"/>
+
+  <!-- Center Core Accent Sparkle -->
+  <circle cx="32" cy="32" r="2.5" fill="#E0E7FF"/>
+  <circle cx="47" cy="17" r="2" fill="#FFFFFF" opacity="0.85"/>
+</svg>
