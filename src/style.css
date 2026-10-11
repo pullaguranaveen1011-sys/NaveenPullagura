@@ -3053,7 +3053,7 @@ html.preload-phantasm-projects .view-phantasm-projects {
     min-height: auto !important;
     display: flex !important;
     flex-direction: row !important;
-    align-items: stretch !important;
+    align-items: flex-start !important;
     overflow-x: auto !important;
     overflow-y: visible !important;
     overscroll-behavior-x: contain !important;
@@ -3061,8 +3061,8 @@ html.preload-phantasm-projects .view-phantasm-projects {
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
-    gap: 16px !important;
-    padding: 2px 2px 14px 2px !important;
+    gap: 14px !important;
+    padding: 2px 0 12px 0 !important;
     box-sizing: border-box !important;
     transform: none !important;
     touch-action: pan-x pan-y !important;
@@ -3081,6 +3081,7 @@ html.preload-phantasm-projects .view-phantasm-projects {
     flex: 0 0 100% !important;
     min-width: 100% !important;
     max-width: 100% !important;
+    width: 100% !important;
     height: auto !important;
     max-height: none !important;
     min-height: auto !important;
@@ -3092,11 +3093,16 @@ html.preload-phantasm-projects .view-phantasm-projects {
     visibility: visible !important;
     pointer-events: auto !important;
     transform: none !important;
-    padding: 22px 18px !important;
-    gap: 18px !important;
-    border-radius: 14px !important;
-    border: 1px solid var(--color-card-border, var(--color-border-hero)) !important;
+    padding: 20px 16px 22px !important;
+    gap: 14px !important;
+    border-radius: 16px !important;
+    border: 1px solid var(--color-card-border, #D7D7D7) !important;
     background-color: var(--color-white) !important;
+    box-shadow: 
+      inset 0px 4px 32px rgba(9, 64, 255, 0.14),
+      inset 0px -14px 36px rgba(9, 64, 255, 0.10),
+      0px 2px 10px rgba(0, 0, 0, 0.04) !important;
+    box-sizing: border-box !important;
   }
 
   .case-study-card.is-active,
@@ -3115,39 +3121,53 @@ html.preload-phantasm-projects .view-phantasm-projects {
     flex: none !important;
     height: auto !important;
     padding: 0 !important;
-    gap: 8px !important;
+    gap: 6px !important;
+  }
+
+  .company-header-block {
+    padding-bottom: 8px !important;
+    border-bottom: 1px solid var(--color-card-border, #ECEEF2) !important;
   }
 
   .company-title {
-    font-size: 30px !important;
-    line-height: 34px !important;
+    font-size: 26px !important;
+    line-height: 30px !important;
+    margin: 4px 0 0 0 !important;
   }
 
   .company-category {
-    font-size: 12px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.8px !important;
+    color: var(--color-primary-blue, #022EB4) !important;
+    margin: 0 !important;
   }
 
   .company-info-block {
-    padding: 10px 0 !important;
+    padding: 8px 0 !important;
+    gap: 2px !important;
+    border-bottom: 1px solid var(--color-card-border, #ECEEF2) !important;
   }
 
   .company-block-title {
-    font-size: 16px !important;
+    font-size: 14.5px !important;
+    font-weight: 700 !important;
   }
 
   .company-block-sub {
-    font-size: 13.5px !important;
+    font-size: 12px !important;
+    color: var(--color-muted-blue, #64748B) !important;
   }
 
   .company-bullets-list {
-    margin: 12px 0 0 0 !important;
-    padding: 0 0 0 18px !important;
-    gap: 10px !important;
+    margin: 8px 0 0 0 !important;
+    padding: 0 0 0 16px !important;
+    gap: 8px !important;
   }
 
   .company-bullets-list li {
-    font-size: 13.5px !important;
-    line-height: 1.45 !important;
+    font-size: 12.5px !important;
+    line-height: 1.42 !important;
   }
 
   .showcase-image-wrapper {
@@ -3156,9 +3176,9 @@ html.preload-phantasm-projects .view-phantasm-projects {
     flex: none !important;
     height: auto !important;
     min-height: 0 !important;
-    max-height: none !important;
+    max-height: 220px !important;
     aspect-ratio: 16 / 10 !important;
-    margin: 0 !important;
+    margin: 2px 0 0 0 !important;
     background-color: #F6F6F6 !important;
     border-radius: 12px !important;
     overflow: hidden !important;
@@ -3333,14 +3353,15 @@ html.preload-phantasm-projects .view-phantasm-projects {
   /* Hero Card: Dynamic viewport fit with safe-area insets, zero scroll jumps */
   .hero-card {
     height: auto;
-    min-height: max(480px, calc(100svh - 130px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)));
-    padding: 36px 18px 28px;
-    border-radius: 14px;
+    width: 100%;
+    min-height: calc(100svh - 150px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    padding: 32px 18px 26px;
+    border-radius: 16px;
     border: 1px solid var(--color-border-hero);
     background-color: var(--color-white);
     box-shadow: 
-      inset 0px 5px 38px rgba(9, 64, 255, 0.22),
-      inset 0px -18px 42px rgba(9, 64, 255, 0.18);
+      inset 0px 4px 34px rgba(9, 64, 255, 0.20),
+      inset 0px -16px 38px rgba(9, 64, 255, 0.16);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -3349,6 +3370,10 @@ html.preload-phantasm-projects .view-phantasm-projects {
     box-sizing: border-box;
     flex: 1 1 auto;
     animation: auraSoftBreathe 6s ease-in-out infinite alternate;
+  }
+
+  .hero-stack {
+    margin: auto 0;
   }
 
   .hero-scroll-indicator {
@@ -3667,10 +3692,14 @@ html.preload-phantasm-projects .view-phantasm-projects {
 
   /* Work Showcase Section */
   .case-study-card {
-    padding: 20px 16px !important;
-    gap: 18px !important;
-    border-radius: 14px !important;
-    border: 1px solid var(--color-card-border, var(--color-border-hero)) !important;
+    padding: 18px 16px 20px !important;
+    gap: 14px !important;
+    border-radius: 16px !important;
+    border: 1px solid var(--color-card-border, #D7D7D7) !important;
+    box-shadow: 
+      inset 0px 4px 32px rgba(9, 64, 255, 0.14),
+      inset 0px -14px 36px rgba(9, 64, 255, 0.10),
+      0px 2px 10px rgba(0, 0, 0, 0.04) !important;
     height: auto !important;
     max-height: none !important;
     min-height: auto !important;
@@ -3678,17 +3707,17 @@ html.preload-phantasm-projects .view-phantasm-projects {
   }
 
   .company-title {
-    font-size: 28px;
-    line-height: 32px;
+    font-size: 26px !important;
+    line-height: 30px !important;
   }
 
   .company-bullets-list {
-    gap: 12px;
+    gap: 8px !important;
   }
 
   .company-bullets-list li {
-    font-size: 13.5px;
-    line-height: 1.45;
+    font-size: 12.5px !important;
+    line-height: 1.42 !important;
     width: 100%;
   }
 
@@ -3697,7 +3726,7 @@ html.preload-phantasm-projects .view-phantasm-projects {
     height: auto !important;
     aspect-ratio: 16 / 10 !important;
     min-height: 0 !important;
-    max-height: none !important;
+    max-height: 220px !important;
     padding: 0 !important;
     border-radius: 12px !important;
     overflow: hidden !important;
@@ -3808,12 +3837,13 @@ html.preload-phantasm-projects .view-phantasm-projects {
   }
 
   .hero-card {
-    padding: 32px 14px 28px;
-    min-height: max(460px, calc(100svh - 120px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)));
-    border-radius: 14px;
+    padding: 28px 14px 22px;
+    width: 100%;
+    min-height: calc(100svh - 142px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    border-radius: 16px;
     box-shadow: 
-      inset 0px 5px 36px rgba(9, 64, 255, 0.22),
-      inset 0px -18px 42px rgba(9, 64, 255, 0.16);
+      inset 0px 4px 30px rgba(9, 64, 255, 0.18),
+      inset 0px -14px 34px rgba(9, 64, 255, 0.14);
   }
 
   .hero-scroll-indicator {
@@ -3833,24 +3863,25 @@ html.preload-phantasm-projects .view-phantasm-projects {
   }
 
   .hero-headline {
-    font-size: 27px;
-    line-height: 38px;
+    font-size: 25px;
+    line-height: 35px;
   }
 
   .roller-viewport {
-    height: 38px;
-    vertical-align: -7px;
+    height: 35px;
+    vertical-align: -6px;
   }
 
   .roller-item {
-    font-size: 38px;
-    line-height: 38px;
-    height: 38px;
+    font-size: 35px;
+    line-height: 35px;
+    height: 35px;
   }
 
   .hero-subtitle {
-    font-size: 14px;
-    line-height: 21px;
+    font-size: 13.5px;
+    line-height: 20px;
+    margin-top: 8px;
   }
 
   .cta-button {
@@ -3882,21 +3913,22 @@ html.preload-phantasm-projects .view-phantasm-projects {
 
   .case-study-card {
     padding: 16px 14px 18px !important;
-    gap: 16px !important;
+    gap: 12px !important;
+    border-radius: 14px !important;
   }
 
   .company-title {
-    font-size: 24px;
-    line-height: 28px;
+    font-size: 23px !important;
+    line-height: 27px !important;
   }
 
   .company-bullets-list {
-    gap: 12px;
+    gap: 7px !important;
   }
 
   .company-bullets-list li {
-    font-size: 13.5px;
-    line-height: 1.45;
+    font-size: 12px !important;
+    line-height: 1.4 !important;
   }
 
   .showcase-image-wrapper {
@@ -3950,21 +3982,33 @@ html.preload-phantasm-projects .view-phantasm-projects {
   }
 
   .storyboard-grid {
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
   }
 
   .storyboard-card {
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 12px !important;
-    padding: 10px 12px !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 6px !important;
+    padding: 6px 8px !important;
+    border-radius: 8px !important;
   }
 
   .storyboard-thumb {
-    width: 90px !important;
-    min-width: 90px !important;
-    aspect-ratio: 16 / 11 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    aspect-ratio: 16 / 10 !important;
+    border-radius: 6px !important;
+  }
+
+  .storyboard-title {
+    font-size: 11px !important;
+    line-height: 13px !important;
+  }
+
+  .storyboard-desc {
+    font-size: 10px !important;
+    line-height: 13px !important;
   }
 
   .about-master-card {
