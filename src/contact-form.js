@@ -223,10 +223,10 @@ export function setupContactForm(scope = document) {
 
       // Populate success card
       if (dynamicDesc && submission.name) {
-        dynamicDesc.textContent = `Thanks, ${submission.name}! Your message regarding ${submission.inquiry_type} has been dispatched. I'll get back to you within 24 hours at ${submission.email}.`;
+        dynamicDesc.textContent = `Thanks, ${submission.name}! Your note has been received. I'll get back to you within 24 hours at ${submission.email}.`;
       }
       if (recapTopic) {
-        recapTopic.textContent = submission.inquiry_type;
+        recapTopic.textContent = submission.inquiry_type || 'General Opportunity';
       }
 
       // Smooth switch to success state
