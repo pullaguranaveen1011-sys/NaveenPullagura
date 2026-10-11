@@ -2992,8 +2992,8 @@ html.preload-phantasm-projects .view-phantasm-projects {
     align-items: center !important;
     gap: 16px !important;
     width: 100% !important;
-    margin: 0 0 12px 0 !important;
-    padding: 4px 0 !important;
+    margin: 0 0 6px 0 !important;
+    padding: 0 !important;
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
@@ -3241,17 +3241,17 @@ html.preload-phantasm-projects .view-phantasm-projects {
 /* Mobile Screens & Small Tablets (max-width: 768px) */
 @media (max-width: 768px) {
   .page-container {
-    padding-top: max(14px, env(safe-area-inset-top, 0px)) !important;
-    padding-bottom: max(14px, env(safe-area-inset-bottom, 0px)) !important;
-    padding-left: max(14px, env(safe-area-inset-left, 0px)) !important;
-    padding-right: max(14px, env(safe-area-inset-right, 0px)) !important;
-    gap: 12px;
+    padding-top: max(10px, env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: max(10px, env(safe-area-inset-bottom, 0px)) !important;
+    padding-left: max(12px, env(safe-area-inset-left, 0px)) !important;
+    padding-right: max(12px, env(safe-area-inset-right, 0px)) !important;
+    gap: 8px !important;
     min-height: 100vh;
     min-height: 100svh;
     height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start !important;
     box-sizing: border-box;
   }
 
@@ -3262,9 +3262,10 @@ html.preload-phantasm-projects .view-phantasm-projects {
     height: auto !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 8px !important;
+    gap: 6px !important;
     width: 100% !important;
-    padding: 0 0 4px 0 !important;
+    padding: 0 !important;
+    margin: 0 0 2px 0 !important;
     background: transparent !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
@@ -3786,23 +3787,24 @@ html.preload-phantasm-projects .view-phantasm-projects {
     font-size: 11.5px;
     color: var(--color-muted-blue);
     letter-spacing: 0.8px;
+    margin-top: auto !important;
   }
 }
 
 /* Phones (max-width: 480px) */
 @media (max-width: 480px) {
   .page-container {
-    padding-top: max(12px, env(safe-area-inset-top, 0px)) !important;
-    padding-bottom: max(12px, env(safe-area-inset-bottom, 0px)) !important;
-    padding-left: max(12px, env(safe-area-inset-left, 0px)) !important;
-    padding-right: max(12px, env(safe-area-inset-right, 0px)) !important;
-    gap: 10px;
+    padding-top: max(8px, env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: max(8px, env(safe-area-inset-bottom, 0px)) !important;
+    padding-left: max(10px, env(safe-area-inset-left, 0px)) !important;
+    padding-right: max(10px, env(safe-area-inset-right, 0px)) !important;
+    gap: 6px !important;
     min-height: 100vh;
     min-height: 100svh;
     height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start !important;
   }
 
   .hero-card {
