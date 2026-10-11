@@ -1224,27 +1224,6 @@ function initPortfolio() {
     });
   });
 
-  // Dedicated Mobile Flow Navigation buttons (zero desktop footprint)
-  document.addEventListener('click', (e) => {
-    const nextBtn = e.target.closest('.mobile-nav-next-btn');
-    if (!nextBtn) return;
-    e.preventDefault();
-    const targetComp = nextBtn.getAttribute('data-target-company');
-    const targetView = nextBtn.getAttribute('data-target-view');
-    if (targetComp && companies.includes(targetComp)) {
-      switchCompany(targetComp);
-    } else if (targetView === 'about') {
-      history.pushState(null, '', '#about');
-      switchToAbout(false);
-    } else if (targetView === 'resume') {
-      history.pushState(null, '', '#resume');
-      switchToResume(false);
-    } else if (targetView === 'contact') {
-      history.pushState(null, '', '#contact');
-      switchToContact(false);
-    }
-  });
-
   // ==========================================================================
   // Instant-Sync Wheel Detection (Bidirectional scrolling with momentum absorption)
   // ==========================================================================
@@ -1353,11 +1332,52 @@ function initPortfolio() {
     // Only respond to predominantly vertical swipes (not diagonal or horizontal)
     if (diffX > Math.abs(diffY)) return;
 
-    // Swipe up on Hero (scroll down to Work)
+    const isAtTop = window.scrollY <= 20;
+    const isAtBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 40);
+
+    // 1. Hero View: Swipe up -> Work (NuVeda)
     if (currentView === 'hero' && diffY > 45) {
       history.pushState(null, '', '#work');
       switchToWork(!hasIntroPlayedOnce);
       switchCompany('nuveda', true);
+    }
+    // 2. Work View: NuVeda swipe down -> Hero, DBASE swipe up -> About
+    else if (currentView === 'work') {
+      if (currentCompany === 'dbase' && diffY > 55 && isAtBottom) {
+        history.pushState(null, '', '#about');
+        switchToAbout(!hasAboutIntroPlayedOnce);
+      } else if (currentCompany === 'nuveda' && diffY < -55 && isAtTop) {
+        history.pushState(null, '', window.location.pathname);
+        switchToHero();
+      }
+    }
+    // 3. About View: Swipe up -> Resume, Swipe down -> Work (DBASE)
+    else if (currentView === 'about') {
+      if (diffY > 55 && isAtBottom) {
+        history.pushState(null, '', '#resume');
+        switchToResume(false);
+      } else if (diffY < -55 && isAtTop) {
+        history.pushState(null, '', '#work');
+        switchToWork(false);
+        switchCompany('dbase', true);
+      }
+    }
+    // 4. Resume View: Swipe up -> Contact, Swipe down -> About
+    else if (currentView === 'resume') {
+      if (diffY > 50 && isAtBottom) {
+        history.pushState(null, '', '#contact');
+        switchToContact(false);
+      } else if (diffY < -50 && isAtTop) {
+        history.pushState(null, '', '#about');
+        switchToAbout(false);
+      }
+    }
+    // 5. Contact View: Swipe down -> Resume
+    else if (currentView === 'contact') {
+      if (diffY < -55 && isAtTop) {
+        history.pushState(null, '', '#resume');
+        switchToResume(false);
+      }
     }
   }, { passive: true });
 
