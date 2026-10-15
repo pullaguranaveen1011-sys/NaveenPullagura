@@ -1,33 +1,94 @@
 /**
- * Curated Luxury Theme Controller (Interactive Expand on Hover / Collapse on Mouseout)
- * Converted to Portfolio Native Design System Tokens & Aesthetics
+ * Curated Luxury Theme Controller
+ * Supports 7 Editorial Color Palettes + Signature Blue Default
+ * Features 50/50 Split-Circle Swatches, Swap Polarity (Invert), and Keyboard Shortcuts (T / I)
  */
 
 export const THEMES = [
-  { id: 'signature-blue', label: 'Signature Blue', accent: '#022EB4' },
-  { id: 'obsidian-dark', label: 'Obsidian Dark', accent: '#38BDF8' },
-  { id: 'electric-indigo', label: 'Electric Indigo', accent: '#A78BFA' },
-  { id: 'pastel-lilac', label: 'Pastel Lilac', accent: '#7C3AED' },
-  { id: 'pastel-matcha', label: 'Pastel Matcha', accent: '#0D7A5F' },
-  { id: 'pastel-blush', label: 'Pastel Blush', accent: '#E11D48' },
-  { id: 'warm-paper', label: 'Warm Terracotta', accent: '#C2410C' },
-  { id: 'nordic-slate', label: 'Nordic Slate', accent: '#2563EB' },
+  {
+    id: 'signature-blue',
+    label: 'Signature Blue',
+    primary: '#022EB4',
+    secondary: '#FFFFFF',
+    accent: '#022EB4',
+    defaultMode: 'light'
+  },
+  {
+    id: 'royal-cream',
+    label: 'Royal Cream',
+    primary: '#014BAA',
+    secondary: '#F8F3F0',
+    accent: '#014BAA',
+    defaultMode: 'dark'
+  },
+  {
+    id: 'wine-sand',
+    label: 'Wine Sand',
+    primary: '#7F011F',
+    secondary: '#F5EBD0',
+    accent: '#7F011F',
+    defaultMode: 'dark'
+  },
+  {
+    id: 'orange-milk',
+    label: 'Orange Milk',
+    primary: '#EC5E27',
+    secondary: '#FDFDF1',
+    accent: '#EC5E27',
+    defaultMode: 'dark'
+  },
+  {
+    id: 'plum-milk',
+    label: 'Plum Milk',
+    primary: '#381932',
+    secondary: '#FFF3E6',
+    accent: '#381932',
+    defaultMode: 'dark'
+  },
+  {
+    id: 'midnight-vanilla',
+    label: 'Midnight Vanilla',
+    primary: '#282B4A',
+    secondary: '#EEEBDA',
+    accent: '#282B4A',
+    defaultMode: 'dark'
+  },
+  {
+    id: 'cherry-alabaster',
+    label: 'Cherry Alabaster',
+    primary: '#890149',
+    secondary: '#F3F3E7',
+    accent: '#890149',
+    defaultMode: 'dark'
+  },
+  {
+    id: 'forest-leaf',
+    label: 'Forest Leaf',
+    primary: '#064734',
+    secondary: '#E0FFC2',
+    accent: '#064734',
+    defaultMode: 'dark'
+  }
 ];
 
 const STORAGE_KEY = 'naveen_portfolio_theme';
 const STORAGE_INDEX_KEY = 'naveen_portfolio_theme_idx';
+const STORAGE_INVERTED_KEY = 'naveen_portfolio_theme_inverted';
 
 export class ThemeController {
   constructor() {
     this.currentIndex = 0;
+    this.isInverted = false;
     this.dockEl = null;
     this.capsuleEl = null;
     this.sliderEl = null;
+    this.invertBtn = null;
     this.cycleBtn = null;
     this.sunIcon = null;
     this.tooltipEl = null;
     this.tooltipTextEl = null;
-    this.tooltipDotEl = null;
+    this.tooltipBadgeEl = null;
+    this.tooltipSwatchEl = null;
     this.dots = [];
     this.tooltipTimeout = null;
     this.collapseTimeout = null;
@@ -36,22 +97,27 @@ export class ThemeController {
   }
 
   init() {
-    // 1. Read stored preference
-    const storedIdx = localStorage.getItem(STORAGE_INDEX_KEY);
-    if (storedIdx !== null) {
-      const parsed = parseInt(storedIdx, 10);
-      if (!isNaN(parsed) && parsed >= 0 && parsed < THEMES.length) {
-        this.currentIndex = parsed;
+    // 1. Read stored preferences
+    try {
+      const storedIdx = localStorage.getItem(STORAGE_INDEX_KEY);
+      if (storedIdx !== null) {
+        const parsed = parseInt(storedIdx, 10);
+        if (!isNaN(parsed) && parsed >= 0 && parsed < THEMES.length) {
+          this.currentIndex = parsed;
+        }
+      } else {
+        const storedTheme = localStorage.getItem(STORAGE_KEY);
+        if (storedTheme) {
+          const idx = THEMES.findIndex((t) => t.id === storedTheme);
+          if (idx !== -1) this.currentIndex = idx;
+        }
       }
-    } else {
-      const storedTheme = localStorage.getItem(STORAGE_KEY);
-      if (storedTheme) {
-        const idx = THEMES.findIndex((t) => t.id === storedTheme);
-        if (idx !== -1) this.currentIndex = idx;
-      }
-    }
 
-    // 2. Immediately apply theme attribute to root
+      const storedInverted = localStorage.getItem(STORAGE_INVERTED_KEY);
+      this.isInverted = storedInverted === '1';
+    } catch (e) {}
+
+    // 2. Immediately apply theme attributes to root
     this.applyTheme(this.currentIndex, false);
 
     // 3. Bind DOM elements
@@ -68,21 +134,23 @@ export class ThemeController {
 
     this.capsuleEl = document.getElementById('theme-capsule-bar');
     this.sliderEl = document.getElementById('theme-range-slider');
+    this.invertBtn = document.getElementById('theme-invert-btn');
     this.cycleBtn = document.getElementById('theme-cycle-btn');
     this.sunIcon = this.cycleBtn ? this.cycleBtn.querySelector('.theme-sun-icon') : null;
     this.tooltipEl = document.getElementById('theme-bar-tooltip');
     this.tooltipTextEl = document.getElementById('theme-tooltip-text');
-    this.tooltipDotEl = document.getElementById('theme-tooltip-dot');
+    this.tooltipBadgeEl = document.getElementById('theme-tooltip-badge');
+    this.tooltipSwatchEl = document.getElementById('theme-tooltip-swatch');
     this.dots = Array.from(document.querySelectorAll('.theme-dots-track .theme-dot'));
 
-    // Sync initial state
+    // Sync initial range value (inverted vertical orientation)
     if (this.sliderEl) {
       this.sliderEl.value = String((THEMES.length - 1) - this.currentIndex);
     }
     this.updateUI(this.currentIndex);
 
     // =========================================================================
-    // Hover to Expand, Mouseout to Collapse (with graceful debounce)
+    // Hover / Pointer Expand & Graceful Mouseleave Collapse
     // =========================================================================
     this.dockEl.addEventListener('mouseenter', () => {
       if (this.collapseTimeout) {
@@ -97,10 +165,18 @@ export class ThemeController {
       this.scheduleHideTooltip();
       this.collapseTimeout = setTimeout(() => {
         this.dockEl.classList.remove('is-expanded');
-      }, 180);
+      }, 200);
     });
 
-    // Real-time vertical scrubbing on slider
+    // Invert Polarity Toggle Button
+    if (this.invertBtn) {
+      this.invertBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.toggleInvert();
+      });
+    }
+
+    // Vertical Range Slider scrubbing
     if (this.sliderEl) {
       this.sliderEl.addEventListener('input', (e) => {
         const raw = parseInt(e.target.value, 10);
@@ -119,7 +195,7 @@ export class ThemeController {
       });
     }
 
-    // Click on individual dots
+    // Split-Circle Swatches Click & Hover
     this.dots.forEach((dot) => {
       dot.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -142,7 +218,7 @@ export class ThemeController {
       });
     });
 
-    // Sun icon button: cycles themes, and allows tap toggle on mobile
+    // Cycle Button / Sun Icon
     if (this.cycleBtn) {
       this.cycleBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -156,7 +232,7 @@ export class ThemeController {
       });
     }
 
-    // Close on click outside (mobile/touch)
+    // Click outside to collapse dock (mobile & desktop)
     document.addEventListener('click', (e) => {
       if (this.dockEl && !this.dockEl.contains(e.target)) {
         this.dockEl.classList.remove('is-expanded');
@@ -164,16 +240,33 @@ export class ThemeController {
       }
     });
 
-    // Keyboard shortcut: 'T' to cycle
+    // Keyboard Shortcuts: 'T' to cycle themes, 'I' to invert polarity
     window.addEventListener('keydown', (e) => {
-      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+      if (
+        e.target &&
+        (e.target.tagName === 'INPUT' ||
+          e.target.tagName === 'TEXTAREA' ||
+          e.target.isContentEditable)
+      ) {
+        return;
+      }
+
       if (e.key === 't' || e.key === 'T') {
+        e.preventDefault();
         const nextIdx = (this.currentIndex + 1) % THEMES.length;
         this.applyTheme(nextIdx, true);
         this.showTooltip(true);
-        this.scheduleHideTooltip();
+      } else if (e.key === 'i' || e.key === 'I') {
+        e.preventDefault();
+        this.toggleInvert();
       }
     });
+  }
+
+  toggleInvert() {
+    this.isInverted = !this.isInverted;
+    this.applyTheme(this.currentIndex, true);
+    this.showTooltip(true);
   }
 
   showTooltip(temporary = false) {
@@ -195,16 +288,21 @@ export class ThemeController {
       if (this.tooltipEl) {
         this.tooltipEl.classList.remove('is-visible');
       }
-    }, 1800);
+    }, 1900);
   }
 
   previewTooltip(index) {
     const theme = THEMES[index];
-    if (theme && this.tooltipTextEl) {
+    if (!theme) return;
+
+    if (this.tooltipTextEl) {
       this.tooltipTextEl.textContent = theme.label;
     }
-    if (theme && this.tooltipDotEl) {
-      this.tooltipDotEl.style.backgroundColor = theme.accent;
+    if (this.tooltipBadgeEl) {
+      this.tooltipBadgeEl.textContent = this.isInverted ? 'Inverted' : 'Default';
+    }
+    if (this.tooltipSwatchEl) {
+      this.tooltipSwatchEl.style.background = `linear-gradient(135deg, ${theme.primary} 50%, ${theme.secondary} 50%)`;
     }
     this.showTooltip(false);
   }
@@ -214,17 +312,37 @@ export class ThemeController {
     this.currentIndex = index;
     const theme = THEMES[index];
 
-    // Apply data-theme attribute on <html>
+    // Determine dark vs light mode
+    let mode;
     if (theme.id === 'signature-blue') {
-      document.documentElement.removeAttribute('data-theme');
+      mode = this.isInverted ? 'dark' : 'light';
     } else {
-      document.documentElement.setAttribute('data-theme', theme.id);
+      mode = this.isInverted ? 'light' : 'dark';
     }
 
+    const root = document.documentElement;
+
+    // Apply data-theme attribute
+    if (theme.id === 'signature-blue' && !this.isInverted) {
+      root.removeAttribute('data-theme');
+    } else {
+      root.setAttribute('data-theme', theme.id);
+    }
+
+    // Apply mode & polarity
+    root.setAttribute('data-mode', mode);
+    if (this.isInverted) {
+      root.setAttribute('data-inverted', 'true');
+    } else {
+      root.removeAttribute('data-inverted');
+    }
+
+    // Persist to localStorage
     if (save) {
       try {
         localStorage.setItem(STORAGE_KEY, theme.id);
         localStorage.setItem(STORAGE_INDEX_KEY, String(index));
+        localStorage.setItem(STORAGE_INVERTED_KEY, this.isInverted ? '1' : '0');
       } catch (e) {}
     }
 
@@ -247,8 +365,11 @@ export class ThemeController {
     if (this.tooltipTextEl) {
       this.tooltipTextEl.textContent = theme.label;
     }
-    if (this.tooltipDotEl) {
-      this.tooltipDotEl.style.backgroundColor = theme.accent;
+    if (this.tooltipBadgeEl) {
+      this.tooltipBadgeEl.textContent = this.isInverted ? 'Inverted' : 'Default';
+    }
+    if (this.tooltipSwatchEl) {
+      this.tooltipSwatchEl.style.background = `linear-gradient(135deg, ${theme.primary} 50%, ${theme.secondary} 50%)`;
     }
 
     // Update active dot in track
@@ -263,9 +384,18 @@ export class ThemeController {
       });
     }
 
-    // Sun icon rotation and color match
+    // Update Invert Button active status
+    if (this.invertBtn) {
+      this.invertBtn.classList.toggle('is-inverted', this.isInverted);
+      this.invertBtn.setAttribute(
+        'title',
+        this.isInverted ? 'Swap Polarity to Default (I)' : 'Swap Polarity to Inverted (I)'
+      );
+    }
+
+    // Sun icon rotation
     if (this.sunIcon) {
-      this.sunIcon.style.transform = `rotate(${index * 22.5}deg)`;
+      this.sunIcon.style.transform = `rotate(${index * 45}deg)`;
     }
   }
 }

@@ -4,14 +4,22 @@
 :root {
   /* Color Palette (Theme 0: Signature Blue Default) */
   --theme-id: "signature-blue";
-  --color-page-bg: #FFFFFF;
-  --color-card-bg: #FFFFFF;
-  --color-card-border: var(--color-border-hero);
+  --bg-primary: #FFFFFF;
+  --text-primary: #2B2F2F;
+  --surface-card: #FFFFFF;
+  --border-subtle: #E8EEFF;
+  --accent-color: #022EB4;
+  --accent-hover: #011E7B;
+
+  --color-page-bg: var(--bg-primary);
+  --color-card-bg: var(--surface-card);
+  --color-card-border: var(--border-subtle);
   --color-pill-bg: rgba(255, 255, 255, 0.88);
   --color-pill-text: #2B2F2F;
   --color-pill-border: #CDCDCD;
   --color-primary-blue: #022EB4;
   --color-dark-text: #2B2F2F;
+  --color-body-text: #555555;
   --color-black: #000000;
   --color-logo-dark: #434343;
   --color-white: #FFFFFF;
@@ -34,158 +42,431 @@
 
   /* Transitions */
   --transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-theme: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  --transition-theme: background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1), 
+                      color 0.6s cubic-bezier(0.22, 1, 0.36, 1), 
+                      border-color 0.6s ease;
+}
+
+/* Global smooth transition for editorial fluid switching */
+html,
+body,
+.page-container,
+.hero-card,
+.case-study-card,
+.about-master-card,
+.resume-quote-card,
+.contact-master-card,
+.projects-detail-card-container,
+.ai-chat-master-card,
+.project-card-item,
+.nav-pill,
+.logo-pill {
+  transition: background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              color 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.6s ease;
 }
 
 /* ==========================================================================
-   Curated Luxury Theme System (8 Curated Aesthetics & Pastels)
+   Editorial Luxury Theme System (Signature Blue + 7 Curated Palettes)
    ========================================================================== */
 
-/* 1. Obsidian Dark (Pure Pitch OLED Deep Black - True High Contrast) */
-html[data-theme="obsidian-dark"] {
-  --theme-id: "obsidian-dark";
-  --color-page-bg: #000000;
-  --color-card-bg: #000000;
-  --color-card-border: #141414;
-  --color-pill-bg: rgba(10, 10, 10, 0.95);
-  --color-pill-text: #FFFFFF;
-  --color-pill-border: #222222;
-  --color-primary-blue: #38BDF8;
-  --color-dark-text: #FFFFFF;
-  --color-body-text: #E4E4E7;
-  --color-muted-blue: #A1A1AA;
-  --color-border-light: #141414;
-  --color-border-nav: #222222;
-  --color-border-hero: #181818;
-  --color-logo-dark: #FFFFFF;
-  --color-inner-glow: #38BDF8;
-  --color-inner-glow-rgb: 56, 189, 248;
-}
+/* 0. Signature Blue (Inverted: Royal Blue Background / Crisp White Text) */
+html[data-theme="signature-blue"][data-inverted="true"] {
+  --theme-id: "signature-blue-inverted";
+  --bg-primary: #022EB4;
+  --text-primary: #FFFFFF;
+  --surface-card: color-mix(in srgb, #FFFFFF 8%, #022EB4);
+  --border-subtle: color-mix(in srgb, #FFFFFF 20%, transparent);
+  --accent-color: #93C5FD;
+  --accent-hover: #BFDBFE;
 
-/* 2. Electric Indigo (Deep Cyber Twilight / Midnight Violet - Pure Deep Dark) */
-html[data-theme="electric-indigo"] {
-  --theme-id: "electric-indigo";
-  --color-page-bg: #020206;
-  --color-card-bg: #04040A;
-  --color-card-border: #181A32;
-  --color-pill-bg: rgba(10, 10, 22, 0.95);
+  --color-page-bg: #022EB4;
+  --color-card-bg: color-mix(in srgb, #FFFFFF 8%, #022EB4);
+  --color-card-border: color-mix(in srgb, #FFFFFF 20%, transparent);
+  --color-pill-bg: rgba(2, 46, 180, 0.85);
   --color-pill-text: #FFFFFF;
-  --color-pill-border: #242754;
-  --color-primary-blue: #A78BFA;
+  --color-pill-border: rgba(255, 255, 255, 0.24);
+  --color-primary-blue: #93C5FD;
   --color-dark-text: #FFFFFF;
   --color-body-text: #E0E7FF;
-  --color-muted-blue: #A5B4FC;
-  --color-border-light: #181A32;
-  --color-border-nav: #242754;
-  --color-border-hero: #1F2244;
+  --color-muted-blue: #BFDBFE;
+  --color-border-light: rgba(255, 255, 255, 0.16);
+  --color-border-nav: rgba(255, 255, 255, 0.24);
+  --color-border-hero: rgba(255, 255, 255, 0.18);
   --color-logo-dark: #FFFFFF;
-  --color-inner-glow: #A78BFA;
-  --color-inner-glow-rgb: 167, 139, 250;
+  --color-inner-glow: #93C5FD;
+  --color-inner-glow-rgb: 147, 197, 253;
 }
 
-/* 3. Pastel Lilac (Soft Wisteria / Dreamy Lavender Pastel) */
-html[data-theme="pastel-lilac"] {
-  --theme-id: "pastel-lilac";
-  --color-page-bg: #F8F6FD;
-  --color-card-bg: #FFFFFF;
-  --color-card-border: #E5DEF9;
-  --color-pill-bg: rgba(255, 255, 255, 0.94);
-  --color-pill-text: #1E163B;
-  --color-pill-border: #D8CCF5;
-  --color-primary-blue: #7C3AED;
-  --color-dark-text: #1E163B;
-  --color-body-text: #4F4372;
-  --color-muted-blue: #74689A;
-  --color-border-light: #E5DEF9;
-  --color-border-nav: #D8CCF5;
-  --color-border-hero: #EDE8FC;
-  --color-logo-dark: #1E163B;
-  --color-inner-glow: #7C3AED;
-  --color-inner-glow-rgb: 124, 58, 237;
+/* 1. Royal Cream (Primary: Royal Blue #014BAA | Secondary: Light Cream #F8F3F0) */
+html[data-theme="royal-cream"] {
+  --theme-id: "royal-cream";
+  --bg-primary: #014BAA;
+  --text-primary: #F8F3F0;
+  --surface-card: color-mix(in srgb, var(--text-primary) 8%, var(--bg-primary));
+  --border-subtle: color-mix(in srgb, var(--text-primary) 20%, transparent);
+  --accent-color: #93C5FD;
+  --accent-hover: #BFDBFE;
+
+  --color-page-bg: var(--bg-primary);
+  --color-card-bg: var(--surface-card);
+  --color-card-border: var(--border-subtle);
+  --color-pill-bg: color-mix(in srgb, var(--bg-primary) 82%, var(--text-primary) 18%);
+  --color-pill-text: var(--text-primary);
+  --color-pill-border: var(--border-subtle);
+  --color-primary-blue: var(--accent-color);
+  --color-dark-text: var(--text-primary);
+  --color-body-text: color-mix(in srgb, var(--text-primary) 85%, transparent);
+  --color-muted-blue: color-mix(in srgb, var(--text-primary) 65%, transparent);
+  --color-border-light: var(--border-subtle);
+  --color-border-nav: var(--border-subtle);
+  --color-border-hero: var(--border-subtle);
+  --color-logo-dark: var(--text-primary);
+  --color-inner-glow: #93C5FD;
+  --color-inner-glow-rgb: 147, 197, 253;
+}
+html[data-theme="royal-cream"][data-inverted="true"] {
+  --bg-primary: #F8F3F0;
+  --text-primary: #014BAA;
+  --surface-card: #FFFFFF;
+  --border-subtle: color-mix(in srgb, var(--text-primary) 15%, transparent);
+  --accent-color: #014BAA;
+  --accent-hover: #003680;
+
+  --color-page-bg: var(--bg-primary);
+  --color-card-bg: var(--surface-card);
+  --color-card-border: var(--border-subtle);
+  --color-pill-bg: rgba(255, 255, 255, 0.92);
+  --color-pill-text: var(--text-primary);
+  --color-pill-border: var(--border-subtle);
+  --color-primary-blue: var(--accent-color);
+  --color-dark-text: var(--text-primary);
+  --color-body-text: #203554;
+  --color-muted-blue: #40608A;
+  --color-border-light: var(--border-subtle);
+  --color-border-nav: var(--border-subtle);
+  --color-border-hero: var(--border-subtle);
+  --color-logo-dark: var(--text-primary);
+  --color-inner-glow: #014BAA;
+  --color-inner-glow-rgb: 1, 75, 170;
 }
 
-/* 4. Pastel Matcha (Japanese Zen Sage & Forest Jade) */
-html[data-theme="pastel-matcha"] {
-  --theme-id: "pastel-matcha";
-  --color-page-bg: #F1F7F4;
-  --color-card-bg: #FFFFFF;
-  --color-card-border: #CEE2D7;
-  --color-pill-bg: rgba(255, 255, 255, 0.94);
-  --color-pill-text: #0E2920;
-  --color-pill-border: #B7D6C5;
-  --color-primary-blue: #0D7A5F;
-  --color-dark-text: #0E2920;
-  --color-body-text: #325246;
-  --color-muted-blue: #55776A;
-  --color-border-light: #CEE2D7;
-  --color-border-nav: #B7D6C5;
-  --color-border-hero: #DDEEE5;
-  --color-logo-dark: #0E2920;
-  --color-inner-glow: #0D7A5F;
-  --color-inner-glow-rgb: 13, 122, 95;
+/* 2. Wine Sand (Primary: Wine Red #7F011F | Secondary: Light Sand #F5EBD0) */
+html[data-theme="wine-sand"] {
+  --theme-id: "wine-sand";
+  --bg-primary: #7F011F;
+  --text-primary: #F5EBD0;
+  --surface-card: color-mix(in srgb, var(--text-primary) 8%, var(--bg-primary));
+  --border-subtle: color-mix(in srgb, var(--text-primary) 20%, transparent);
+  --accent-color: #F5EBD0;
+  --accent-hover: #FFF5DD;
+
+  --color-page-bg: var(--bg-primary);
+  --color-card-bg: var(--surface-card);
+  --color-card-border: var(--border-subtle);
+  --color-pill-bg: color-mix(in srgb, var(--bg-primary) 82%, var(--text-primary) 18%);
+  --color-pill-text: var(--text-primary);
+  --color-pill-border: var(--border-subtle);
+  --color-primary-blue: var(--accent-color);
+  --color-dark-text: var(--text-primary);
+  --color-body-text: color-mix(in srgb, var(--text-primary) 85%, transparent);
+  --color-muted-blue: color-mix(in srgb, var(--text-primary) 65%, transparent);
+  --color-border-light: var(--border-subtle);
+  --color-border-nav: var(--border-subtle);
+  --color-border-hero: var(--border-subtle);
+  --color-logo-dark: var(--text-primary);
+  --color-inner-glow: #F5EBD0;
+  --color-inner-glow-rgb: 245, 235, 208;
+}
+html[data-theme="wine-sand"][data-inverted="true"] {
+  --bg-primary: #F5EBD0;
+  --text-primary: #7F011F;
+  --surface-card: #FAF4E6;
+  --border-subtle: color-mix(in srgb, var(--text-primary) 15%, transparent);
+  --accent-color: #7F011F;
+  --accent-hover: #5A0015;
+
+  --color-page-bg: var(--bg-primary);
+  --color-card-bg: var(--surface-card);
+  --color-card-border: var(--border-subtle);
+  --color-pill-bg: rgba(255, 255, 255, 0.92);
+  --color-pill-text: var(--text-primary);
+  --color-pill-border: var(--border-subtle);
+  --color-primary-blue: var(--accent-color);
+  --color-dark-text: var(--text-primary);
+  --color-body-text: #48151F;
+  --color-muted-blue: #6D2E3B;
+  --color-border-light: var(--border-subtle);
+  --color-border-nav: var(--border-subtle);
+  --color-border-hero: var(--border-subtle);
+  --color-logo-dark: var(--text-primary);
+  --color-inner-glow: #7F011F;
+  --color-inner-glow-rgb: 127, 1, 31;
 }
 
-/* 5. Pastel Blush (Sakura Rose & Desert Peach) */
-html[data-theme="pastel-blush"] {
-  --theme-id: "pastel-blush";
-  --color-page-bg: #FCF5F6;
-  --color-card-bg: #FFFFFF;
-  --color-card-border: #F5D9DE;
-  --color-pill-bg: rgba(255, 255, 255, 0.94);
-  --color-pill-text: #38121A;
-  --color-pill-border: #EDC1C9;
-  --color-primary-blue: #E11D48;
-  --color-dark-text: #38121A;
-  --color-body-text: #673B45;
-  --color-muted-blue: #915F6A;
-  --color-border-light: #F5D9DE;
-  --color-border-nav: #EDC1C9;
-  --color-border-hero: #FCE8EB;
-  --color-logo-dark: #38121A;
-  --color-inner-glow: #E11D48;
-  --color-inner-glow-rgb: 225, 29, 72;
+/* 3. Orange Milk (Primary: Orange #EC5E27 | Secondary: Milk #FDFDF1) */
+html[data-theme="orange-milk"] {
+  --theme-id: "orange-milk";
+  --bg-primary: #EC5E27;
+  --text-primary: #FDFDF1;
+  --surface-card: color-mix(in srgb, var(--text-primary) 8%, var(--bg-primary));
+  --border-subtle: color-mix(in srgb, var(--text-primary) 20%, transparent);
+  --accent-color: #FDFDF1;
+  --accent-hover: #FFFFFF;
+
+  --color-page-bg: var(--bg-primary);
+  --color-card-bg: var(--surface-card);
+  --color-card-border: var(--border-subtle);
+  --color-pill-bg: color-mix(in srgb, var(--bg-primary) 82%, var(--text-primary) 18%);
+  --color-pill-text: var(--text-primary);
+  --color-pill-border: var(--border-subtle);
+  --color-primary-blue: var(--accent-color);
+  --color-dark-text: var(--text-primary);
+  --color-body-text: color-mix(in srgb, var(--text-primary) 88%, transparent);
+  --color-muted-blue: color-mix(in srgb, var(--text-primary) 68%, transparent);
+  --color-border-light: var(--border-subtle);
+  --color-border-nav: var(--border-subtle);
+  --color-border-hero: var(--border-subtle);
+  --color-logo-dark: var(--text-primary);
+  --color-inner-glow: #FDFDF1;
+  --color-inner-glow-rgb: 253, 253, 241;
+}
+html[data-theme="orange-milk"][data-inverted="true"] {
+  --bg-primary: #FDFDF1;
+  --text-primary: #EC5E27;
+  --surface-card: #FFFFFF;
+  --border-subtle: color-mix(in srgb, var(--text-primary) 15%, transparent);
+  --accent-color: #EC5E27;
+  --accent-hover: #C54714;
+
+  --color-page-bg: var(--bg-primary);
+  --color-card-bg: var(--surface-card);
+  --color-card-border: var(--border-subtle);
+  --color-pill-bg: rgba(255, 255, 255, 0.92);
+  --color-pill-text: var(--text-primary);
+  --color-pill-border: var(--border-subtle);
+  --color-primary-blue: var(--accent-color);
+  --color-dark-text: var(--text-primary);
+  --color-body-text: #4A2314;
+  --color-muted-blue: #7C452F;
+  --color-border-light: var(--border-subtle);
+  --color-border-nav: var(--border-subtle);
+  --color-border-hero: var(--border-subtle);
+  --color-logo-dark: var(--text-primary);
+  --color-inner-glow: #EC5E27;
+  --color-inner-glow-rgb: 236, 94, 39;
 }
 
-/* 6. Warm Terracotta (Japanese Editorial Sand & Terracotta Amber) */
-html[data-theme="warm-paper"] {
-  --theme-id: "warm-paper";
-  --color-page-bg: #F8F5EE;
-  --color-card-bg: #FFFDF9;
-  --color-card-border: #E8DFD5;
-  --color-pill-bg: rgba(255, 253, 249, 0.94);
-  --color-pill-text: #271C19;
-  --color-pill-border: #D8CCC0;
-  --color-primary-blue: #C2410C;
-  --color-dark-text: #271C19;
-  --color-body-text: #574640;
-  --color-muted-blue: #7C6962;
-  --color-border-light: #E8DFD5;
-  --color-border-nav: #D8CCC0;
-  --color-border-hero: #EFE7DD;
-  --color-logo-dark: #271C19;
-  --color-inner-glow: #C2410C;
-  --color-inner-glow-rgb: 194, 65, 12;
+/* 4. Plum Milk (Primary: Plum #381932 | Secondary: Warm Milk #FFF3E6) */
+html[data-theme="plum-milk"] {
+  --theme-id: "plum-milk";
+  --bg-primary: #381932;
+  --text-primary: #FFF3E6;
+  --surface-card: color-mix(in srgb, var(--text-primary) 8%, var(--bg-primary));
+  --border-subtle: color-mix(in srgb, var(--text-primary) 20%, transparent);
+  --accent-color: #F8B4D9;
+  --accent-hover: #FBCFE8;
+
+  --color-page-bg: var(--bg-primary);
+  --color-card-bg: var(--surface-card);
+  --color-card-border: var(--border-subtle);
+  --color-pill-bg: color-mix(in srgb, var(--bg-primary) 82%, var(--text-primary) 18%);
+  --color-pill-text: var(--text-primary);
+  --color-pill-border: var(--border-subtle);
+  --color-primary-blue: var(--accent-color);
+  --color-dark-text: var(--text-primary);
+  --color-body-text: color-mix(in srgb, var(--text-primary) 85%, transparent);
+  --color-muted-blue: color-mix(in srgb, var(--text-primary) 65%, transparent);
+  --color-border-light: var(--border-subtle);
+  --color-border-nav: var(--border-subtle);
+  --color-border-hero: var(--border-subtle);
+  --color-logo-dark: var(--text-primary);
+  --color-inner-glow: #F8B4D9;
+  --color-inner-glow-rgb: 248, 180, 217;
+}
+html[data-theme="plum-milk"][data-inverted="true"] {
+  --bg-primary: #FFF3E6;
+  --text-primary: #381932;
+  --surface-card: #FFFFFF;
+  --border-subtle: color-mix(in srgb, var(--text-primary) 15%, transparent);
+  --accent-color: #381932;
+  --accent-hover: #220F1E;
+
+  --color-page-bg: var(--bg-primary);
+  --color-card-bg: var(--surface-card);
+  --color-card-border: var(--border-subtle);
+  --color-pill-bg: rgba(255, 255, 255, 0.92);
+  --color-pill-text: var(--text-primary);
+  --color-pill-border: var(--border-subtle);
+  --color-primary-blue: var(--accent-color);
+  --color-dark-text: var(--text-primary);
+  --color-body-text: #3D2638;
+  --color-muted-blue: #64445D;
+  --color-border-light: var(--border-subtle);
+  --color-border-nav: var(--border-subtle);
+  --color-border-hero: var(--border-subtle);
+  --color-logo-dark: var(--text-primary);
+  --color-inner-glow: #381932;
+  --color-inner-glow-rgb: 56, 25, 50;
 }
 
-/* 7. Nordic Slate (Scandinavian Arctic Ice & Glacier Slate) */
-html[data-theme="nordic-slate"] {
-  --theme-id: "nordic-slate";
-  --color-page-bg: #F0F4F8;
-  --color-card-bg: #FFFFFF;
-  --color-card-border: #D1DEEB;
-  --color-pill-bg: rgba(255, 255, 255, 0.94);
-  --color-pill-text: #0F1D2C;
-  --color-pill-border: #BCCFDF;
-  --color-primary-blue: #2563EB;
-  --color-dark-text: #0F1D2C;
-  --color-body-text: #31485E;
-  --color-muted-blue: #5B758E;
-  --color-border-light: #D1DEEB;
-  --color-border-nav: #BCCFDF;
-  --color-border-hero: #E1ECF5;
-  --color-logo-dark: #0F1D2C;
-  --color-inner-glow: #2563EB;
-  --color-inner-glow-rgb: 37, 99, 235;
+/* 5. Midnight Vanilla (Primary: Midnight Indigo #282B4A | Secondary: Vanilla #EEEBDA) */
+html[data-theme="midnight-vanilla"] {
+  --theme-id: "midnight-vanilla";
+  --bg-primary: #282B4A;
+  --text-primary: #EEEBDA;
+  --surface-card: color-mix(in srgb, var(--text-primary) 8%, var(--bg-primary));
+  --border-subtle: color-mix(in srgb, var(--text-primary) 20%, transparent);
+  --accent-color: #A5B4FC;
+  --accent-hover: #C7D2FE;
+
+  --color-page-bg: var(--bg-primary);
+  --color-card-bg: var(--surface-card);
+  --color-card-border: var(--border-subtle);
+  --color-pill-bg: color-mix(in srgb, var(--bg-primary) 82%, var(--text-primary) 18%);
+  --color-pill-text: var(--text-primary);
+  --color-pill-border: var(--border-subtle);
+  --color-primary-blue: var(--accent-color);
+  --color-dark-text: var(--text-primary);
+  --color-body-text: color-mix(in srgb, var(--text-primary) 85%, transparent);
+  --color-muted-blue: color-mix(in srgb, var(--text-primary) 65%, transparent);
+  --color-border-light: var(--border-subtle);
+  --color-border-nav: var(--border-subtle);
+  --color-border-hero: var(--border-subtle);
+  --color-logo-dark: var(--text-primary);
+  --color-inner-glow: #A5B4FC;
+  --color-inner-glow-rgb: 165, 180, 252;
+}
+html[data-theme="midnight-vanilla"][data-inverted="true"] {
+  --bg-primary: #EEEBDA;
+  --text-primary: #282B4A;
+  --surface-card: #FAF8F0;
+  --border-subtle: color-mix(in srgb, var(--text-primary) 15%, transparent);
+  --accent-color: #282B4A;
+  --accent-hover: #191B30;
+
+  --color-page-bg: var(--bg-primary);
+  --color-card-bg: var(--surface-card);
+  --color-card-border: var(--border-subtle);
+  --color-pill-bg: rgba(255, 255, 255, 0.92);
+  --color-pill-text: var(--text-primary);
+  --color-pill-border: var(--border-subtle);
+  --color-primary-blue: var(--accent-color);
+  --color-dark-text: var(--text-primary);
+  --color-body-text: #2D304B;
+  --color-muted-blue: #4F5478;
+  --color-border-light: var(--border-subtle);
+  --color-border-nav: var(--border-subtle);
+  --color-border-hero: var(--border-subtle);
+  --color-logo-dark: var(--text-primary);
+  --color-inner-glow: #282B4A;
+  --color-inner-glow-rgb: 40, 43, 74;
+}
+
+/* 6. Cherry Alabaster (Primary: Cherry #890149 | Secondary: Alabaster #F3F3E7) */
+html[data-theme="cherry-alabaster"] {
+  --theme-id: "cherry-alabaster";
+  --bg-primary: #890149;
+  --text-primary: #F3F3E7;
+  --surface-card: color-mix(in srgb, var(--text-primary) 8%, var(--bg-primary));
+  --border-subtle: color-mix(in srgb, var(--text-primary) 20%, transparent);
+  --accent-color: #F472B6;
+  --accent-hover: #FBCFE8;
+
+  --color-page-bg: var(--bg-primary);
+  --color-card-bg: var(--surface-card);
+  --color-card-border: var(--border-subtle);
+  --color-pill-bg: color-mix(in srgb, var(--bg-primary) 82%, var(--text-primary) 18%);
+  --color-pill-text: var(--text-primary);
+  --color-pill-border: var(--border-subtle);
+  --color-primary-blue: var(--accent-color);
+  --color-dark-text: var(--text-primary);
+  --color-body-text: color-mix(in srgb, var(--text-primary) 85%, transparent);
+  --color-muted-blue: color-mix(in srgb, var(--text-primary) 65%, transparent);
+  --color-border-light: var(--border-subtle);
+  --color-border-nav: var(--border-subtle);
+  --color-border-hero: var(--border-subtle);
+  --color-logo-dark: var(--text-primary);
+  --color-inner-glow: #F472B6;
+  --color-inner-glow-rgb: 244, 114, 182;
+}
+html[data-theme="cherry-alabaster"][data-inverted="true"] {
+  --bg-primary: #F3F3E7;
+  --text-primary: #890149;
+  --surface-card: #FFFFFF;
+  --border-subtle: color-mix(in srgb, var(--text-primary) 15%, transparent);
+  --accent-color: #890149;
+  --accent-hover: #630034;
+
+  --color-page-bg: var(--bg-primary);
+  --color-card-bg: var(--surface-card);
+  --color-card-border: var(--border-subtle);
+  --color-pill-bg: rgba(255, 255, 255, 0.92);
+  --color-pill-text: var(--text-primary);
+  --color-pill-border: var(--border-subtle);
+  --color-primary-blue: var(--accent-color);
+  --color-dark-text: var(--text-primary);
+  --color-body-text: #45172C;
+  --color-muted-blue: #6D2D4B;
+  --color-border-light: var(--border-subtle);
+  --color-border-nav: var(--border-subtle);
+  --color-border-hero: var(--border-subtle);
+  --color-logo-dark: var(--text-primary);
+  --color-inner-glow: #890149;
+  --color-inner-glow-rgb: 137, 1, 73;
+}
+
+/* 7. Forest Leaf (Primary: Forest #064734 | Secondary: Leaf #E0FFC2) */
+html[data-theme="forest-leaf"] {
+  --theme-id: "forest-leaf";
+  --bg-primary: #064734;
+  --text-primary: #E0FFC2;
+  --surface-card: color-mix(in srgb, var(--text-primary) 8%, var(--bg-primary));
+  --border-subtle: color-mix(in srgb, var(--text-primary) 20%, transparent);
+  --accent-color: #86EFAC;
+  --accent-hover: #BBF7D0;
+
+  --color-page-bg: var(--bg-primary);
+  --color-card-bg: var(--surface-card);
+  --color-card-border: var(--border-subtle);
+  --color-pill-bg: color-mix(in srgb, var(--bg-primary) 82%, var(--text-primary) 18%);
+  --color-pill-text: var(--text-primary);
+  --color-pill-border: var(--border-subtle);
+  --color-primary-blue: var(--accent-color);
+  --color-dark-text: var(--text-primary);
+  --color-body-text: color-mix(in srgb, var(--text-primary) 85%, transparent);
+  --color-muted-blue: color-mix(in srgb, var(--text-primary) 65%, transparent);
+  --color-border-light: var(--border-subtle);
+  --color-border-nav: var(--border-subtle);
+  --color-border-hero: var(--border-subtle);
+  --color-logo-dark: var(--text-primary);
+  --color-inner-glow: #86EFAC;
+  --color-inner-glow-rgb: 134, 239, 172;
+}
+html[data-theme="forest-leaf"][data-inverted="true"] {
+  --bg-primary: #E0FFC2;
+  --text-primary: #064734;
+  --surface-card: #F0FFE0;
+  --border-subtle: color-mix(in srgb, var(--text-primary) 15%, transparent);
+  --accent-color: #064734;
+  --accent-hover: #032A1F;
+
+  --color-page-bg: var(--bg-primary);
+  --color-card-bg: var(--surface-card);
+  --color-card-border: var(--border-subtle);
+  --color-pill-bg: rgba(255, 255, 255, 0.92);
+  --color-pill-text: var(--text-primary);
+  --color-pill-border: var(--border-subtle);
+  --color-primary-blue: var(--accent-color);
+  --color-dark-text: var(--text-primary);
+  --color-body-text: #0E3529;
+  --color-muted-blue: #235846;
+  --color-border-light: var(--border-subtle);
+  --color-border-nav: var(--border-subtle);
+  --color-border-hero: var(--border-subtle);
+  --color-logo-dark: var(--text-primary);
+  --color-inner-glow: #064734;
+  --color-inner-glow-rgb: 6, 71, 52;
 }
 
 /* ==========================================================================
@@ -6880,18 +7161,27 @@ body,
 }
 
 /* ==========================================================================
-   Dark Mode (Obsidian Dark & Electric Indigo) Pure Deep Black Architecture
+   Dark Mode Pure Deep & Rich Editorial Architecture
    ========================================================================== */
+html[data-mode="dark"],
 html[data-theme="obsidian-dark"],
 html[data-theme="electric-indigo"] {
   background-color: var(--color-page-bg) !important;
 }
 
+html[data-mode="dark"] .page-container,
 html[data-theme="obsidian-dark"] .page-container,
 html[data-theme="electric-indigo"] .page-container {
   background-color: var(--color-page-bg) !important;
 }
 
+html[data-mode="dark"] .hero-card,
+html[data-mode="dark"] .case-study-card,
+html[data-mode="dark"] .about-master-card,
+html[data-mode="dark"] .resume-quote-card,
+html[data-mode="dark"] .contact-master-card,
+html[data-mode="dark"] .projects-detail-card-container,
+html[data-mode="dark"] .ai-chat-master-card,
 html[data-theme="obsidian-dark"] .hero-card,
 html[data-theme="obsidian-dark"] .case-study-card,
 html[data-theme="obsidian-dark"] .about-master-card,
@@ -6910,89 +7200,109 @@ html[data-theme="electric-indigo"] .ai-chat-master-card {
   border-color: var(--color-card-border) !important;
 }
 
-/* Deep Black Cards inside Work & Projects */
+/* Rich Tinted Cards inside Work & Projects */
+html[data-mode="dark"] .project-card-item,
+html[data-mode="dark"] .storyboard-card,
 html[data-theme="obsidian-dark"] .project-card-item,
 html[data-theme="obsidian-dark"] .storyboard-card,
 html[data-theme="electric-indigo"] .project-card-item,
 html[data-theme="electric-indigo"] .storyboard-card {
-  background-color: #0A0A0A !important;
-  border-color: #1E1E1E !important;
+  background-color: var(--surface-card, #0A0A0A) !important;
+  border-color: var(--border-subtle, #1E1E1E) !important;
 }
 
+html[data-mode="dark"] .project-card-item:hover,
 html[data-theme="obsidian-dark"] .project-card-item:hover,
 html[data-theme="electric-indigo"] .project-card-item:hover {
   border-color: var(--color-primary-blue) !important;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6) !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45) !important;
 }
 
+html[data-mode="dark"] .project-card-thumb,
+html[data-mode="dark"] .storyboard-thumb,
 html[data-theme="obsidian-dark"] .project-card-thumb,
 html[data-theme="obsidian-dark"] .storyboard-thumb,
 html[data-theme="electric-indigo"] .project-card-thumb,
 html[data-theme="electric-indigo"] .storyboard-thumb {
-  background-color: #050505 !important;
+  background-color: color-mix(in srgb, var(--bg-primary) 70%, #000000 30%) !important;
 }
 
+html[data-mode="dark"] .company-header-block,
+html[data-mode="dark"] .company-info-block,
 html[data-theme="obsidian-dark"] .company-header-block,
 html[data-theme="obsidian-dark"] .company-info-block,
 html[data-theme="electric-indigo"] .company-header-block,
 html[data-theme="electric-indigo"] .company-info-block {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-bottom: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1)) !important;
 }
 
+html[data-mode="dark"] .company-bullets-list li,
 html[data-theme="obsidian-dark"] .company-bullets-list li,
 html[data-theme="electric-indigo"] .company-bullets-list li {
-  color: #F1F5F9 !important;
+  color: var(--color-body-text, #F1F5F9) !important;
 }
 
+html[data-mode="dark"] .company-title,
+html[data-mode="dark"] .company-block-title,
 html[data-theme="obsidian-dark"] .company-title,
 html[data-theme="obsidian-dark"] .company-block-title,
 html[data-theme="electric-indigo"] .company-title,
 html[data-theme="electric-indigo"] .company-block-title {
-  color: #FFFFFF !important;
+  color: var(--text-primary, #FFFFFF) !important;
 }
 
+html[data-mode="dark"] .company-block-sub,
 html[data-theme="obsidian-dark"] .company-block-sub,
 html[data-theme="electric-indigo"] .company-block-sub {
-  color: #94A3B8 !important;
+  color: var(--color-muted-blue, #94A3B8) !important;
 }
 
+html[data-mode="dark"] .back-arrow-btn,
 html[data-theme="obsidian-dark"] .back-arrow-btn,
 html[data-theme="electric-indigo"] .back-arrow-btn {
-  color: #FFFFFF !important;
+  color: var(--text-primary, #FFFFFF) !important;
 }
 
+html[data-mode="dark"] .back-arrow-btn svg,
 html[data-theme="obsidian-dark"] .back-arrow-btn svg,
 html[data-theme="electric-indigo"] .back-arrow-btn svg {
-  stroke: #FFFFFF !important;
+  stroke: var(--text-primary, #FFFFFF) !important;
 }
 
+html[data-mode="dark"] .contact-method-card,
 html[data-theme="obsidian-dark"] .contact-method-card,
 html[data-theme="electric-indigo"] .contact-method-card {
-  background: #0A0A0A !important;
-  border-color: #1E1E1E !important;
+  background: var(--surface-card, #0A0A0A) !important;
+  border-color: var(--border-subtle, #1E1E1E) !important;
 }
 
+html[data-mode="dark"] .contact-method-icon-wrap,
 html[data-theme="obsidian-dark"] .contact-method-icon-wrap,
 html[data-theme="electric-indigo"] .contact-method-icon-wrap {
-  background: #111111 !important;
-  border-color: #242424 !important;
+  background: color-mix(in srgb, var(--text-primary) 10%, var(--bg-primary)) !important;
+  border-color: var(--border-subtle, #242424) !important;
 }
 
+html[data-mode="dark"] .contact-form-container,
 html[data-theme="obsidian-dark"] .contact-form-container,
 html[data-theme="electric-indigo"] .contact-form-container {
-  background: #080808 !important;
-  border-color: #1E1E1E !important;
+  background: var(--surface-card, #080808) !important;
+  border-color: var(--border-subtle, #1E1E1E) !important;
 }
 
+html[data-mode="dark"] .form-input,
+html[data-mode="dark"] .form-textarea,
 html[data-theme="obsidian-dark"] .form-input,
 html[data-theme="obsidian-dark"] .form-textarea,
 html[data-theme="electric-indigo"] .form-input,
 html[data-theme="electric-indigo"] .form-textarea {
-  background: #0E0E0E !important;
-  border-color: #262626 !important;
-  color: #FFFFFF !important;
+  background: color-mix(in srgb, var(--text-primary) 6%, var(--bg-primary)) !important;
+  border-color: var(--border-subtle, #262626) !important;
+  color: var(--text-primary, #FFFFFF) !important;
 }
 
+html[data-mode="dark"] .form-input:focus,
+html[data-mode="dark"] .form-textarea:focus,
 html[data-theme="obsidian-dark"] .form-input:focus,
 html[data-theme="obsidian-dark"] .form-textarea:focus,
 html[data-theme="electric-indigo"] .form-input:focus,
@@ -7000,45 +7310,57 @@ html[data-theme="electric-indigo"] .form-textarea:focus {
   border-color: var(--color-primary-blue) !important;
 }
 
+html[data-mode="dark"] .about-tool-circle,
+html[data-mode="dark"] .about-tool-chip,
+html[data-mode="dark"] .about-social-icon-btn,
 html[data-theme="obsidian-dark"] .about-tool-circle,
 html[data-theme="electric-indigo"] .about-tool-circle,
 html[data-theme="obsidian-dark"] .about-tool-chip,
 html[data-theme="electric-indigo"] .about-tool-chip,
 html[data-theme="obsidian-dark"] .about-social-icon-btn,
 html[data-theme="electric-indigo"] .about-social-icon-btn {
-  background: #0D0D0D !important;
-  border-color: #222222 !important;
-  color: #F1F5F9 !important;
+  background: color-mix(in srgb, var(--text-primary) 8%, var(--bg-primary)) !important;
+  border-color: var(--border-subtle, #222222) !important;
+  color: var(--text-primary, #F1F5F9) !important;
 }
 
+html[data-mode="dark"] .intent-radio:checked + .intent-pill-visual,
 html[data-theme="obsidian-dark"] .intent-radio:checked + .intent-pill-visual,
 html[data-theme="electric-indigo"] .intent-radio:checked + .intent-pill-visual,
+html[data-mode="dark"] .intent-pill.is-selected,
+html[data-mode="dark"] .intent-pill:has(input:checked),
 html[data-theme="obsidian-dark"] .intent-pill.is-selected,
 html[data-theme="obsidian-dark"] .intent-pill:has(input:checked),
 html[data-theme="electric-indigo"] .intent-pill.is-selected,
 html[data-theme="electric-indigo"] .intent-pill:has(input:checked) {
   background: var(--color-primary-blue) !important;
-  color: #000000 !important;
+  color: var(--bg-primary, #000000) !important;
   font-weight: 700;
   border-color: var(--color-primary-blue) !important;
 }
 
+html[data-mode="dark"] .intent-pill-visual,
+html[data-mode="dark"] .intent-pill,
 html[data-theme="obsidian-dark"] .intent-pill-visual,
 html[data-theme="electric-indigo"] .intent-pill-visual,
 html[data-theme="obsidian-dark"] .intent-pill,
 html[data-theme="electric-indigo"] .intent-pill {
-  background: #0E0E0E !important;
-  border-color: #222222 !important;
-  color: #D1D5DB !important;
+  background: color-mix(in srgb, var(--text-primary) 6%, var(--bg-primary)) !important;
+  border-color: var(--border-subtle, #222222) !important;
+  color: var(--color-body-text, #D1D5DB) !important;
 }
 
+html[data-mode="dark"] .copy-email-btn,
 html[data-theme="obsidian-dark"] .copy-email-btn,
 html[data-theme="electric-indigo"] .copy-email-btn {
-  background: #111111 !important;
-  border-color: #242424 !important;
-  color: #E2E8F0 !important;
+  background: color-mix(in srgb, var(--text-primary) 8%, var(--bg-primary)) !important;
+  border-color: var(--border-subtle, #242424) !important;
+  color: var(--text-primary, #E2E8F0) !important;
 }
 
+html[data-mode="dark"] .form-submit-btn,
+html[data-mode="dark"] .contact-submit-btn,
+html[data-mode="dark"] .resume-primary-download-btn,
 html[data-theme="obsidian-dark"] .form-submit-btn,
 html[data-theme="electric-indigo"] .form-submit-btn,
 html[data-theme="obsidian-dark"] .contact-submit-btn,
@@ -7046,39 +7368,47 @@ html[data-theme="electric-indigo"] .contact-submit-btn,
 html[data-theme="obsidian-dark"] .resume-primary-download-btn,
 html[data-theme="electric-indigo"] .resume-primary-download-btn {
   background: var(--color-primary-blue) !important;
-  color: #000000 !important;
+  color: var(--bg-primary, #000000) !important;
   font-weight: 750;
 }
 
 /* Projects & Work Text High Contrast Dark Mode Guarantee */
+html[data-mode="dark"] .projects-main-title,
+html[data-mode="dark"] .project-card-title,
+html[data-mode="dark"] .timeline-title,
 html[data-theme="obsidian-dark"] .projects-main-title,
 html[data-theme="electric-indigo"] .projects-main-title,
 html[data-theme="obsidian-dark"] .project-card-title,
 html[data-theme="electric-indigo"] .project-card-title,
 html[data-theme="obsidian-dark"] .timeline-title,
 html[data-theme="electric-indigo"] .timeline-title {
-  color: #FFFFFF !important;
+  color: var(--text-primary, #FFFFFF) !important;
 }
 
+html[data-mode="dark"] .projects-header-desc,
+html[data-mode="dark"] .project-brief-text,
 html[data-theme="obsidian-dark"] .projects-header-desc,
 html[data-theme="electric-indigo"] .projects-header-desc,
 html[data-theme="obsidian-dark"] .project-brief-text,
 html[data-theme="electric-indigo"] .project-brief-text {
-  color: #D4D4D8 !important;
+  color: var(--color-body-text, #D4D4D8) !important;
 }
 
+html[data-mode="dark"] .timeline-sub,
 html[data-theme="obsidian-dark"] .timeline-sub,
 html[data-theme="electric-indigo"] .timeline-sub {
-  color: #94A3B8 !important;
+  color: var(--color-muted-blue, #94A3B8) !important;
 }
 
+html[data-mode="dark"] .project-card-cta,
 html[data-theme="obsidian-dark"] .project-card-cta,
 html[data-theme="electric-indigo"] .project-card-cta {
-  background: #101010 !important;
-  border-color: #222222 !important;
+  background: color-mix(in srgb, var(--text-primary) 8%, var(--bg-primary)) !important;
+  border-color: var(--border-subtle, #222222) !important;
   color: var(--color-primary-blue) !important;
 }
 
+html[data-mode="dark"] .project-card-cta-icon,
 html[data-theme="obsidian-dark"] .project-card-cta-icon,
 html[data-theme="electric-indigo"] .project-card-cta-icon {
   background: rgba(255, 255, 255, 0.08) !important;
@@ -7086,43 +7416,48 @@ html[data-theme="electric-indigo"] .project-card-cta-icon {
 }
 
 /* AI Chat Dark Mode Polish */
+html[data-mode="dark"] .ai-grid-card,
 html[data-theme="obsidian-dark"] .ai-grid-card,
 html[data-theme="electric-indigo"] .ai-grid-card {
-  background-color: #0A0A0A !important;
-  border-color: #1E1E1E !important;
+  background-color: var(--surface-card, #0A0A0A) !important;
+  border-color: var(--border-subtle, #1E1E1E) !important;
 }
 
+html[data-mode="dark"] .ai-grid-card:hover,
 html[data-theme="obsidian-dark"] .ai-grid-card:hover,
 html[data-theme="electric-indigo"] .ai-grid-card:hover {
-  background-color: #121212 !important;
+  background-color: color-mix(in srgb, var(--text-primary) 10%, var(--bg-primary)) !important;
   border-color: var(--color-primary-blue) !important;
 }
 
+html[data-mode="dark"] .ai-input-pill-wrapper,
 html[data-theme="obsidian-dark"] .ai-input-pill-wrapper,
 html[data-theme="electric-indigo"] .ai-input-pill-wrapper {
-  background-color: #0A0A0A !important;
-  border-color: #222222 !important;
+  background-color: var(--surface-card, #0A0A0A) !important;
+  border-color: var(--border-subtle, #222222) !important;
 }
 
+html[data-mode="dark"] .ai-header-circle-close-btn,
 html[data-theme="obsidian-dark"] .ai-header-circle-close-btn,
 html[data-theme="electric-indigo"] .ai-header-circle-close-btn {
-  background-color: #0A0A0A !important;
-  border-color: #242424 !important;
-  color: #FFFFFF !important;
+  background-color: var(--surface-card, #0A0A0A) !important;
+  border-color: var(--border-subtle, #242424) !important;
+  color: var(--text-primary, #FFFFFF) !important;
 }
 
+html[data-mode="dark"] .agent-bubble,
 html[data-theme="obsidian-dark"] .agent-bubble,
 html[data-theme="electric-indigo"] .agent-bubble {
-  background: #0E0E0E !important;
-  border-color: #222222 !important;
-  color: #F1F5F9 !important;
+  background: color-mix(in srgb, var(--text-primary) 8%, var(--bg-primary)) !important;
+  border-color: var(--border-subtle, #222222) !important;
+  color: var(--text-primary, #F1F5F9) !important;
 }
 
 /* ==========================================================================
    Portfolio Native Theme Scrubber Dock
-   - Converted to Portfolio Interface Design Tokens (Pill Glass, Primary Blue, Dark Text)
-   - Hover Expands Vertically Upwards; Mouseout Gracefully Collapses to Compact Pill
-   - Sitting elevated beside main container card, Zero Drop Shadow
+   - Minimalist Luxury Floating Pill Controller
+   - Hover / Focus Expands Vertically Upwards; Mouseleave Smoothly Collapses
+   - Supports 8 Split-Circle Swatches + Polarity Swap Button (I) + Theme Cycle (T)
    ========================================================================== */
 .theme-vertical-dock {
   position: fixed;
@@ -7140,17 +7475,17 @@ html[data-theme="electric-indigo"] .agent-bubble {
   filter: none !important;
 }
 
-/* Capsule Bar: Compact 36px circular pill in rest state, grows to 264px on hover */
+/* Capsule Bar: Compact 36px circular pill in rest state, expands to 330px on hover */
 .theme-capsule-bar {
   position: relative;
-  width: 32px;
+  width: 36px;
   height: 36px;
   border-radius: 9999px;
   background: var(--color-pill-bg, rgba(255, 255, 255, 0.9));
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--color-pill-border, rgba(0, 0, 0, 0.12));
-  box-shadow: none !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7162,18 +7497,64 @@ html[data-theme="electric-indigo"] .agent-bubble {
   transition: height 0.38s cubic-bezier(0.16, 1, 0.3, 1),
               background-color 0.3s ease,
               border-color 0.3s ease,
+              box-shadow 0.3s ease,
               padding 0.38s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Hover or is-expanded state: Expands vertically upward */
 .theme-vertical-dock:hover .theme-capsule-bar,
 .theme-vertical-dock.is-expanded .theme-capsule-bar {
-  height: 264px;
-  padding: 14px 0 8px 0;
+  height: 330px;
+  padding: 10px 0 8px 0;
   justify-content: space-between;
 }
 
-/* 16-Dots Track: hidden & slightly translated in collapsed state; reveals on hover */
+/* Invert Polarity Button at top of capsule */
+.theme-invert-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  color: var(--color-primary-blue, #022EB4);
+  flex-shrink: 0;
+  z-index: 4;
+  outline: none;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease, color 0.3s ease;
+}
+
+.theme-vertical-dock:hover .theme-invert-btn,
+.theme-vertical-dock.is-expanded .theme-invert-btn {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.theme-invert-btn:hover {
+  transform: scale(1.18);
+  color: var(--color-primary-blue, #022EB4);
+}
+
+.theme-invert-icon {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-invert-btn.is-inverted .theme-invert-icon {
+  transform: rotate(180deg);
+}
+
+/* 8 Split-Circle Swatches Track */
 .theme-dots-track {
   display: flex;
   flex-direction: column;
@@ -7181,12 +7562,12 @@ html[data-theme="electric-indigo"] .agent-bubble {
   justify-content: space-between;
   flex: 1;
   width: 100%;
-  padding: 2px 0 10px 0;
+  padding: 6px 0 6px 0;
   box-sizing: border-box;
   z-index: 2;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-8px);
+  transform: translateY(-6px);
   transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -7196,51 +7577,39 @@ html[data-theme="electric-indigo"] .agent-bubble {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
-  transition-delay: 0.05s;
+  transition-delay: 0.04s;
 }
 
-/* Base Dot Styling (Synchronized with Portfolio Typography Tokens) */
-.theme-dot {
+/* 50/50 Split Circle Swatch */
+.theme-dot.dot-split {
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  background: linear-gradient(135deg, var(--swatch-primary) 50%, var(--swatch-secondary) 50%);
   cursor: pointer;
+  padding: 0;
+  outline: none;
   display: block;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+  flex-shrink: 0;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease;
 }
 
-/* Major Milestone Dots (indices 0, 4, 8, 12) */
-.theme-dot.dot-major {
-  width: 4.5px;
-  height: 4.5px;
-  background-color: var(--color-dark-text, #0F172A);
-  opacity: 0.92;
+.theme-dot.dot-split:hover {
+  transform: scale(1.35);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.28);
 }
 
-/* Minor Intermediate Dots */
-.theme-dot.dot-minor {
-  width: 3.5px;
-  height: 3.5px;
-  background-color: var(--color-muted-blue, #94A3B8);
-  opacity: 0.45;
+.theme-dot.dot-split.is-active {
+  transform: scale(1.38);
+  box-shadow: 0 0 0 2px var(--color-page-bg), 0 0 0 4px var(--color-primary-blue);
 }
 
-.theme-dot:hover {
-  transform: scale(1.4);
-  background-color: var(--color-primary-blue, #022EB4);
-  opacity: 1;
-}
-
-.theme-dot.is-active {
-  transform: scale(1.6);
-  background-color: var(--color-primary-blue, #022EB4) !important;
-  opacity: 1 !important;
-  box-shadow: 0 0 6px rgba(var(--color-inner-glow-rgb, 9, 64, 255), 0.7);
-}
-
-/* Transparent Overlay Range Slider for Real-Time Mouse/Touch Dragging */
+/* Transparent Overlay Range Slider for Real-Time Touch Dragging */
 .theme-capsule-range {
   position: absolute;
-  top: 10px;
-  bottom: 38px;
+  top: 32px;
+  bottom: 36px;
   left: 0;
   right: 0;
   width: 100%;
@@ -7257,7 +7626,7 @@ html[data-theme="electric-indigo"] .agent-bubble {
   pointer-events: auto;
 }
 
-/* Sun Icon Button at the bottom (Harmonized with Theme Primary Blue) */
+/* Sun Icon Button at the bottom (Cycles Theme 'T') */
 .theme-sun-btn {
   width: 24px;
   height: 24px;
@@ -7290,10 +7659,10 @@ html[data-theme="electric-indigo"] .agent-bubble {
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), stroke 0.3s ease;
 }
 
-/* Floating Tooltip to the Right of the Bar (Frosted Portfolio Pill) */
+/* Floating Tooltip to the Right of the Bar */
 .theme-bar-tooltip {
   position: absolute;
-  left: 42px;
+  left: 46px;
   top: 50%;
   transform: translateY(-50%) translateX(-6px);
   background: var(--color-card-bg, #FFFFFF);
@@ -7304,13 +7673,13 @@ html[data-theme="electric-indigo"] .agent-bubble {
   padding: 4px 10px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-family: var(--font-manrope);
   font-size: 11px;
   font-weight: 600;
   color: var(--color-dark-text, #0F172A);
   white-space: nowrap;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.22s ease, transform 0.22s ease;
@@ -7322,12 +7691,32 @@ html[data-theme="electric-indigo"] .agent-bubble {
   transform: translateY(-50%) translateX(0);
 }
 
-.theme-tooltip-dot {
-  width: 6px;
-  height: 6px;
+.theme-tooltip-swatch {
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  background-color: var(--color-primary-blue, #022EB4);
-  transition: background-color 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #022EB4 50%, #FFFFFF 50%);
+  flex-shrink: 0;
+}
+
+.theme-tooltip-badge {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 1px 6px;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-primary-blue) 12%, transparent);
+  color: var(--color-primary-blue);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .theme-vertical-dock {
+    bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+    left: calc(14px + env(safe-area-inset-left, 0px)) !important;
+    z-index: 990 !important;
+  }
 }
 
 @media (max-width: 768px) {

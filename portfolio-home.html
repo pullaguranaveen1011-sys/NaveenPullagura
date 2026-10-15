@@ -21,9 +21,20 @@
       (function() {
         try {
           var storedTheme = localStorage.getItem('naveen_portfolio_theme');
-          if (storedTheme && storedTheme !== 'signature-blue') {
+          var storedInverted = localStorage.getItem('naveen_portfolio_theme_inverted') === '1';
+          if (storedTheme && (storedTheme !== 'signature-blue' || storedInverted)) {
             document.documentElement.setAttribute('data-theme', storedTheme);
           }
+          if (storedInverted) {
+            document.documentElement.setAttribute('data-inverted', 'true');
+          }
+          var isDark = false;
+          if (storedTheme && storedTheme !== 'signature-blue') {
+            isDark = !storedInverted;
+          } else {
+            isDark = storedInverted;
+          }
+          document.documentElement.setAttribute('data-mode', isDark ? 'dark' : 'light');
         } catch(e) {}
         var h = window.location.hash;
         var s = window.location.search;
@@ -928,28 +939,37 @@
       </footer>
     </div>
 
-    <!-- Billy Sweeney Style Exact 16-Dot Theme Capsule Bar (Reference: media_1790507321344.png) -->
+    <!-- Curated Luxury Theme Controller with Dual-Polarity & 50/50 Split Swatches -->
     <aside class="theme-vertical-dock" id="theme-scrubber-dock" aria-label="Theme mode customizer">
       <div class="theme-capsule-bar" id="theme-capsule-bar">
         <!-- Floating Tooltip on the right of the bar -->
         <div class="theme-bar-tooltip" id="theme-bar-tooltip" aria-hidden="true">
-          <span class="theme-tooltip-dot" id="theme-tooltip-dot"></span>
+          <span class="theme-tooltip-swatch" id="theme-tooltip-swatch"></span>
           <span class="theme-tooltip-text" id="theme-tooltip-text">Signature Blue</span>
+          <span class="theme-tooltip-badge" id="theme-tooltip-badge">Default</span>
         </div>
 
-        <!-- 8-Dot Vertical Rhythm Track -->
+        <!-- Invert / Polarity Swap Button (Shortcut: 'I') -->
+        <button type="button" class="theme-invert-btn" id="theme-invert-btn" aria-label="Swap polarity (or press 'I')" title="Swap polarity (I)">
+          <svg class="theme-invert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M12 3v18c4.97 0 9-4.03 9-9s-4.03-9-9-9z" fill="currentColor"></path>
+          </svg>
+        </button>
+
+        <!-- 8 Split-Circle Swatches Track -->
         <div class="theme-dots-track" id="theme-dots-track">
-          <span class="theme-dot dot-major is-active" data-index="0" title="Signature Blue"></span>
-          <span class="theme-dot dot-minor" data-index="1" title="Obsidian Dark"></span>
-          <span class="theme-dot dot-minor" data-index="2" title="Electric Indigo"></span>
-          <span class="theme-dot dot-minor" data-index="3" title="Pastel Lilac"></span>
-          <span class="theme-dot dot-major" data-index="4" title="Pastel Matcha"></span>
-          <span class="theme-dot dot-minor" data-index="5" title="Pastel Blush"></span>
-          <span class="theme-dot dot-minor" data-index="6" title="Warm Terracotta"></span>
-          <span class="theme-dot dot-minor" data-index="7" title="Nordic Slate"></span>
+          <button type="button" class="theme-dot dot-split is-active" data-index="0" title="Signature Blue (Original Default)" style="--swatch-primary: #022EB4; --swatch-secondary: #FFFFFF;"></button>
+          <button type="button" class="theme-dot dot-split" data-index="1" title="Royal Cream" style="--swatch-primary: #014BAA; --swatch-secondary: #F8F3F0;"></button>
+          <button type="button" class="theme-dot dot-split" data-index="2" title="Wine Sand" style="--swatch-primary: #7F011F; --swatch-secondary: #F5EBD0;"></button>
+          <button type="button" class="theme-dot dot-split" data-index="3" title="Orange Milk" style="--swatch-primary: #EC5E27; --swatch-secondary: #FDFDF1;"></button>
+          <button type="button" class="theme-dot dot-split" data-index="4" title="Plum Milk" style="--swatch-primary: #381932; --swatch-secondary: #FFF3E6;"></button>
+          <button type="button" class="theme-dot dot-split" data-index="5" title="Midnight Vanilla" style="--swatch-primary: #282B4A; --swatch-secondary: #EEEBDA;"></button>
+          <button type="button" class="theme-dot dot-split" data-index="6" title="Cherry Alabaster" style="--swatch-primary: #890149; --swatch-secondary: #F3F3E7;"></button>
+          <button type="button" class="theme-dot dot-split" data-index="7" title="Forest Leaf" style="--swatch-primary: #064734; --swatch-secondary: #E0FFC2;"></button>
         </div>
 
-        <!-- Hidden Native Range Slider -->
+        <!-- Hidden Native Range Slider for Touch Scrubbing -->
         <input 
           type="range" 
           id="theme-range-slider" 
@@ -962,8 +982,8 @@
           aria-label="Theme scrubber"
         />
 
-        <!-- Exact Minimalist Sun Icon (media_1790507321344.png) -->
-        <button type="button" class="theme-sun-btn" id="theme-cycle-btn" aria-label="Cycle theme" title="Cycle theme (or press 'T')">
+        <!-- Sun Icon Button at the bottom (Cycles theme 'T') -->
+        <button type="button" class="theme-sun-btn" id="theme-cycle-btn" aria-label="Cycle theme (or press 'T')" title="Cycle theme (or press 'T')">
           <svg class="theme-sun-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="3.6"></circle>
             <circle cx="12" cy="12" r="0.8" fill="currentColor"></circle>
