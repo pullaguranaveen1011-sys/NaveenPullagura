@@ -2,7 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Naveen Pullagura — Product Designer Resume</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans (Supreme Modern UI Readability) & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
   <style>
     @page {
       size: letter portrait;
@@ -13,34 +20,122 @@
       margin: 0;
       padding: 0;
     }
-    html, body {
-      background: #FFFFFF;
-      color: #0F172A;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+    
+    :root {
+      --color-ink-primary: #090D1A;
+      --color-ink-secondary: #334155;
+      --color-ink-muted: #64748B;
+      --color-brand-blue: #0A3CD2;
+      --color-brand-deep: #061B64;
+      --color-accent-teal: #0D9488;
+      --color-border: #E2E8F0;
+      --color-border-subtle: #CBD5E1;
+      --color-surface-soft: #F8FAFC;
     }
 
-    /* Fixed 1-page Letter Sheet: 8.5in x 11in */
+    html, body {
+      background: #F1F5F9;
+      color: var(--color-ink-primary);
+      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    }
+
+    /* Screen Top Utility Bar (Hidden during printing) */
+    .screen-utility-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 8.5in;
+      margin: 20px auto 12px;
+      padding: 0 10px;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #334155;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      transition: all 0.2s ease;
+    }
+    .back-btn:hover {
+      background: #F8FAFC;
+      border-color: #CBD5E1;
+      color: var(--color-brand-blue);
+    }
+    .print-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-brand-blue);
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(10, 60, 210, 0.25);
+      transition: all 0.2s ease;
+    }
+    .print-btn:hover {
+      background: #082FA8;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(10, 60, 210, 0.35);
+    }
+
+    /* Fixed 1-page Letter Sheet: 8.5in x 11in (Matches Standard US Letter & A4 Print) */
     .resume-page {
       width: 8.5in;
       height: 11in;
       max-height: 11in;
       overflow: hidden;
-      margin: 0 auto;
-      padding: 0.42in 0.52in 0.42in 0.52in;
+      margin: 0 auto 30px;
+      padding: 0.44in 0.54in 0.40in 0.54in;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       background: #FFFFFF;
       box-sizing: border-box;
+      box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.1), 0 0 1px rgba(15, 23, 42, 0.15);
+      border-radius: 4px;
     }
 
-    /* Top Header */
+    /* Print Overrides */
+    @media print {
+      body {
+        background: #FFFFFF;
+      }
+      .screen-utility-bar {
+        display: none !important;
+      }
+      .resume-page {
+        margin: 0 !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        width: 8.5in !important;
+        height: 11in !important;
+        max-height: 11in !important;
+        padding: 0.42in 0.52in 0.38in 0.52in !important;
+      }
+    }
+
+    /* ======================================================================
+       HEADER SECTION
+       ====================================================================== */
     .header {
-      border-bottom: 2px solid #022EB4;
-      padding-bottom: 6px;
-      margin-bottom: 8px;
+      border-bottom: 2px solid var(--color-brand-blue);
+      padding-bottom: 8px;
+      margin-bottom: 9px;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
@@ -50,32 +145,41 @@
       flex-direction: column;
     }
     .name {
-      font-size: 23px;
-      font-weight: 850;
-      color: #0A0F1D;
-      letter-spacing: -0.02em;
-      line-height: 1.05;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--color-ink-primary);
+      letter-spacing: -0.03em;
+      line-height: 1;
       text-transform: uppercase;
     }
     .title-tagline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-size: 11px;
       font-weight: 750;
-      color: #022EB4;
-      margin-top: 3px;
-      letter-spacing: 0.04em;
+      color: var(--color-brand-blue);
+      margin-top: 5px;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
+    }
+    .title-tagline .tagline-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--color-accent-teal);
     }
 
     /* Contact Details */
     .header-right {
       text-align: right;
-      font-size: 10.5px;
-      color: #334155;
-      line-height: 1.45;
+      font-size: 10.2px;
+      color: var(--color-ink-secondary);
+      line-height: 1.5;
       font-weight: 500;
     }
     .header-right a {
-      color: #022EB4;
+      color: var(--color-brand-blue);
       text-decoration: none;
       font-weight: 600;
     }
@@ -83,16 +187,19 @@
       text-decoration: underline;
     }
     .contact-sep {
-      color: #94A3B8;
+      color: var(--color-border-subtle);
       margin: 0 4px;
     }
     .location-text {
-      color: #475569;
+      color: var(--color-ink-muted);
+      font-size: 10px;
     }
 
-    /* Section Component */
+    /* ======================================================================
+       SECTION COMPONENT & HEADINGS
+       ====================================================================== */
     .section {
-      margin-bottom: 8px;
+      margin-bottom: 8.5px;
     }
     .section:last-of-type {
       margin-bottom: 0;
@@ -102,47 +209,53 @@
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: #022EB4;
-      border-bottom: 1px solid #CBD5E1;
-      padding-bottom: 2px;
-      margin-bottom: 4px;
+      color: var(--color-brand-blue);
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 2.5px;
+      margin-bottom: 5px;
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
+      align-items: center;
+    }
+    .section-title-badge {
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--color-ink-muted);
+      font-family: "JetBrains Mono", monospace;
+      text-transform: none;
     }
 
     /* Summary */
     .summary-text {
-      font-size: 10px;
-      color: #1E293B;
-      line-height: 1.38;
+      font-size: 9.8px;
+      color: var(--color-ink-secondary);
+      line-height: 1.42;
       text-align: justify;
     }
 
-    /* Competencies Table */
-    .competencies-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 10px;
-      line-height: 1.34;
+    /* Core Competencies 2x2 Grid */
+    .competencies-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 5px 16px;
     }
-    .competencies-table td {
-      padding: 1.2px 0;
-      vertical-align: top;
+    .comp-item {
+      font-size: 9.6px;
+      line-height: 1.34;
+      color: var(--color-ink-secondary);
     }
     .comp-label {
-      width: 155px;
-      font-weight: 700;
-      color: #0B132B;
-      white-space: nowrap;
-    }
-    .comp-val {
-      color: #334155;
+      font-weight: 750;
+      color: var(--color-ink-primary);
+      margin-right: 4px;
     }
 
-    /* Experience Entries */
+    /* ======================================================================
+       EXPERIENCE ENTRIES
+       ====================================================================== */
     .job-entry {
-      margin-bottom: 6px;
+      margin-bottom: 7px;
     }
     .job-entry:last-child {
       margin-bottom: 0;
@@ -151,88 +264,131 @@
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 1px;
+      margin-bottom: 1.5px;
     }
     .job-role {
       font-size: 11px;
       font-weight: 750;
-      color: #0B132B;
+      color: var(--color-ink-primary);
+      letter-spacing: -0.01em;
     }
     .job-company {
-      font-weight: 750;
-      color: #022EB4;
+      font-weight: 800;
+      color: var(--color-brand-blue);
     }
     .job-date {
       font-size: 9.5px;
       font-weight: 600;
-      color: #64748B;
+      color: var(--color-ink-muted);
+      font-family: "JetBrains Mono", monospace;
       text-align: right;
     }
     .job-sub {
-      font-size: 9.5px;
-      font-style: italic;
+      font-size: 9.3px;
+      font-weight: 550;
       color: #475569;
-      margin-bottom: 2.5px;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
+    .job-client-pill {
+      display: inline-block;
+      background: rgba(10, 60, 210, 0.06);
+      color: var(--color-brand-deep);
+      font-weight: 700;
+      font-size: 8.5px;
+      padding: 0.5px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(10, 60, 210, 0.12);
+    }
+
     ul.bullets {
       list-style-type: disc;
       padding-left: 14px;
       margin: 0;
     }
     ul.bullets li {
-      margin-bottom: 2px;
-      font-size: 9.8px;
+      margin-bottom: 2.2px;
+      font-size: 9.6px;
       color: #1E293B;
-      line-height: 1.33;
+      line-height: 1.35;
     }
     ul.bullets li:last-child {
       margin-bottom: 0;
     }
     ul.bullets li strong {
-      color: #0B132B;
-      font-weight: 700;
+      color: var(--color-ink-primary);
+      font-weight: 750;
     }
 
-    /* 2-Column Split: Education & Tools */
+    /* ======================================================================
+       BOTTOM 2-COLUMN ROW: EDUCATION & TOOLS
+       ====================================================================== */
     .two-col-row {
       display: flex;
       justify-content: space-between;
-      gap: 16px;
+      gap: 18px;
       margin-top: 1px;
     }
     .col-half {
       flex: 1;
     }
     .edu-entry {
-      font-size: 9.8px;
-      line-height: 1.35;
+      font-size: 9.6px;
+      line-height: 1.36;
       margin-bottom: 2px;
     }
     .edu-title {
       font-weight: 750;
-      color: #0B132B;
+      color: var(--color-ink-primary);
     }
     .edu-sub {
-      color: #475569;
-      font-size: 9.3px;
+      color: var(--color-ink-muted);
+      font-size: 9.2px;
     }
     .tools-list {
-      font-size: 9.8px;
-      color: #334155;
-      line-height: 1.35;
+      font-size: 9.6px;
+      color: var(--color-ink-secondary);
+      line-height: 1.36;
     }
     .tools-list strong {
-      color: #0B132B;
+      color: var(--color-ink-primary);
+      font-weight: 750;
     }
   </style>
 </head>
 <body>
+
+  <!-- Screen Top Utility Bar for Direct Action -->
+  <div class="screen-utility-bar">
+    <a href="/index.html#work" class="back-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      <span>Back to Portfolio</span>
+    </a>
+    <button type="button" class="print-btn" onclick="window.print()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 6 2 18 2 18 9"></polyline>
+        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+        <rect x="6" y="14" width="12" height="8"></rect>
+      </svg>
+      <span>Print / Save as PDF</span>
+    </button>
+  </div>
+
   <div class="resume-page">
     <!-- TOP HEADER -->
     <header class="header">
       <div class="header-left">
         <h1 class="name">Naveen Pullagura</h1>
-        <p class="title-tagline">Product Designer · B2C E-Commerce, Consumer Mobile &amp; AI Systems</p>
+        <p class="title-tagline">
+          <span>Product Designer</span>
+          <span class="tagline-dot"></span>
+          <span>B2C E-Commerce, Consumer Mobile &amp; AI Systems</span>
+        </p>
       </div>
       <div class="header-right">
         <div>
@@ -253,38 +409,43 @@
 
     <!-- PROFESSIONAL SUMMARY -->
     <section class="section">
-      <h2 class="section-title">Professional Summary</h2>
+      <h2 class="section-title">
+        <span>Professional Summary</span>
+        <span class="section-title-badge">2+ Years Verified Experience</span>
+      </h2>
       <p class="summary-text">
-        Product Designer with 2+ years of verified end-to-end experience designing high-traffic B2C/B2B e-commerce storefronts, consumer mobile experiences, and enterprise AI SaaS platforms. Proven track record of architecting scalable products for 25+ enterprise clients (including upGrad, NIIT, TransformMe) serving 10k–50k+ active users per client, alongside consumer retail storefronts for high-volume US distributors. Demonstrated impact including reducing survey creation time by 90% via AI, accelerating dev velocity by 20% through tokenized design systems, and boosting retention via gamified behavioral mechanics.
+        Product Designer with 2+ years of verified end-to-end experience architecting high-traffic B2C/B2B e-commerce storefronts, consumer mobile experiences, and enterprise AI SaaS platforms. Proven track record designing scalable software for 25+ enterprise clients (including <strong>upGrad</strong>, <strong>NIIT</strong>, <strong>TransformMe</strong>) serving <strong>10,000 to 50,000+ active users per client</strong>, alongside high-volume retail consumer storefronts for US distributors. Demonstrated impact: <strong>90% reduction in survey creation time</strong> via AI-assisted flows, <strong>20% engineering velocity acceleration</strong> via tokenized design systems, and consumer gamification models driving user retention.
       </p>
     </section>
 
     <!-- CORE COMPETENCIES -->
     <section class="section">
-      <h2 class="section-title">Core Competencies</h2>
-      <table class="competencies-table">
-        <tr>
-          <td class="comp-label">B2C &amp; Consumer UX:</td>
-          <td class="comp-val">Mobile App UX/UI, Conversational AI Interfaces, Gamification (XP &amp; Streaks), E-Commerce Cart &amp; Checkout Optimization, Flow Audits.</td>
-        </tr>
-        <tr>
-          <td class="comp-label">Product Design &amp; SaaS:</td>
-          <td class="comp-val">End-to-End Product Architecture, Multi-Tenant White-Labeling, Admin Dashboards, User Journey Mapping, Rapid Wireframing &amp; Prototyping.</td>
-        </tr>
-        <tr>
-          <td class="comp-label">Design Systems:</td>
-          <td class="comp-val">Figma Component Architecture, Tokens Studio, Responsive Web/Tablet/Mobile Token Standards, WCAG 2.1 AA Accessibility.</td>
-        </tr>
-        <tr>
-          <td class="comp-label">Research &amp; Engineering:</td>
-          <td class="comp-val">CX &amp; Client Feedback Discovery, Timed Usability Audits, 95% Design-to-Code Fidelity, AI-Assisted Frontend Starter Code Generation.</td>
-        </tr>
-      </table>
+      <h2 class="section-title">
+        <span>Core Competencies</span>
+        <span class="section-title-badge">Product, Systems &amp; Code</span>
+      </h2>
+      <div class="competencies-grid">
+        <div class="comp-item">
+          <span class="comp-label">B2C &amp; Consumer UX:</span>Mobile App UX/UI, Conversational Voice/Chat AI, Gamification (XP &amp; Streaks), E-Commerce Cart &amp; Checkout Optimization.
+        </div>
+        <div class="comp-item">
+          <span class="comp-label">Product Design &amp; SaaS:</span>End-to-End Product Architecture, Multi-Tenant White-Labeling, Admin Dashboards, User Journey Mapping, Wireframes &amp; Prototypes.
+        </div>
+        <div class="comp-item">
+          <span class="comp-label">Design Systems:</span>Figma Tokens Studio, Component Architecture, Responsive Standards (Web, Tablet, Mobile), WCAG 2.1 AA Accessibility.
+        </div>
+        <div class="comp-item">
+          <span class="comp-label">Research &amp; Delivery:</span>CX &amp; Client Feedback Discovery, Timed Usability Audits, 95% Design-to-Code Fidelity, AI Frontend Starter Code Generation.
+        </div>
+      </div>
     </section>
 
     <!-- PROFESSIONAL EXPERIENCE -->
     <section class="section">
-      <h2 class="section-title">Professional Experience</h2>
+      <h2 class="section-title">
+        <span>Professional Experience</span>
+        <span class="section-title-badge">End-to-End Product Track Record</span>
+      </h2>
 
       <!-- NuVeda Learning -->
       <article class="job-entry">
@@ -292,7 +453,10 @@
           <div class="job-role">Product Designer · <span class="job-company">NuVeda Learning</span></div>
           <div class="job-date">June 2025 – Present | India</div>
         </div>
-        <div class="job-sub">Enterprise Learning Platforms &amp; AI Products · Serving 25+ Enterprise Clients (upGrad, NIIT, TransformMe) with 10k–50k+ Users/Client</div>
+        <div class="job-sub">
+          <span>Enterprise Learning Platforms &amp; AI Products</span>
+          <span class="job-client-pill">25+ Clients · upGrad, NIIT, TransformMe · 10k–50k+ Users/Client</span>
+        </div>
         <ul class="bullets">
           <li><strong>NuVeda 360 (SaaS Unbundling):</strong> Extracted legacy feedback module into a standalone SaaS product; designed a 3-tier survey builder (AI Assistant, Industry Templates, Manual) that <strong>slashed survey creation time by 90%</strong> (from 45+ mins to &lt;5 mins); architected 3-step white-label setup and credit token economy.</li>
           <li><strong>NU Coach (AI Conversational UX &amp; Gamification):</strong> Transformed a raw AI-coded Lovable prototype into a high-retention coaching platform; eliminated cognitive scroll clutter, redesigned simulation dialogue, and introduced gamified retention loops (XP points, leaderboards, streaks) praised by executive leadership.</li>
@@ -308,7 +472,10 @@
           <div class="job-role">UI/UX Designer · <span class="job-company">Phantasm Solutions</span></div>
           <div class="job-date">July 2024 – January 2025 | India</div>
         </div>
-        <div class="job-sub">High-Traffic E-Commerce &amp; Warehouse Management Systems (WMS) · US Clients (American Distributors, Splash Distributors LLC)</div>
+        <div class="job-sub">
+          <span>High-Traffic E-Commerce &amp; Warehouse Management Systems (WMS)</span>
+          <span class="job-client-pill">US Clients · American Distributors, Splash Distributors LLC</span>
+        </div>
         <ul class="bullets">
           <li><strong>B2C &amp; B2B E-Commerce Storefronts:</strong> Designed responsive consumer web storefronts and native iOS/Android mobile apps for high-volume US distributors, architecting product discovery, search filtering, cart, and multi-step checkout for thousands of everyday retail shoppers and wholesale buyers.</li>
           <li><strong>WMS Operations Architecture:</strong> Designed end-to-end warehouse dispatch, real-time inventory tracking, and fleet logistics interfaces, directly connecting multi-channel consumer storefront orders with backend fulfillment.</li>
@@ -322,7 +489,10 @@
           <div class="job-role">Business Executive → UX Contributor · <span class="job-company">DBASE Solutions</span></div>
           <div class="job-date">October 2023 – July 2024 | India</div>
         </div>
-        <div class="job-sub">University ERP &amp; High-Stakes Examination Systems</div>
+        <div class="job-sub">
+          <span>University ERP &amp; High-Stakes Examination Systems</span>
+          <span class="job-client-pill">EdTech &amp; Higher Education Workflows</span>
+        </div>
         <ul class="bullets">
           <li><strong>User Discovery &amp; Field Research:</strong> Conducted dozens of live campus demonstrations and faculty interviews with university deans, directly uncovering high error rates and severe navigation friction in exam evaluation workflows.</li>
           <li><strong>UX Flow Redesign &amp; Recognition:</strong> Self-initiated wireframing and redesigned multi-tier task flows using user-centered design principles; <strong>cut user support tickets and error rates</strong>, earning personal commendation from the Company Chairman.</li>
@@ -333,7 +503,9 @@
     <!-- EDUCATION & CREDENTIALS ROW -->
     <div class="two-col-row">
       <div class="col-half">
-        <div class="section-title">Education &amp; Qualifications</div>
+        <h2 class="section-title">
+          <span>Education &amp; Qualifications</span>
+        </h2>
         <div class="edu-entry">
           <div class="edu-title">Bachelor of Technology (B.Tech)</div>
           <div class="edu-sub">Engineering Graduate · Andhra Pradesh, India (Spatial &amp; Systems Thinking Foundation)</div>
@@ -344,7 +516,9 @@
         </div>
       </div>
       <div class="col-half">
-        <div class="section-title">Tools &amp; Methods</div>
+        <h2 class="section-title">
+          <span>Tools &amp; Methods</span>
+        </h2>
         <div class="tools-list">
           <div><strong>Design &amp; Systems:</strong> Figma, Tokens Studio, Auto-Layout, Component Libraries, Mobile App UX</div>
           <div><strong>Research &amp; Delivery:</strong> CX Feedback Loops, Usability Audits, Wireframing, 95% Dev Fidelity, Lovable/AI Prototyping</div>
