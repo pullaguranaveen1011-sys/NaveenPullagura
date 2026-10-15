@@ -98,7 +98,60 @@ html[data-theme="signature-blue"][data-inverted="true"] {
   --color-inner-glow-rgb: 147, 197, 253;
 }
 
-/* 1. Royal Cream (Primary: Royal Blue #014BAA | Secondary: Light Cream #F8F3F0) */
+/* 1. Pure Black (Pure Pitch OLED Black #000000 & Crisp Monochromatic White #FFFFFF) */
+html[data-theme="pure-black"] {
+  --theme-id: "pure-black";
+  --bg-primary: #000000;
+  --text-primary: #FFFFFF;
+  --surface-card: #0A0A0A;
+  --border-subtle: rgba(255, 255, 255, 0.18);
+  --accent-color: #FFFFFF;
+  --accent-hover: #E4E4E7;
+
+  --color-page-bg: #000000;
+  --color-card-bg: #0A0A0A;
+  --color-card-border: rgba(255, 255, 255, 0.18);
+  --color-pill-bg: rgba(14, 14, 14, 0.94);
+  --color-pill-text: #FFFFFF;
+  --color-pill-border: rgba(255, 255, 255, 0.25);
+  --color-primary-blue: #FFFFFF;
+  --color-dark-text: #FFFFFF;
+  --color-body-text: #E4E4E7;
+  --color-muted-blue: #A1A1AA;
+  --color-border-light: rgba(255, 255, 255, 0.16);
+  --color-border-nav: rgba(255, 255, 255, 0.25);
+  --color-border-hero: rgba(255, 255, 255, 0.2);
+  --color-logo-dark: #FFFFFF;
+  --color-inner-glow: #FFFFFF;
+  --color-inner-glow-rgb: 255, 255, 255;
+}
+html[data-theme="pure-black"][data-inverted="true"] {
+  --bg-primary: #FFFFFF;
+  --text-primary: #000000;
+  --surface-card: #FAFAFA;
+  --border-subtle: rgba(0, 0, 0, 0.14);
+  --accent-color: #000000;
+  --accent-hover: #262626;
+
+  --color-page-bg: #FFFFFF;
+  --color-card-bg: #FAFAFA;
+  --color-card-border: rgba(0, 0, 0, 0.14);
+  --color-pill-bg: rgba(255, 255, 255, 0.94);
+  --color-pill-text: #000000;
+  --color-pill-border: rgba(0, 0, 0, 0.2);
+  --color-primary-blue: #000000;
+  --color-dark-text: #000000;
+  --color-body-text: #333333;
+  --color-muted-blue: #666666;
+  --color-border-light: rgba(0, 0, 0, 0.12);
+  --color-border-nav: rgba(0, 0, 0, 0.2);
+  --color-border-hero: rgba(0, 0, 0, 0.15);
+  --color-logo-dark: #000000;
+  --color-inner-glow: #000000;
+  --color-inner-glow-rgb: 0, 0, 0;
+}
+
+/* 2. Royal Cream (Primary: Royal Blue #014BAA | Secondary: Light Cream #F8F3F0) */
 html[data-theme="royal-cream"] {
   --theme-id: "royal-cream";
   --bg-primary: #014BAA;
@@ -7504,9 +7557,38 @@ html[data-theme="electric-indigo"] .agent-bubble {
 /* Hover or is-expanded state: Expands vertically upward */
 .theme-vertical-dock:hover .theme-capsule-bar,
 .theme-vertical-dock.is-expanded .theme-capsule-bar {
-  height: 330px;
+  height: 372px;
   padding: 10px 0 8px 0;
   justify-content: space-between;
+  cursor: grab;
+}
+
+/* Mouse / Touch Drag Scrubbing State */
+body.theme-scrubbing {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  cursor: grabbing !important;
+}
+
+body.theme-scrubbing * {
+  cursor: grabbing !important;
+  user-select: none !important;
+}
+
+.theme-vertical-dock.is-dragging .theme-capsule-bar {
+  height: 372px;
+  cursor: grabbing !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.22) !important;
+}
+
+.theme-vertical-dock.is-dragging .theme-dots-track {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: translateY(0) !important;
+}
+
+.theme-vertical-dock.is-dragging .theme-dots-track .theme-dot {
+  cursor: grabbing !important;
 }
 
 /* Invert Polarity Button at top of capsule */
@@ -7554,7 +7636,7 @@ html[data-theme="electric-indigo"] .agent-bubble {
   transform: rotate(180deg);
 }
 
-/* 8 Split-Circle Swatches Track */
+/* 9 Split-Circle Swatches Track with Drag Scrubbing */
 .theme-dots-track {
   display: flex;
   flex-direction: column;
@@ -7568,6 +7650,8 @@ html[data-theme="electric-indigo"] .agent-bubble {
   opacity: 0;
   pointer-events: none;
   transform: translateY(-6px);
+  touch-action: none;
+  cursor: grab;
   transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -7587,7 +7671,7 @@ html[data-theme="electric-indigo"] .agent-bubble {
   border-radius: 50%;
   border: 1px solid rgba(0, 0, 0, 0.18);
   background: linear-gradient(135deg, var(--swatch-primary) 50%, var(--swatch-secondary) 50%);
-  cursor: pointer;
+  cursor: grab;
   padding: 0;
   outline: none;
   display: block;

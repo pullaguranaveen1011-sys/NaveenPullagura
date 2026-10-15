@@ -1,7 +1,7 @@
 /**
  * Curated Luxury Theme Controller
- * Supports 7 Editorial Color Palettes + Signature Blue Default
- * Features 50/50 Split-Circle Swatches, Swap Polarity (Invert), and Keyboard Shortcuts (T / I)
+ * Supports 9 Editorial Color Palettes including Pure Black OLED Dark Mode + Signature Blue Default
+ * Features Live Mouse/Touch Drag Scrubbing, 50/50 Split-Circle Swatches, Swap Polarity (Invert), and Keyboard Shortcuts (T / I)
  */
 
 export const THEMES = [
@@ -12,6 +12,14 @@ export const THEMES = [
     secondary: '#FFFFFF',
     accent: '#022EB4',
     defaultMode: 'light'
+  },
+  {
+    id: 'pure-black',
+    label: 'Pure Black',
+    primary: '#000000',
+    secondary: '#FFFFFF',
+    accent: '#FFFFFF',
+    defaultMode: 'dark'
   },
   {
     id: 'royal-cream',
@@ -79,8 +87,10 @@ export class ThemeController {
   constructor() {
     this.currentIndex = 0;
     this.isInverted = false;
+    this.isDragging = false;
     this.dockEl = null;
     this.capsuleEl = null;
+    this.trackEl = null;
     this.sliderEl = null;
     this.invertBtn = null;
     this.cycleBtn = null;
@@ -133,6 +143,7 @@ export class ThemeController {
     if (!this.dockEl) return;
 
     this.capsuleEl = document.getElementById('theme-capsule-bar');
+    this.trackEl = document.getElementById('theme-dots-track');
     this.sliderEl = document.getElementById('theme-range-slider');
     this.invertBtn = document.getElementById('theme-invert-btn');
     this.cycleBtn = document.getElementById('theme-cycle-btn');
@@ -150,7 +161,7 @@ export class ThemeController {
     this.updateUI(this.currentIndex);
 
     // =========================================================================
-    // Hover / Pointer Expand & Graceful Mouseleave Collapse
+    // Hover Expand & Graceful Mouseleave Collapse
     // =========================================================================
     this.dockEl.addEventListener('mouseenter', () => {
       if (this.collapseTimeout) {
@@ -162,10 +173,13 @@ export class ThemeController {
     });
 
     this.dockEl.addEventListener('mouseleave', () => {
+      if (this.isDragging) return;
       this.scheduleHideTooltip();
       this.collapseTimeout = setTimeout(() => {
-        this.dockEl.classList.remove('is-expanded');
-      }, 200);
+        if (!this.isDragging) {
+          this.dockEl.classList.remove('is-expanded');
+        }
+      }, 220);
     });
 
     // Invert Polarity Toggle Button
@@ -176,24 +190,10 @@ export class ThemeController {
       });
     }
 
-    // Vertical Range Slider scrubbing
-    if (this.sliderEl) {
-      this.sliderEl.addEventListener('input', (e) => {
-        const raw = parseInt(e.target.value, 10);
-        const idx = (THEMES.length - 1) - raw;
-        this.applyTheme(idx, true);
-        this.showTooltip(true);
-      });
-
-      this.sliderEl.addEventListener('pointerdown', () => {
-        this.dockEl.classList.add('is-expanded');
-        this.showTooltip(true);
-      });
-
-      this.sliderEl.addEventListener('pointerup', () => {
-        this.scheduleHideTooltip();
-      });
-    }
+    // =========================================================================
+    // Direct Mouse & Touch Drag Scrubbing between colors
+    // =========================================================================
+    this.setupPointerDrag();
 
     // Split-Circle Swatches Click & Hover
     this.dots.forEach((dot) => {
@@ -213,8 +213,10 @@ export class ThemeController {
         }
       });
       dot.addEventListener('mouseleave', () => {
-        this.updateUI(this.currentIndex);
-        this.scheduleHideTooltip();
+        if (!this.isDragging) {
+          this.updateUI(this.currentIndex);
+          this.scheduleHideTooltip();
+        }
       });
     });
 
@@ -263,6 +265,86 @@ export class ThemeController {
     });
   }
 
+  setupPointerDrag() {
+    if (!this.capsuleEl) return;
+
+    const getClosestIndex = (clientY) => {
+      if (!this.dots.length) return this.currentIndex;
+      let closestIdx = 0;
+      let minDistance = Infinity;
+
+      this.dots.forEach((dot) => {
+        const rect = dot.getBoundingClientRect();
+        const centerY = rect.top + rect.height / 2;
+        const dist = Math.abs(clientY - centerY);
+        if (dist < minDistance) {
+          minDistance = dist;
+          const parsed = parseInt(dot.getAttribute('data-index'), 10);
+          if (!isNaN(parsed)) closestIdx = parsed;
+        }
+      });
+      return closestIdx;
+    };
+
+    const onPointerDown = (e) => {
+      // Don't intercept invert button or sun button clicks
+      if (
+        (this.invertBtn && this.invertBtn.contains(e.target)) ||
+        (this.cycleBtn && this.cycleBtn.contains(e.target))
+      ) {
+        return;
+      }
+
+      this.isDragging = true;
+      this.dockEl.classList.add('is-expanded', 'is-dragging');
+      document.body.classList.add('theme-scrubbing');
+
+      try {
+        this.capsuleEl.setPointerCapture(e.pointerId);
+      } catch (err) {}
+
+      const targetIdx = getClosestIndex(e.clientY);
+      this.applyTheme(targetIdx, false);
+      this.previewTooltip(targetIdx);
+      this.showTooltip(false);
+    };
+
+    const onPointerMove = (e) => {
+      if (!this.isDragging) return;
+      e.preventDefault();
+
+      const targetIdx = getClosestIndex(e.clientY);
+      if (targetIdx !== this.currentIndex) {
+        this.applyTheme(targetIdx, false);
+      }
+      this.previewTooltip(targetIdx);
+      this.showTooltip(false);
+    };
+
+    const onPointerUp = (e) => {
+      if (!this.isDragging) return;
+      this.isDragging = false;
+
+      this.dockEl.classList.remove('is-dragging');
+      document.body.classList.remove('theme-scrubbing');
+
+      try {
+        if (this.capsuleEl.hasPointerCapture(e.pointerId)) {
+          this.capsuleEl.releasePointerCapture(e.pointerId);
+        }
+      } catch (err) {}
+
+      // Save final selected theme
+      this.applyTheme(this.currentIndex, true);
+      this.scheduleHideTooltip();
+    };
+
+    this.capsuleEl.addEventListener('pointerdown', onPointerDown);
+    this.capsuleEl.addEventListener('pointermove', onPointerMove);
+    this.capsuleEl.addEventListener('pointerup', onPointerUp);
+    this.capsuleEl.addEventListener('pointercancel', onPointerUp);
+  }
+
   toggleInvert() {
     this.isInverted = !this.isInverted;
     this.applyTheme(this.currentIndex, true);
@@ -285,7 +367,7 @@ export class ThemeController {
   scheduleHideTooltip() {
     if (this.tooltipTimeout) clearTimeout(this.tooltipTimeout);
     this.tooltipTimeout = setTimeout(() => {
-      if (this.tooltipEl) {
+      if (this.tooltipEl && !this.isDragging) {
         this.tooltipEl.classList.remove('is-visible');
       }
     }, 1900);
@@ -395,7 +477,7 @@ export class ThemeController {
 
     // Sun icon rotation
     if (this.sunIcon) {
-      this.sunIcon.style.transform = `rotate(${index * 45}deg)`;
+      this.sunIcon.style.transform = `rotate(${index * 40}deg)`;
     }
   }
 }
