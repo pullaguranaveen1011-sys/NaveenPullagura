@@ -80,11 +80,14 @@ export class CurtainTransitionController {
   }
 
   /**
-   * On page load: if navigated via curtain transition, play the 0.3s reveal split.
+   * On page load: if navigated via curtain transition, play the smooth reveal split.
    * Top panel moves up (0% -> -100%), bottom panel moves down (0% -> 100%).
    */
   checkInitialReveal() {
     try {
+      if (window.__curtainHandledByController) return;
+      window.__curtainHandledByController = true;
+
       const isPending = sessionStorage.getItem('curtain_reveal_pending') === '1';
       const isAlreadyRevealing = document.documentElement.classList.contains('curtain-revealing');
 
@@ -95,45 +98,24 @@ export class CurtainTransitionController {
         sessionStorage.removeItem('curtain_reveal_color');
         this.setCurtainColor(color);
 
-        // Remove early head hold lock immediately so panels can move
+        // Keep early hold removed and start opening transition cleanly
         document.documentElement.classList.remove('curtain-opening');
+        document.documentElement.classList.add('curtain-revealing');
 
-        // Clear any inline styles that could conflict with CSS keyframes
-        if (this.topPanel) {
-          this.topPanel.style.transition = '';
-          this.topPanel.style.transform = '';
-          this.topPanel.style.backgroundColor = color;
-        }
-        if (this.bottomPanel) {
-          this.bottomPanel.style.transition = '';
-          this.bottomPanel.style.transform = '';
-          this.bottomPanel.style.backgroundColor = color;
-        }
-
-        // Trigger opening keyframe animation (Top -> -100%, Bottom -> 100%)
         if (this.container) {
           this.container.className = 'curtain-page-transition is-active is-opening';
           this.container.setAttribute('aria-hidden', 'false');
         }
 
-        // Animation completes in 0.3s (plus 50ms buffer to ensure clean finish)
-        const revealDurationMs = Math.round(this.duration * 1000) + 50;
+        // Allow animation to complete smoothly (450ms) before idling
         setTimeout(() => {
           document.documentElement.classList.remove('curtain-opening', 'curtain-revealing');
           if (this.container) {
             this.container.className = 'curtain-page-transition state-idle';
             this.container.setAttribute('aria-hidden', 'true');
           }
-          if (this.topPanel) {
-            this.topPanel.style.transition = '';
-            this.topPanel.style.transform = '';
-          }
-          if (this.bottomPanel) {
-            this.bottomPanel.style.transition = '';
-            this.bottomPanel.style.transform = '';
-          }
           this.isTransitioning = false;
-        }, revealDurationMs);
+        }, 500);
       } else {
         document.documentElement.classList.remove('curtain-opening', 'curtain-revealing');
       }
@@ -148,20 +130,12 @@ export class CurtainTransitionController {
         this.container.className = 'curtain-page-transition state-idle';
         this.container.setAttribute('aria-hidden', 'true');
       }
-      if (this.topPanel) {
-        this.topPanel.style.transition = '';
-        this.topPanel.style.transform = '';
-      }
-      if (this.bottomPanel) {
-        this.bottomPanel.style.transition = '';
-        this.bottomPanel.style.transform = '';
-      }
       this.isTransitioning = false;
     });
   }
 
   /**
-   * Closes the curtain vertically using the destination project's theme color (0.3s),
+   * Closes the curtain vertically using the destination project's theme color (0.35s),
    * then navigates to targetUrl
    */
   navigate(targetUrl, explicitColor) {
@@ -183,27 +157,14 @@ export class CurtainTransitionController {
       // Ignore
     }
 
-    // Clear any inline styles that could conflict with CSS keyframes
-    if (this.topPanel) {
-      this.topPanel.style.transition = '';
-      this.topPanel.style.transform = '';
-      this.topPanel.style.backgroundColor = color;
-    }
-    if (this.bottomPanel) {
-      this.bottomPanel.style.transition = '';
-      this.bottomPanel.style.transform = '';
-      this.bottomPanel.style.backgroundColor = color;
-    }
-
     // Trigger keyframe closing animation (Top -> 0%, Bottom -> 0%)
     this.container.className = 'curtain-page-transition is-active is-closing';
     this.container.setAttribute('aria-hidden', 'false');
 
-    // When fully closed in 0.3s, navigate to target page
-    const navigateDelay = Math.round(this.duration * 1000);
+    // When fully closed in 0.32s, navigate to target page
     setTimeout(() => {
       window.location.href = targetUrl;
-    }, navigateDelay);
+    }, 320);
   }
 
   /**
@@ -219,21 +180,25 @@ export class CurtainTransitionController {
         return;
       }
 
+      // Check if it's pointing to the same page with an anchor hash (e.g. /index.html#hero or /index.html#work)
+      const currentPath = window.location.pathname.replace(/\/$/, '') || '/index.html';
+      const targetPath = href.split('?')[0].split('#')[0].replace(/\/$/, '');
+      if (href.includes('#') && (targetPath === '' || targetPath === currentPath || (currentPath.endsWith('index.html') && targetPath === ''))) {
+        // Same-page anchor navigation: let native/main.js handle it without curtain reload
+        return;
+      }
+
       const isCaseStudyLink = 
         link.classList.contains('cs-footer-btn-secondary') ||
         link.classList.contains('cs-footer-sublink') ||
-        href.includes('index.html') ||
         href.includes('nuveda-360') ||
         href.includes('nu360') ||
         href.includes('calf.html') ||
         href.includes('nu-coach.html') ||
         href.includes('phantasm.html') ||
-        href.includes('portfolio-home.html') ||
-        href === '/' ||
-        href === '/nuveda-360' ||
-        href === '/calf' ||
-        href === '/nu-coach' ||
-        href === '/phantasm';
+        href.includes('resume-print.html') ||
+        (href.includes('index.html') && !currentPath.endsWith('index.html')) ||
+        (href === '/' && currentPath !== '/index.html' && currentPath !== '');
 
       if (isCaseStudyLink) {
         e.preventDefault();

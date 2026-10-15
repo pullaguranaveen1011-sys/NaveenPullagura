@@ -4043,22 +4043,22 @@ html.curtain-opening:not(.curtain-revealing) .curtain-page-transition:not(.is-op
 
 /* Phase 1: Closing (Top sweeps down -100% -> 0%, Bottom sweeps up 100% -> 0%) */
 .curtain-page-transition.is-closing .curtain-panel-top {
-  animation: curtainCloseTop 0.3s cubic-bezier(0.76, 0, 0.24, 1) forwards !important;
+  animation: curtainCloseTop 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
 }
 
 .curtain-page-transition.is-closing .curtain-panel-bottom {
-  animation: curtainCloseBottom 0.3s cubic-bezier(0.76, 0, 0.24, 1) forwards !important;
+  animation: curtainCloseBottom 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
 }
 
 /* Phase 2: Opening (Top sweeps up 0% -> -100%, Bottom sweeps down 0% -> 100%) */
 .curtain-page-transition.is-opening .curtain-panel-top,
 html.curtain-revealing .curtain-panel-top {
-  animation: curtainOpenTop 0.3s cubic-bezier(0.76, 0, 0.24, 1) forwards !important;
+  animation: curtainOpenTop 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
 }
 
 .curtain-page-transition.is-opening .curtain-panel-bottom,
 html.curtain-revealing .curtain-panel-bottom {
-  animation: curtainOpenBottom 0.3s cubic-bezier(0.76, 0, 0.24, 1) forwards !important;
+  animation: curtainOpenBottom 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
 }
 
 @keyframes curtainCloseTop {

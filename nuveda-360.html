@@ -54,7 +54,11 @@
             }
             document.documentElement.classList.remove('curtain-opening');
             document.documentElement.classList.add('curtain-revealing');
-            setTimeout(function() {
+            var topPanel = cp ? cp.querySelector('.curtain-panel-top') : null;
+            var hasFinished = false;
+            var onRevealEnd = function() {
+              if (hasFinished) return;
+              hasFinished = true;
               if (cp) {
                 cp.className = 'curtain-page-transition state-idle';
                 cp.setAttribute('aria-hidden', 'true');
@@ -64,7 +68,11 @@
                 sessionStorage.removeItem('curtain_reveal_pending');
                 sessionStorage.removeItem('curtain_reveal_color');
               } catch(e) {}
-            }, 350);
+            };
+            if (topPanel) {
+              topPanel.addEventListener('animationend', onRevealEnd, { once: true });
+            }
+            setTimeout(onRevealEnd, 520);
           }
         } catch(e) {}
       })();

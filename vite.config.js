@@ -12,6 +12,7 @@ export default defineConfig({
         nucoach: resolve(__dirname, 'nu-coach.html'),
         phantasm: resolve(__dirname, 'phantasm.html'),
         contact: resolve(__dirname, 'contact.html'),
+        resumePrint: resolve(__dirname, 'resume-print.html'),
       },
     },
   },
