@@ -169,20 +169,36 @@ const NAVEEN_KNOWLEDGE = {
 // =============================================================================
 
 /**
- * Clean markdown formatter for chat bubbles
+ * Sanitizes raw string for safe HTML insertion
  */
-function renderMarkdown(text) {
-  let html = text
+function escapeHTML(str) {
+  return String(str)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/**
+ * Clean markdown formatter for chat bubbles with strict URL security
+ */
+function renderMarkdown(text) {
+  let html = escapeHTML(text);
 
   // Bold
   html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   // Italic
   html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-  // Links: [Text](url)
-  html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="ai-chat-link" target="_self">$1</a>');
+  // Links: [Text](url) with safe protocol validation and noopener
+  html = html.replace(/\[(.*?)\]\((.*?)\)/g, (match, label, rawUrl) => {
+    const cleanUrl = rawUrl.trim();
+    if (/^(https?:\/\/|\/|#|mailto:)/i.test(cleanUrl) && !cleanUrl.toLowerCase().startsWith('javascript:')) {
+      const isExternal = /^https?:\/\//i.test(cleanUrl);
+      return `<a href="${cleanUrl}" class="ai-chat-link" ${isExternal ? 'target="_blank" rel="noopener noreferrer"' : 'target="_self"'}>${label}</a>`;
+    }
+    return label;
+  });
   // Unordered list items: • or -
   html = html.replace(/^[•\-\*]\s+(.*)$/gm, '<li>$1</li>');
   html = html.replace(/(<li>.*<\/li>)/gs, '<ul class="ai-chat-list">$1</ul>');
@@ -599,11 +615,13 @@ export class PortfolioAIAssistant {
     row.className = `ai-msg-row ai-msg-${sender}`;
 
     if (sender === 'user') {
-      row.innerHTML = `
-        <div class="ai-msg-bubble user-bubble">
-          <div class="ai-msg-content">${text.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
-        </div>
-      `;
+      const bubble = document.createElement('div');
+      bubble.className = 'ai-msg-bubble user-bubble';
+      const content = document.createElement('div');
+      content.className = 'ai-msg-content';
+      content.textContent = text;
+      bubble.appendChild(content);
+      row.appendChild(bubble);
     } else {
       row.innerHTML = `
         <div class="ai-avatar-circle" aria-hidden="true">
