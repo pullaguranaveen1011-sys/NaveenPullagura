@@ -216,6 +216,21 @@ function generateAIResponse(rawQuery) {
   const query = rawQuery.trim().toLowerCase();
   const isTelugu = /[\u0C00-\u0C7F]/.test(rawQuery) || query.includes('telugu') || query.includes('telugulo');
 
+  // Query intent for Nag Naveen / Eluru / Website Designer
+  if (query.includes('nagnaveen') || query.includes('nag naveen') || query.includes('eluru') || query.includes('website designer')) {
+    return `**Naveen Pullagura (also known as Nag Naveen / nagnaveen)** is a professional Product Designer, UI/UX Designer, and Website Designer based in **Eluru, Andhra Pradesh**.
+
+He provides:
+• **Freelance Website Design & High-Converting Landing Pages**
+• **End-to-End UI/UX Design, Wireframing & Figma Prototypes**
+• **Enterprise SaaS Product Design & Scalable Design Systems**
+
+📍 **Location**: Eluru, Andhra Pradesh, India (available for remote & worldwide client work)
+📞 **Phone / WhatsApp**: [+91 90323 53678](tel:+919032353678)
+✉️ **Email**: [pullaguranaveen101199@gmail.com](mailto:pullaguranaveen101199@gmail.com)
+👉 [Send a Direct Message via Contact Page](/contact.html)`;
+  }
+
   // =========================================================================
   // 1. FREELANCING / CONTRACT / CONSULTING QUERIES (High Priority)
   // =========================================================================
